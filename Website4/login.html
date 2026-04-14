@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to your Visit Sri Lanka account.">
+    <title>Login - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: var(--primary-color);">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <div class="nav-search">
+                    <div class="search-box">
+                        <input type="text" id="navSearch" placeholder="Search destinations, tours, tips..." autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-dropdown">
+                        <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="nav-dropdown-menu" aria-label="More navigation">
+                            <li><a href="attractions.html">Attractions</a></li>
+                            <li><a href="culture.html">Culture</a></li>
+                            <li><a href="food.html">Food & Dining</a></li>
+                            <li><a href="accommodation.html">Hotels</a></li>
+                            <li><a href="reviews.html">Reviews</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="auth-card">
+            <h1>Welcome back</h1>
+            <p class="auth-subtitle">Login to access your trip planner and bookings.</p>
+
+            <form id="loginForm" class="form-grid">
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+                </div>
+
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-right-to-bracket"></i>
+                    Login
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Don’t have an account? <a href="signup.html">Create one</a>.
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
+

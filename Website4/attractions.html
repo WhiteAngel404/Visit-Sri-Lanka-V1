@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Sri Lanka's must-see attractions - from pristine beaches and national parks to UNESCO World Heritage sites and thrilling adventure activities.">
+    <meta name="keywords" content="Sri Lanka attractions, things to do in Sri Lanka, Sri Lanka beaches, Sri Lanka safari, Sri Lanka adventure, Yala, Sigiriya">
+    <title>Attractions - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: var(--primary-color);">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <div class="nav-search">
+                    <div class="search-box">
+                        <input type="text" id="navSearch" placeholder="Search destinations, tours, tips..." autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-dropdown">
+                        <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="nav-dropdown-menu" aria-label="More navigation">
+                            <li><a href="attractions.html" class="active">Attractions</a></li>
+                            <li><a href="culture.html">Culture</a></li>
+                            <li><a href="food.html">Food & Dining</a></li>
+                            <li><a href="accommodation.html">Hotels</a></li>
+                            <li><a href="reviews.html">Reviews</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bookings.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920') center/cover no-repeat;">
+        <div class="page-header-content">
+            <h1>Tourist Attractions</h1>
+            <p>Must-see places and experiences</p>
+        </div>
+    </section>
+
+    <!-- Beaches Section -->
+    <section class="attractions-category" id="beaches">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-umbrella-beach"></i> Best Beaches</h2>
+                <p>Pristine coastline for every type of beach lover</p>
+            </div>
+
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Unawatuna Beach">
+                        <div class="attraction-icon"><i class="fas fa-sun"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Unawatuna Beach</h3>
+                        <p>A stunning horseshoe-shaped bay with calm, clear waters perfect for swimming and snorkeling. Lined with beachfront restaurants and shops.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Galle</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="destinations.html#galle" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=800" alt="Mirissa Beach">
+                        <div class="attraction-icon"><i class="fas fa-water"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Mirissa Beach</h3>
+                        <p>Famous for whale watching and its crescent-shaped golden sand beach. The perfect spot for relaxing and watching sunsets.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> South Coast</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <a href="destinations.html#mirissa" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Arugam Bay">
+                        <div class="attraction-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Arugam Bay</h3>
+                        <p>Sri Lanka's premier surfing destination on the east coast. Known for its consistent waves and laid-back atmosphere.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> East Coast</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="destinations.html#trincomalee" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Pasikudah">
+                        <div class="attraction-icon"><i class="fas fa-child"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Pasikudah Beach</h3>
+                        <p>Shallow turquoise waters stretching for kilometers - ideal for families with children and non-swimmers.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> East Coast</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="destinations.html#batticaloa" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wildlife Section -->
+    <section class="attractions-category" style="background-color: var(--bg-light);" id="wildlife">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-paw"></i> Wildlife & Nature</h2>
+                <p>Encounter incredible animals in their natural habitat</p>
+            </div>
+
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Yala Safari">
+                        <div class="attraction-icon"><i class="fas fa-paw"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Yala National Park</h3>
+                        <p>Home to the highest leopard density in the world. Spot elephants, sloth bears, crocodiles, and diverse birdlife.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Southeast</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <a href="destinations.html#yala" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Elephant Gathering">
+                        <div class="attraction-icon"><i class="fas fa-elephant"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Minneriya Elephant Gathering</h3>
+                        <p>Witness the largest gathering of Asian elephants in the world during the dry season (June-September).</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> North Central</span>
+                            <span><i class="fas fa-star"></i> 5.0/5</span>
+                        </div>
+                        <a href="destinations.html#polonnaruwa" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Pinnawala">
+                        <div class="attraction-icon"><i class="fas fa-heart"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Pinnawala Elephant Orphanage</h3>
+                        <p>Visit this sanctuary caring for abandoned and injured elephants. Watch them bathe and play in the river.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Kegalle</span>
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                        </div>
+                        <a href="destinations.html#kegalle" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1587015990127-424b954e38b5?w=800" alt="Sinharaja">
+                        <div class="attraction-icon"><i class="fas fa-tree"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Sinharaja Rainforest</h3>
+                        <p>A UNESCO World Heritage site and biodiversity hotspot with endemic species found nowhere else on Earth.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Southwest</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="destinations.html#ratnapura" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adventure Section -->
+    <section class="attractions-category" id="adventure">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-hiking"></i> Adventure & Activities</h2>
+                <p>Thrilling experiences for adventure seekers</p>
+            </div>
+
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=800" alt="Hiking">
+                        <div class="attraction-icon"><i class="fas fa-hiking"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Adam's Peak (Sri Pada)</h3>
+                        <p>A sacred mountain climb famous for the "Sri Pada" footprint at the summit. Best climbed during pilgrimage season (December-May).</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Sabaragamuwa</span>
+                            <span><i class="fas fa-mountain"></i> 2,243m</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1580058572462-98e2c0e0e2f0?w=800" alt="Surfing">
+                        <div class="attraction-icon"><i class="fas fa-water"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Surfing</h3>
+                        <p>From beginner-friendly Weligama to advanced breaks at Arugam Bay, Sri Lanka offers world-class surfing for all levels.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> South & East Coast</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1552464717-00de-0002-2f81-8f94?w=800" alt="Diving">
+                        <div class="attraction-icon"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Scuba Diving & Snorkeling</h3>
+                        <p>Explore coral reefs, shipwrecks, and marine life. Pigeon Island and Trincomalee offer excellent dive sites.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Trincomalee</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=800" alt="White Water Rafting">
+                        <div class="attraction-icon"><i class="fas fa-ship"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>White Water Rafting</h3>
+                        <p>Experience thrilling rapids on the Kelani River near Kitulgala, where "Bridge on the River Kwai" was filmed.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Kitulgala</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNESCO Sites Section -->
+    <section class="attractions-category" style="background-color: var(--bg-light);" id="heritage">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-landmark"></i> UNESCO World Heritage Sites</h2>
+                <p>Eight incredible sites recognized for their outstanding value</p>
+            </div>
+
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=800" alt="Sigiriya">
+                        <div class="attraction-icon"><i class="fas fa-university"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ancient City of Sigiriya</h3>
+                        <p>A 5th-century rock fortress and palace complex with remarkable frescoes and water gardens.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Central</span>
+                            <span><i class="fas fa-calendar"></i> 1982</span>
+                        </div>
+                        <a href="destinations.html#sigiriya" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1580058572462-98e2c0e0e2f0?w=800" alt="Kandy">
+                        <div class="attraction-icon"><i class="fas fa-temple"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Sacred City of Kandy</h3>
+                        <p>Home to the Temple of the Tooth Relic, one of Buddhism's most sacred shrines.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Central</span>
+                            <span><i class="fas fa-calendar"></i> 1988</span>
+                        </div>
+                        <a href="destinations.html#kandy" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1552464717-00de-0002-2f81-8f94?w=800" alt="Galle">
+                        <div class="attraction-icon"><i class="fas fa-fort-awesome"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Old Town of Galle</h3>
+                        <p>The best-preserved colonial sea fortress in South Asia, built by the Portuguese and Dutch.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> South</span>
+                            <span><i class="fas fa-calendar"></i> 1988</span>
+                        </div>
+                        <a href="destinations.html#galle" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=800" alt="Polonnaruwa">
+                        <div class="attraction-icon"><i class="fas fa-monument"></i></div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ancient City of Polonnaruwa</h3>
+                        <p>The second oldest kingdom with remarkable ruins including the Gal Viharaya Buddha statues.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> North Central</span>
+                            <span><i class="fas fa-calendar"></i> 1982</span>
+                        </div>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Start Your Adventure</h2>
+                <p>Book a guided tour to experience these attractions with expert local guides</p>
+                <a href="tours.html" class="btn btn-secondary">View Tour Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>VisitSriLanka</span>
+                    </a>
+                    <p>Your ultimate guide to exploring the Pearl of the Indian Ocean.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="attractions.html">Attractions</a></li>
+                        <li><a href="tours.html">Tours</a></li>
+                        <li><a href="accommodation.html">Hotels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="culture.html">Culture</a></li>
+                        <li><a href="food.html">Food & Dining</a></li>
+                        <li><a href="travel-guide.html#visa">Visa Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> connect.abdulr@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 72 486 1536</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

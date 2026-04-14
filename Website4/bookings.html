@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage your Sri Lanka tour bookings. View upcoming trips, past bookings, make payments, and download vouchers.">
+    <meta name="keywords" content="Sri Lanka bookings, tour booking, Sri Lanka travel reservations">
+    <title>My Bookings - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-require-auth="true">
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: var(--primary-color);">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <div class="nav-search">
+                    <div class="search-box">
+                        <input type="text" id="navSearch" placeholder="Search destinations, tours, tips..." autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-dropdown">
+                        <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="nav-dropdown-menu" aria-label="More navigation">
+                            <li><a href="attractions.html">Attractions</a></li>
+                            <li><a href="culture.html">Culture</a></li>
+                            <li><a href="food.html">Food & Dining</a></li>
+                            <li><a href="accommodation.html">Hotels</a></li>
+                            <li><a href="reviews.html">Reviews</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bookings.html" class="active"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=1920') center/cover no-repeat; height: 300px;">
+        <div class="page-header-content">
+            <h1>My Bookings</h1>
+            <p>Manage your Sri Lankan adventure</p>
+        </div>
+    </section>
+
+    <section class="media-strip">
+        <div class="container">
+            <div class="media-strip-grid">
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/isdvqf04MDk/1200x800" alt="Temple of the Tooth" loading="lazy">
+                    <div class="caption">Upcoming plans</div>
+                </div>
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/O0YmMPG56KI/1200x800" alt="Galle Fort" loading="lazy">
+                    <div class="caption">Booking details</div>
+                </div>
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/xaZWb4UtIc0/1200x800" alt="Tea plantations" loading="lazy">
+                    <div class="caption">Your itinerary</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Stats -->
+    <section class="stats-section" id="bookingStats" style="display: none;">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3 id="totalBookings">0</h3>
+                    <p>Total Bookings</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="upcomingTrips">0</h3>
+                    <p>Upcoming Trips</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    <h3 id="completedTrips">0</h3>
+                    <p>Completed</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3 id="totalSpent">$0</h3>
+                    <p>Total Spent</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bookings List -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Bookings</h2>
+                <p>View and manage your tour and hotel reservations</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="booking-tabs">
+                <button class="tab-btn active" data-tab="upcoming">Upcoming</button>
+                <button class="tab-btn" data-tab="past">Past</button>
+                <button class="tab-btn" data-tab="cancelled">Cancelled</button>
+            </div>
+
+            <!-- Upcoming Bookings -->
+            <div id="upcoming" class="tab-content active">
+                <div id="upcomingBookingsList" class="bookings-list">
+                    <!-- Dynamically populated -->
+                </div>
+                <div id="noUpcoming" class="empty-state" style="display: none;">
+                    <i class="fas fa-calendar"></i>
+                    <h3>No Upcoming Bookings</h3>
+                    <p>Start planning your Sri Lankan adventure today!</p>
+                    <a href="tours.html" class="btn btn-primary">Browse Tours</a>
+                </div>
+            </div>
+
+            <!-- Past Bookings -->
+            <div id="past" class="tab-content">
+                <div id="pastBookingsList" class="bookings-list">
+                    <!-- Dynamically populated -->
+                </div>
+                <div id="noPast" class="empty-state" style="display: none;">
+                    <i class="fas fa-history"></i>
+                    <h3>No Past Bookings</h3>
+                    <p>Your completed trips will appear here.</p>
+                </div>
+            </div>
+
+            <!-- Cancelled Bookings -->
+            <div id="cancelled" class="tab-content">
+                <div id="cancelledBookingsList" class="bookings-list">
+                    <!-- Dynamically populated -->
+                </div>
+                <div id="noCancelled" class="empty-state" style="display: none;">
+                    <i class="fas fa-times-circle"></i>
+                    <h3>No Cancelled Bookings</h3>
+                    <p>You have no cancelled reservations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Profile Section -->
+    <section class="guide-section" style="background-color: var(--bg-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Profile</h2>
+                <p>Update your personal information</p>
+            </div>
+            <div class="auth-card" style="max-width: 600px; margin: 0 auto;">
+                <form id="profileForm">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="profileName">Full Name</label>
+                            <input type="text" id="profileName" name="name" value="Abdul Rahman" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="profileEmail">Email Address</label>
+                            <input type="email" id="profileEmail" name="email" value="connect.abdulr@gmail.com" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="profilePhone">Phone Number</label>
+                            <input type="tel" id="profilePhone" name="phone" value="+94 72 486 1536" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="profileLocation">Location</label>
+                            <input type="text" id="profileLocation" name="location" value="77/4 Jennath Masjid Road, Ratnapura" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quick Actions</h2>
+                <p>Plan your next adventure</p>
+            </div>
+            <div class="tips-grid">
+                <a href="tours.html" class="tip-card action-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Book a Tour</h3>
+                    <p>Browse our curated tour packages</p>
+                </a>
+                <a href="accommodation.html" class="tip-card action-card">
+                    <i class="fas fa-hotel"></i>
+                    <h3>Find Hotels</h3>
+                    <p>Discover perfect accommodations</p>
+                </a>
+                <a href="destinations.html" class="tip-card action-card">
+                    <i class="fas fa-compass"></i>
+                    <h3>Explore</h3>
+                    <p>Discover amazing destinations</p>
+                </a>
+                <div class="tip-card action-card" onclick="downloadItinerary()">
+                    <i class="fas fa-download"></i>
+                    <h3>Download Summary</h3>
+                    <p>Get your travel summary PDF</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>VisitSriLanka</span>
+                    </a>
+                    <p>Your ultimate guide to exploring the Pearl of the Indian Ocean.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="attractions.html">Attractions</a></li>
+                        <li><a href="tours.html">Tours</a></li>
+                        <li><a href="accommodation.html">Hotels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="culture.html">Culture</a></li>
+                        <li><a href="food.html">Food & Dining</a></li>
+                        <li><a href="travel-guide.html#visa">Visa Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> connect.abdulr@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 72 486 1536</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Details Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Booking Details</h3>
+                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>
