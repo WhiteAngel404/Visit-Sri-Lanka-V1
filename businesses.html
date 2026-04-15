@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Sri Lanka's best hotels, restaurants, tours and attractions. Browse verified business listings with real reviews.">
+    <title>Business Listings - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-light, #f5f7fa); }
+        
+        .page-header {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .page-header p { opacity: 0.9; font-size: 1.1rem; }
+        
+        .search-section {
+            max-width: 1200px;
+            margin: -30px auto 30px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .search-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        .search-field input,
+        .search-field select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .search-field input:focus,
+        .search-field select:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+        
+        .search-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-end;
+        }
+        .search-btn:hover { background: #1b5e20; transform: translateY(-2px); }
+        
+        .container-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .results-count {
+            color: #666;
+            font-size: 1rem;
+        }
+        .results-count strong { color: #2e7d32; }
+        
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+        .view-toggle button {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .view-toggle button.active {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+        }
+        
+        .businesses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .business-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        
+        .business-image {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            overflow: hidden;
+        }
+        .business-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .business-type-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .business-photos-count {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        
+        .business-content {
+            padding: 20px;
+        }
+        .business-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .business-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .business-location i { color: #2e7d32; margin-right: 5px; }
+        
+        .business-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .stars { color: #ffc107; }
+        .rating-text { color: #666; font-size: 0.9rem; }
+        .rating-count { color: #999; font-size: 0.85rem; }
+        
+        .business-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .business-contact {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .contact-item i { color: #2e7d32; }
+        
+        .business-actions {
+            display: flex;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .btn-rate {
+            flex: 1;
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-rate:hover { background: #ffb300; }
+        .btn-view {
+            flex: 1;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .btn-view:hover { background: #1b5e20; }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        .no-results i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .no-results h3 { margin-bottom: 10px; }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 4px solid rgba(46, 125, 50, 0.2);
+            border-radius: 50%;
+            border-top-color: #2e7d32;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f0f0f0;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .modal-close:hover { background: #e0e0e0; }
+        
+        .rating-modal h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .rating-business-name {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .star-rating button {
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .star-rating button.active,
+        .star-rating button:hover { color: #ffc107; }
+        
+        .rating-comment {
+            margin-bottom: 25px;
+        }
+        .rating-comment label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .rating-comment textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+        .rating-comment textarea:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+        
+        .btn-submit-rating {
+            width: 100%;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-submit-rating:hover { background: #1b5e20; }
+        .btn-submit-rating:disabled { opacity: 0.7; cursor: not-allowed; }
+        
+        .notification {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
+            text-align: center;
+        }
+        .notification.success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .notification.error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+        
+        .detail-modal .modal-content {
+            max-width: 700px;
+        }
+        .detail-modal .business-detail-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .detail-modal h2 { color: #333; margin-bottom: 10px; }
+        .detail-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .detail-meta i { color: #2e7d32; margin-right: 5px; }
+        
+        .detail-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .detail-reviews h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .detail-review {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .detail-review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .detail-review-author { font-weight: 600; }
+        .detail-review-stars { color: #ffc107; }
+        .detail-review-date { color: #999; font-size: 0.85rem; }
+        .detail-review-text { color: #666; line-height: 1.6; }
+        
+        @media (max-width: 600px) {
+            .businesses-grid { grid-template-columns: 1fr; }
+            .search-box { flex-direction: column; }
+            .search-field { min-width: 100%; }
+            .page-header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="businesses.html" class="active"><i class="fas fa-building"></i> Businesses</a></li>
+                    <li><a href="partner-portal.html" class="btn btn-primary" style="padding: 8px 20px; margin-left: 10px;">
+                        <i class="fas fa-store"></i> Partner Login
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-building"></i> Sri Lanka Business Directory</h1>
+            <p>Discover verified hotels, restaurants, tours and attractions</p>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <div class="search-box">
+            <div class="search-field">
+                <label><i class="fas fa-search"></i> Search</label>
+                <input type="text" id="searchInput" placeholder="Search business name...">
+            </div>
+            <div class="search-field">
+                <label><i class="fas fa-list"></i> Type</label>
+                <select id="filterType">
+                    <option value="">All Types</option>
+                    <option value="hotel">Hotel / Resort</option>
+                    <option value="restaurant">Restaurant / Cafe</option>
+                    <option value="attraction">Attraction / Tour</option>
+                    <option value="transport">Transport</option>
+                    <option value="shop">Travel Shop</option>
+                    <option value="spa">Spa & Wellness</option>
+                    <option value="adventure">Adventure</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label><i class="fas fa-map-marker-alt"></i> City</label>
+                <select id="filterCity">
+                    <option value="">All Cities</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Jaffna">Jaffna</option>
+                    <option value="Negombo">Negombo</option>
+                    <option value="Bentota">Bentota</option>
+                    <option value="Mirissa">Mirissa</option>
+                    <option value="Ella">Ella</option>
+                    <option value="Sigiriya">Sigiriya</option>
+                    <option value="Dambulla">Dambulla</option>
+                    <option value="Nuwara Eliya">Nuwara Eliya</option>
+                    <option value="Trincomalee">Trincomalee</option>
+                </select>
+            </div>
+            <button class="search-btn" onclick="filterBusinesses()">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+    </div>
+
+    <div class="container-main">
+        <div class="results-header">
+            <div class="results-count">
+                Showing <strong id="resultCount">0</strong> businesses
+            </div>
+            <div class="view-toggle">
+                <button class="active" onclick="setView('grid')"><i class="fas fa-th-large"></i></button>
+                <button onclick="setView('list')"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+
+        <div id="notification" class="notification"></div>
+
+        <div class="businesses-grid" id="businessesGrid">
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 20px; color: #666;">Loading businesses...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rating Modal -->
+    <div class="modal rating-modal" id="ratingModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeRatingModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-star"></i> Rate This Business</h2>
+            <p class="rating-business-name" id="ratingBusinessName"></p>
+            
+            <div class="reviewer-info" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                <div class="rating-field">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Your Name <span style="color: #e53935;">*</span></label>
+                    <input type="text" id="reviewerName" placeholder="John Doe" required style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; font-family: inherit;">
+                </div>
+                <div class="rating-field">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Your Email <span style="color: #e53935;">*</span></label>
+                    <input type="email" id="reviewerEmail" placeholder="john@example.com" required style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; font-family: inherit;">
+                </div>
+            </div>
+            
+            <div class="star-rating" id="starRating">
+                <button onclick="setRating(1)"><i class="fas fa-star"></i></button>
+                <button onclick="setRating(2)"><i class="fas fa-star"></i></button>
+                <button onclick="setRating(3)"><i class="fas fa-star"></i></button>
+                <button onclick="setRating(4)"><i class="fas fa-star"></i></button>
+                <button onclick="setRating(5)"><i class="fas fa-star"></i></button>
+            </div>
+            
+            <div class="rating-comment">
+                <label>Your Review <span style="color: #e53935;">*</span></label>
+                <textarea id="ratingComment" placeholder="Share your experience..." required style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical; min-height: 100px;"></textarea>
+            </div>
+            
+            <button class="btn-submit-rating" id="submitRatingBtn" onclick="submitRating()">
+                <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal detail-modal" id="detailModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDetailModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, updateDoc, doc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6-VDRe0UMkCW5F7n6HcBNW_X3MZHxz8Y",
+            authDomain: "visit-sri-lanka-df4d8.firebaseapp.com",
+            projectId: "visit-sri-lanka-df4d8",
+            storageBucket: "visit-sri-lanka-df4d8.firebasestorage.app",
+            messagingSenderId: "107140804406",
+            appId: "1:107140804406:web:a888eca0ce422f2f82cd97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let allBusinesses = [];
+        let currentRating = 0;
+        let currentBusinessId = null;
+
+        const typeLabels = {
+            hotel: 'Hotel / Resort',
+            restaurant: 'Restaurant / Cafe',
+            attraction: 'Attraction / Tour',
+            transport: 'Transport',
+            shop: 'Travel Shop',
+            spa: 'Spa & Wellness',
+            adventure: 'Adventure'
+        };
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 4000);
+        }
+
+        function renderStars(rating) {
+            const r = Math.round(rating);
+            return '★'.repeat(r) + '☆'.repeat(5 - r);
+        }
+
+        function getPlaceholderImage(type) {
+            const images = {
+                hotel: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
+                restaurant: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800',
+                attraction: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800',
+                transport: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800',
+                shop: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800',
+                spa: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800',
+                adventure: 'https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800'
+            };
+            return images[type] || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800';
+        }
+
+        function renderBusinesses(businesses) {
+            const grid = document.getElementById('businessesGrid');
+            document.getElementById('resultCount').textContent = businesses.length;
+
+            if (businesses.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1/-1;">
+                        <i class="fas fa-search"></i>
+                        <h3>No businesses found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = businesses.map(b => {
+                const rating = b.rating || 0;
+                const reviewCount = b.ratingCount || 0;
+                const photoCount = (b.photos || []).length;
+                const displayPhoto = (b.photos && b.photos[0]) || getPlaceholderImage(b.businessType);
+                const description = b.description || 'No description available.';
+
+                return `
+                    <div class="business-card">
+                        <div class="business-image">
+                            <img src="${displayPhoto}" alt="${b.business || 'Business'}" onerror="this.src='${getPlaceholderImage(b.businessType)}'">
+                            <span class="business-type-badge">${typeLabels[b.businessType] || b.businessType || 'Business'}</span>
+                            ${photoCount > 0 ? `<span class="business-photos-count"><i class="fas fa-images"></i> ${photoCount}</span>` : ''}
+                        </div>
+                        <div class="business-content">
+                            <h3 class="business-name">${b.business || 'Unnamed Business'}</h3>
+                            <p class="business-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${b.city || 'Sri Lanka'}
+                                ${b.address ? ' - ' + b.address : ''}
+                            </p>
+                            <div class="business-rating">
+                                <span class="stars">${renderStars(rating)}</span>
+                                <span class="rating-text">${rating.toFixed(1)}</span>
+                                <span class="rating-count">(${reviewCount} ${reviewCount === 1 ? 'review' : 'reviews'})</span>
+                            </div>
+                            <p class="business-description">${description}</p>
+                            <div class="business-contact">
+                                ${b.phone ? `<span class="contact-item"><i class="fas fa-phone"></i> ${b.phone}</span>` : ''}
+                                ${b.email ? `<span class="contact-item"><i class="fas fa-envelope"></i> ${b.email}</span>` : ''}
+                            </div>
+                            <div class="business-actions">
+                                <button class="btn-rate" onclick="openRatingModal('${b.uid || b.id}')">
+                                    <i class="fas fa-star"></i> Rate
+                                </button>
+                                <button class="btn-view" onclick="showBusinessDetail('${b.uid || b.id}')">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterBusinesses() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const type = document.getElementById('filterType').value;
+            const city = document.getElementById('filterCity').value;
+
+            let filtered = allBusinesses.filter(b => {
+                const matchSearch = !search || 
+                    (b.business && b.business.toLowerCase().includes(search)) ||
+                    (b.description && b.description.toLowerCase().includes(search));
+                const matchType = !type || b.businessType === type;
+                const matchCity = !city || b.city === city;
+                return matchSearch && matchType && matchCity;
+            });
+
+            renderBusinesses(filtered);
+        }
+
+        document.getElementById('searchInput').addEventListener('keyup', filterBusinesses);
+
+        window.setRating = function(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('#starRating button');
+            stars.forEach((btn, index) => {
+                btn.classList.toggle('active', index < rating);
+            });
+        };
+
+        window.openRatingModal = function(businessId) {
+            const business = allBusinesses.find(b => (b.uid || b.id) === businessId);
+            if (!business) return;
+            
+            currentBusinessId = businessId;
+            currentRating = 0;
+            setRating(0);
+            document.getElementById('ratingComment').value = '';
+            document.getElementById('ratingBusinessName').textContent = business.business || 'This Business';
+            document.getElementById('ratingModal').classList.add('active');
+        };
+
+        window.closeRatingModal = function() {
+            document.getElementById('ratingModal').classList.remove('active');
+            // Clear form fields
+            document.getElementById('reviewerName').value = '';
+            document.getElementById('reviewerEmail').value = '';
+            document.getElementById('ratingComment').value = '';
+            setRating(0);
+        };
+
+        window.submitRating = async function() {
+            const name = document.getElementById('reviewerName').value.trim();
+            const email = document.getElementById('reviewerEmail').value.trim();
+            const comment = document.getElementById('ratingComment').value.trim();
+            
+            if (!name) {
+                showNotification('Please enter your name', 'error');
+                return;
+            }
+            if (!email) {
+                showNotification('Please enter your email', 'error');
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                showNotification('Please enter a valid email', 'error');
+                return;
+            }
+            if (currentRating === 0) {
+                showNotification('Please select a rating', 'error');
+                return;
+            }
+            if (!comment) {
+                showNotification('Please write a review', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitRatingBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            const review = {
+                author: name,
+                email: email,
+                rating: currentRating,
+                text: comment,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            try {
+                const businessRef = doc(db, 'partners', currentBusinessId);
+                await updateDoc(businessRef, {
+                    reviews: arrayUnion(review)
+                });
+
+                const businessIndex = allBusinesses.findIndex(b => (b.uid || b.id) === currentBusinessId);
+                if (businessIndex !== -1) {
+                    allBusinesses[businessIndex].reviews = [...(allBusinesses[businessIndex].reviews || []), review];
+                    const totalRating = allBusinesses[businessIndex].reviews.reduce((sum, r) => sum + r.rating, 0);
+                    allBusinesses[businessIndex].ratingCount = allBusinesses[businessIndex].reviews.length;
+                    allBusinesses[businessIndex].rating = totalRating / allBusinesses[businessIndex].ratingCount;
+                }
+
+                filterBusinesses();
+                closeRatingModal();
+                showNotification('Thank you for your review!', 'success');
+            } catch (error) {
+                console.error('Error submitting rating:', error);
+                showNotification('Failed to submit rating', 'error');
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+        };
+
+        window.showBusinessDetail = function(businessId) {
+            const business = allBusinesses.find(b => (b.uid || b.id) === businessId);
+            if (!business) return;
+
+            const photoCount = (business.photos || []).length;
+            const reviews = business.reviews || [];
+            const displayPhoto = (business.photos && business.photos[0]) || getPlaceholderImage(business.businessType);
+
+            let reviewsHTML = '';
+            if (reviews.length > 0) {
+                reviewsHTML = `
+                    <div class="detail-reviews">
+                        <h3><i class="fas fa-comments"></i> Customer Reviews (${reviews.length})</h3>
+                        ${reviews.slice(-5).reverse().map(r => `
+                            <div class="detail-review">
+                                <div class="detail-review-header">
+                                    <span class="detail-review-author">${r.author}</span>
+                                    <span class="detail-review-stars">${renderStars(r.rating)}</span>
+                                </div>
+                                <div class="detail-review-date">${r.date}</div>
+                                <p class="detail-review-text">${r.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                reviewsHTML = `
+                    <div class="detail-reviews">
+                        <h3><i class="fas fa-comments"></i> Customer Reviews</h3>
+                        <p style="color: #999; text-align: center; padding: 20px;">No reviews yet. Be the first to review!</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('detailContent').innerHTML = `
+                <img src="${displayPhoto}" alt="${business.business}" class="business-detail-image" onerror="this.src='${getPlaceholderImage(business.businessType)}'">
+                <h2>${business.business || 'Unnamed Business'}</h2>
+                <div class="detail-meta">
+                    <span><i class="fas fa-tag"></i> ${typeLabels[business.businessType] || business.businessType || 'Business'}</span>
+                    <span><i class="fas fa-map-marker-alt"></i> ${business.city || 'Sri Lanka'}</span>
+                    ${business.address ? `<span><i class="fas fa-location-dot"></i> ${business.address}</span>` : ''}
+                    ${business.phone ? `<span><i class="fas fa-phone"></i> ${business.phone}</span>` : ''}
+                    <span><i class="fas fa-star"></i> ${(business.rating || 0).toFixed(1)} (${business.ratingCount || 0} reviews)</span>
+                    ${photoCount > 0 ? `<span><i class="fas fa-images"></i> ${photoCount} photos</span>` : ''}
+                </div>
+                <p class="detail-description">${business.description || 'No description available for this business.'}</p>
+                ${business.photos && business.photos.length > 1 ? `
+                    <div style="display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 20px;">
+                        ${business.photos.map((p, i) => `
+                            <img src="${p}" alt="Photo ${i+1}" style="width: 150px; height: 100px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" onerror="this.style.display='none'">
+                        `).join('')}
+                    </div>
+                ` : ''}
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button class="btn-rate" style="flex: 1;" onclick="closeDetailModal(); openRatingModal('${businessId}');">
+                        <i class="fas fa-star"></i> Rate This Business
+                    </button>
+                </div>
+                ${reviewsHTML}
+            `;
+            document.getElementById('detailModal').classList.add('active');
+        };
+
+        window.closeDetailModal = function() {
+            document.getElementById('detailModal').classList.remove('active');
+        };
+
+        window.setView = function(view) {
+            document.querySelectorAll('.view-toggle button').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('button').classList.add('active');
+        };
+
+        async function loadBusinesses() {
+            try {
+                const snapshot = await getDocs(collection(db, 'partners'));
+                allBusinesses = snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
+                allBusinesses = allBusinesses.filter(b => b.business);
+                renderBusinesses(allBusinesses);
+            } catch (error) {
+                console.error('Error loading businesses:', error);
+                document.getElementById('businessesGrid').innerHTML = `
+                    <div class="no-results" style="grid-column: 1/-1;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Unable to load businesses</h3>
+                        <p>Please check your Firebase connection</p>
+                    </div>
+                `;
+            }
+        }
+
+        loadBusinesses();
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

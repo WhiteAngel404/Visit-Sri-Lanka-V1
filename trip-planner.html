@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your perfect Sri Lanka trip - Comprehensive trip planner with detailed destinations">
+    <title>Trip Planner - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #f5f7fa; }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)),
+                        url('https://images.unsplash.com/photo-1586613835341-ab702353ca87?w=1920') center/cover;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .hero-section h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 700; }
+        .hero-section p { font-size: 1.2rem; opacity: 0.95; max-width: 700px; margin: 0 auto; }
+        
+        .planner-wrapper {
+            max-width: 1400px;
+            margin: -50px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 1000px) { .planner-wrapper { grid-template-columns: 1fr; } }
+        
+        .form-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+        @media (max-width: 1000px) { .form-panel { position: static; max-height: none; } }
+        
+        .form-panel h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-panel h2 i { color: #667eea; }
+        
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #444;
+            font-size: 0.9rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+        
+        .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .checkbox-card {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        .checkbox-card:hover { border-color: #667eea; }
+        .checkbox-card input { display: none; }
+        .checkbox-card.selected { border-color: #667eea; background: linear-gradient(135deg, #f8f7ff, #f5f0ff); }
+        .checkbox-card i { color: #667eea; font-size: 1.1rem; }
+        
+        .budget-grid { display: flex; gap: 10px; }
+        .budget-card {
+            flex: 1;
+            padding: 14px 8px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .budget-card:hover { border-color: #667eea; }
+        .budget-card.selected { border-color: #667eea; background: linear-gradient(135deg, #f8f7ff, #f5f0ff); }
+        .budget-card i { display: block; font-size: 1.5rem; color: #667eea; margin-bottom: 6px; }
+        .budget-card span { font-size: 0.8rem; font-weight: 600; }
+        
+        .btn-generate {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+        
+        .result-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+            min-height: 600px;
+        }
+        
+        .result-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .result-toolbar h2 { color: #333; font-size: 1.5rem; }
+        .toolbar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .toolbar-btn {
+            padding: 10px 18px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .toolbar-btn:hover { border-color: #667eea; color: #667eea; }
+        
+        .result-body { line-height: 1.9; color: #555; font-size: 0.95rem; }
+        .result-body h3 { color: #667eea; margin: 30px 0 15px; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+        .result-body h4 { color: #764ba2; margin: 25px 0 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .result-body p { margin-bottom: 15px; }
+        .result-body ul { margin: 10px 0 15px 25px; }
+        .result-body li { margin-bottom: 8px; }
+        .result-body strong { color: #333; }
+        
+        .day-block {
+            background: linear-gradient(135deg, #fafbff, #fff8f5);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e8e4ff;
+        }
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+        .day-header i { color: #667eea; font-size: 1.8rem; }
+        .day-header h4 { margin: 0; color: #333; flex: 1; font-size: 1.2rem; }
+        .day-header .badge { background: #667eea; color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; }
+        
+        .activity-row {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .activity-row:last-child { border-bottom: none; }
+        .time-tag { min-width: 80px; font-weight: 700; color: #667eea; font-size: 0.9rem; }
+        .activity-info h5 { color: #333; margin-bottom: 4px; font-size: 1rem; }
+        .activity-info p { color: #666; font-size: 0.85rem; margin: 0; }
+        .activity-info .location { color: #764ba2; font-size: 0.8rem; margin-top: 4px; }
+        
+        .info-card {
+            background: #f5f8ff;
+            border-left: 4px solid #667eea;
+            padding: 18px 22px;
+            margin: 18px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .info-card.tip { background: #fffbf0; border-color: #ffc107; }
+        .info-card.warn { background: #fff5f5; border-color: #e53935; }
+        .info-card.success { background: #f0fff4; border-color: #4caf50; }
+        .info-card h5 { color: #333; margin-bottom: 8px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        
+        .cost-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 20px 0; }
+        .cost-box { background: #f8f9fa; padding: 18px; border-radius: 12px; text-align: center; }
+        .cost-box i { font-size: 1.6rem; color: #667eea; margin-bottom: 10px; }
+        .cost-box .amount { font-size: 1.4rem; font-weight: 700; color: #333; }
+        .cost-box .label { color: #777; font-size: 0.85rem; margin-top: 4px; }
+        
+        .place-list { margin: 15px 0; }
+        .place-item { background: #f8f9fa; padding: 15px 18px; border-radius: 10px; margin-bottom: 12px; }
+        .place-item h5 { color: #333; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+        .place-item h5 i { color: #667eea; }
+        .place-item p { color: #666; font-size: 0.9rem; margin: 0; }
+        .place-item .meta { display: flex; gap: 15px; margin-top: 8px; font-size: 0.8rem; color: #888; }
+        .place-item .meta span { display: flex; align-items: center; gap: 4px; }
+        
+        .quick-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .quick-btn {
+            padding: 10px 18px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .quick-btn:hover { background: #667eea; color: white; }
+        
+        .loading-state, .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 30px;
+            text-align: center;
+            color: #999;
+        }
+        .loading-state i, .empty-state i { font-size: 4rem; margin-bottom: 20px; opacity: 0.3; }
+        .loading-state h3, .empty-state h3 { color: #666; margin-bottom: 10px; }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f0f0f0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="trip-planner.html" style="color: #667eea; font-weight: 600;"><i class="fas fa-route"></i> Trip Planner</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="businesses.html">Businesses</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1><i class="fas fa-map-marked-alt"></i> Trip Planner</h1>
+        <p>Create your perfect Sri Lanka adventure with our comprehensive destination database. Choose your preferences and get a detailed, day-by-day itinerary!</p>
+    </div>
+
+    <div class="planner-wrapper">
+        <div class="form-panel">
+            <h2><i class="fas fa-sliders-h"></i> Plan Your Adventure</h2>
+            
+            <form id="tripForm">
+                <div class="form-group">
+                    <label><i class="fas fa-compass"></i> Trip Style</label>
+                    <select id="tripStyle" required>
+                        <option value="">Select trip style</option>
+                        <option value="comprehensive">Complete Island Tour</option>
+                        <option value="beach">Beach & Coastal Paradise</option>
+                        <option value="cultural">Ancient Kingdoms & Heritage</option>
+                        <option value="wildlife">Wildlife Safari Adventure</option>
+                        <option value="nature">Mountains & Tea Country</option>
+                        <option value="adventure">Adventure & Hiking</option>
+                        <option value="honeymoon">Romantic Getaway</option>
+                        <option value="family">Family Fun Trip</option>
+                        <option value="backpack">Budget Backpacking</option>
+                        <option value="spiritual">Sacred Sites Tour</option>
+                        <option value="culinary">Food & Spice Journey</option>
+                        <option value="photography">Photography Tour</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Duration</label>
+                        <select id="duration" required>
+                            <option value="">Days</option>
+                            <option value="3">3 Days</option>
+                            <option value="5">5 Days</option>
+                            <option value="7" selected>7 Days</option>
+                            <option value="10">10 Days</option>
+                            <option value="14">14 Days</option>
+                            <option value="21">21 Days</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-users"></i> Travelers</label>
+                        <select id="travelers">
+                            <option value="solo">Solo</option>
+                            <option value="couple" selected>Couple</option>
+                            <option value="family">Family (4+)</option>
+                            <option value="group">Group (6+)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-wallet"></i> Budget Level</label>
+                    <div class="budget-grid">
+                        <div class="budget-card" data-value="budget">
+                            <i class="fas fa-coins"></i>
+                            <span>Budget</span>
+                        </div>
+                        <div class="budget-card selected" data-value="mid">
+                            <i class="fas fa-wallet"></i>
+                            <span>Mid-Range</span>
+                        </div>
+                        <div class="budget-card" data-value="luxury">
+                            <i class="fas fa-gem"></i>
+                            <span>Luxury</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="budget" value="mid">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-heart"></i> What Interests You?</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-card" data-value="beaches">
+                            <input type="checkbox" name="interests" value="beaches">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <span>Beaches</span>
+                        </label>
+                        <label class="checkbox-card" data-value="temples">
+                            <input type="checkbox" name="interests" value="temples">
+                            <i class="fas fa-gopuram"></i>
+                            <span>Temples</span>
+                        </label>
+                        <label class="checkbox-card" data-value="wildlife">
+                            <input type="checkbox" name="interests" value="wildlife">
+                            <i class="fas fa-paw"></i>
+                            <span>Wildlife</span>
+                        </label>
+                        <label class="checkbox-card" data-value="hiking">
+                            <input type="checkbox" name="interests" value="hiking">
+                            <i class="fas fa-hiking"></i>
+                            <span>Hiking</span>
+                        </label>
+                        <label class="checkbox-card" data-value="food">
+                            <input type="checkbox" name="interests" value="food">
+                            <i class="fas fa-utensils"></i>
+                            <span>Cuisine</span>
+                        </label>
+                        <label class="checkbox-card" data-value="tea">
+                            <input type="checkbox" name="interests" value="tea">
+                            <i class="fas fa-mug-hot"></i>
+                            <span>Tea Tours</span>
+                        </label>
+                        <label class="checkbox-card" data-value="history">
+                            <input type="checkbox" name="interests" value="history">
+                            <i class="fas fa-landmark"></i>
+                            <span>History</span>
+                        </label>
+                        <label class="checkbox-card" data-value="waterfalls">
+                            <input type="checkbox" name="interests" value="waterfalls">
+                            <i class="fas fa-water"></i>
+                            <span>Waterfalls</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-plane-arrival"></i> Starting Point</label>
+                    <select id="startPoint">
+                        <option value="colombo">Colombo (Airport)</option>
+                        <option value="negombo">Negombo (Airport)</option>
+                        <option value="kandy">Kandy</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-generate" id="generateBtn">
+                    <i class="fas fa-magic"></i> Generate My Itinerary
+                </button>
+            </form>
+        </div>
+        
+        <div class="result-panel">
+            <div class="result-toolbar">
+                <h2><i class="fas fa-route"></i> Your Itinerary</h2>
+                <div class="toolbar-actions" id="toolbarActions" style="display: none;">
+                    <button class="toolbar-btn" onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
+                    <button class="toolbar-btn" onclick="printResult()"><i class="fas fa-print"></i> Print</button>
+                    <button class="toolbar-btn" onclick="saveResult()"><i class="fas fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+            
+            <div id="resultArea">
+                <div class="empty-state">
+                    <i class="fas fa-map-location-dot"></i>
+                    <h3>Your Perfect Journey Awaits</h3>
+                    <p>Select your preferences above and click "Generate My Itinerary" to create your personalized Sri Lanka adventure!</p>
+                    <div class="quick-btns">
+                        <button class="quick-btn" onclick="quickPlan('weekend')">3-Day Beach Getaway</button>
+                        <button class="quick-btn" onclick="quickPlan('classic')">7-Day Classic Tour</button>
+                        <button class="quick-btn" onclick="quickPlan('explorer')">10-Day Explorer</button>
+                        <button class="quick-btn" onclick="quickPlan('full')">14-Day Complete</button>
+                        <button class="quick-btn" onclick="quickPlan('honeymoon')">Romantic Escape</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+// ==================== COMPREHENSIVE SRI LANKA DATABASE ====================
+const DB = {
+    // 20+ DESTINATIONS WITH EXTENSIVE DETAILS
+    places: {
+        colombo: {
+            name: "Colombo", region: "Western Province", type: "city",
+            desc: "Sri Lanka's vibrant capital and commercial hub. A fascinating blend of colonial heritage, modern skyscrapers, bustling markets, and eclectic cuisine. The gateway to your Sri Lankan adventure.",
+            highlights: [
+                "Gangaramaya Temple - 19th century Buddhist temple with impressive architecture and library",
+                "Galle Face Green - 12-acre oceanfront park, perfect for evening strolls and street food",
+                "National Museum of Colombo - Colonial-era artifacts dating back to 14th century",
+                "Dutch Hospital Shopping Precinct - Restored colonial building with cafes and boutiques",
+                "Viharamahadevi Park - Central green space with giant Buddha statue",
+                "Pettah Floating Market - Vibrant bazaar with spices, textiles and street food",
+                "Lotus Tower - 350m Asian landmark with 360° city views and rotating restaurant",
+                "Independence Memorial Hall - Iconic colonial-era monument",
+                "Old Town Hall - Beautiful Dutch colonial architecture",
+                "Beira Lake - Scenic urban lake with temple islands"
+            ],
+            restaurants: [
+                {name: "Ministry of Crab", specialty: "World-famous Sri Lankan crab dishes", price: "$$$$", type: "Fine Dining"},
+                {name: "The Park Street Mews", specialty: "International cuisine in colonial setting", price: "$$$", type: "Restaurant"},
+                {name: "Galle Face Hotel Tea Lounge", specialty: "Traditional afternoon tea since 1864", price: "$$$", type: "Heritage"},
+                {name: "The Commons", specialty: "Modern international and local fusion", price: "$$", type: "Bistro"},
+                {name: "Pettah Kade", specialty: "Authentic Sri Lankan short eats and kottu", price: "$", type: "Local"},
+                {name: "Nuga Gama", specialty: "Traditional rice and curry in rustic village setting", price: "$$", type: "Cultural"},
+                {name: "Semon's Colpet", specialty: "Legendary mutton biriyani since 1948", price: "$", type: "Heritage"},
+                {name: "Chutneys", specialty: "Indian and Sri Lankan vegetarian", price: "$$", type: "Restaurant"},
+                {name: "HotEL Tea Salon", specialty: "Afternoon tea with artisan pastries", price: "$$", type: "Cafe"},
+                {name: "Salaka Restaurant", specialty: "Fresh seafood with ocean views", price: "$$$", type: "Seafood"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "City Centre Beds Colombo", price: "$18-28", rating: 7.8, loc: "Fort Area"},
+                    {name: "Clock Inn Colombo", price: "$22-35", rating: 7.6, loc: "Fort Area"},
+                    {name: "Zest Metta", price: "$25-40", rating: 8.0, loc: "Colombo 3"}
+                ],
+                mid: [
+                    {name: "Mosaic House", price: "$55-85", rating: 8.4, loc: "Colombo 4"},
+                    {name: "Keels Hotel", price: "$65-100", rating: 8.2, loc: "Colombo 2"},
+                    {name: "Renuka City Hotel", price: "$60-90", rating: 8.0, loc: "Colombo 3"},
+                    {name: "Fairway Colombo", price: "$70-110", rating: 8.3, loc: "Fort Area"}
+                ],
+                luxury: [
+                    {name: "Cinnamon Grand Colombo", price: "$180-280", rating: 8.9, loc: "Colombo 2"},
+                    {name: "Galle Face Hotel", price: "$200-350", rating: 8.8, loc: "Colombo 1"},
+                    {name: "Shangri-La Hotel", price: "$220-380", rating: 9.0, loc: "Colombo 1"},
+                    {name: "Hilton Colombo", price: "$160-260", rating: 8.7, loc: "Colombo 1"}
+                ]
+            },
+            costs: {meal: "$3-20", transport: "$1-5", attractions: "$10-25", daily: "$30-80"},
+            tips: [
+                "Visit Gangaramaya Temple early morning for peaceful atmosphere",
+                "Watch the sunset at Galle Face Green and try ambulthiyal fish",
+                "Use Uber or PickMe apps for reliable transport",
+                "Bargain firmly but respectfully at Pettah markets",
+                "Try the legendary egg koththi at Semon's Colpet at midnight",
+                "Visit on a weekend for the Pettah night market",
+                "The Lotus Tower is best visited at sunset for city views"
+            ],
+            transport: {airport: "35 min", toKandy: "4 hrs", toGalle: "2.5 hrs", toNegombo: "40 min"}
+        },
+        
+        negombo: {
+            name: "Negombo", region: "Western Province", type: "beach",
+            desc: "A charming fishing town just 7km from the airport. Famous for its Dutch canal system, busy fish market, and relaxed beach atmosphere. Perfect first or last stop on your journey.",
+            highlights: [
+                "Negombo Fish Market - Lively pre-dawn auctions and fresh seafood",
+                "Dutch Fort Canals - Network of canals built by the Dutch in the 17th century",
+                "St. Mary's Church - Dutch-era Catholic church with stunning ceiling paintings",
+                "Negombo Beach - Calm waters ideal for swimming and sunbathing",
+                "Muttiah Trading Centre - Large spice and goods market",
+                "Anguruka Memorial Church - Sacred Catholic pilgrimage site",
+                "Fishermen's Boats - Colorful traditional boats on the beach",
+                "Lagoon Boat Tours - Explore the scenic lagoon ecosystem"
+            ],
+            restaurants: [
+                {name: "The庭元海 (Sea Food Restaurant)", specialty: "Fresh lobster, crab and prawns", price: "$$$", type: "Seafood"},
+                {name: "Abu Ftori", specialty: "Sri Lankan and Chinese fusion", price: "$$", type: "Restaurant"},
+                {name: "King Seafood", specialty: "Excellent crab and shrimp dishes", price: "$$", type: "Seafood"},
+                {name: "Parettes", specialty: "Traditional Dutch-influenced pastries", price: "$", type: "Bakery"},
+                {name: "Romas", specialty: "Italian and local cuisine", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Negombo Beach Hostel", price: "$15-25", rating: 8.2, loc: "Beach Road"},
+                    {name: "Lake View Hotel", price: "$20-32", rating: 7.8, loc: "Lake Area"}
+                ],
+                mid: [
+                    {name: "Goldi Sands Hotel", price: "$55-85", rating: 8.3, loc: "Beach Road"},
+                    {name: "Negombo Reef Hotel", price: "$60-95", rating: 8.1, loc: "Ettukali"}
+                ],
+                luxury: [
+                    {name: "Jetwing Sea", price: "$120-180", rating: 8.9, loc: "Ettukali"},
+                    {name: "St. George's Hotel", price: "$100-160", rating: 8.5, loc: "Colombo Road"}
+                ]
+            },
+            costs: {meal: "$3-12", transport: "$1-3", attractions: "$5-15", daily: "$25-70"},
+            tips: [
+                "Visit the fish market before 6am for the best catch",
+                "Negotiate boat tour prices at the lagoon",
+                "Best swimming season is November to April",
+                "Try the Dutch-influenced pastries at local bakeries",
+                "Great base for day trips to Anuradhapura"
+            ],
+            transport: {airport: "10 min", toColombo: "35 min", toAnuradhapura: "3 hrs"}
+        },
+        
+        anuradhapura: {
+            name: "Anuradhapura", region: "North Central Province", type: "heritage",
+            desc: "The first capital of Sri Lanka and one of the oldest continuously inhabited cities in the world. A sacred Buddhist pilgrimage site with extraordinary ancient ruins spanning over 1,300 years of civilization.",
+            highlights: [
+                "Sri Maha Bodhi - Sacred fig tree planted in 249 BCE, world's oldest verified tree",
+                "Ruwanwelisaya Stupa - Magnificent white dome, 103m in diameter",
+                "Abhayagiri Monastery - Ruins of ancient monastic complex with 11,000 cells",
+                "Jaya Sri Maha Bodhi - Another sacred fig tree, planted 288 BCE",
+                "Brazen Palace (Loha Prasada) - Original 9-story palace ruins",
+                "Twin Ponds (Basawakkulama) - Ancient swimming pools with crystal clear water",
+                "Isurumuniya Rock Temple - Buddhist rock temple with famous stone carvings",
+                "Mihintale - Sacred mountain where Buddhism was introduced to Sri Lanka",
+                "Archaeological Museum - Fascinating exhibits of ancient civilization",
+                "Samadhi Buddha Statue - 4th century meditation Buddha statue"
+            ],
+            restaurants: [
+                {name: "Hotel Heladiva", specialty: "International and Sri Lankan cuisine", price: "$$", type: "Restaurant"},
+                {name: "Milky Way Hotel", specialty: "Popular local rice and curry", price: "$", type: "Local"},
+                {name: "New Coconut Thai", specialty: "Thai and local fusion", price: "$$", type: "Restaurant"},
+                {name: "Rashmi Restaurant", specialty: "Vegetarian options and traditional food", price: "$", type: "Local"},
+                {name: "The Sanctuary", specialty: "Restaurant with garden setting", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Swiss Guest House", price: "$18-28", rating: 8.0, loc: "City Center"},
+                    {name: "Regal Ranga", price: "$22-35", rating: 7.7, loc: "Bus Stand"}
+                ],
+                mid: [
+                    {name: "The Lake Yard", price: "$55-85", rating: 8.4, loc: "Lake Road"},
+                    {name: "Heritage Hotel Anuradhapura", price: "$60-95", rating: 8.2, loc: "Mihintale Road"}
+                ],
+                luxury: [
+                    {name: "Uga Bay Resort", price: "$140-220", rating: 8.8, loc: "Tank Road"},
+                    {name: "Wilpalm Resort", price: "$120-180", rating: 8.6, loc: "Mihintale Road"}
+                ]
+            },
+            costs: {meal: "$2-10", transport: "$1-4", attractions: "$15-30", daily: "$20-60"},
+            tips: [
+                "Dress modestly - cover shoulders and knees for temple visits",
+                "Remove shoes before entering sacred sites",
+                "Visit Mihintale at dawn for spectacular sunrise views",
+                "The twin ponds offer refreshing swimming opportunity",
+                "Best visited during the Poson festival in June",
+                "Hire a local guide for deeper historical understanding",
+                "Temple opening hours are typically 6am-7pm"
+            ],
+            transport: {fromColombo: "4.5 hrs", toSigiriya: "2 hrs", toTrincomalee: "3 hrs"}
+        },
+        
+        sigiriya: {
+            name: "Sigiriya & Dambulla", region: "North Central Province", type: "heritage",
+            desc: "The crown jewels of the Cultural Triangle. Sigiriya's Lion Rock and Dambulla's cave temples together form a UNESCO World Heritage Site showcasing ancient engineering marvels and spiritual artistry spanning over 2,000 years.",
+            highlights: [
+                "Sigiriya Rock Fortress - 'Eighth Wonder of the World', 370m ancient palace ruins atop a giant rock",
+                "Mirror Wall - Ancient wall polished to reflection quality, with 1st century frescoes",
+                "Water Gardens - Sophisticated hydraulic engineering with fountains still working",
+                "Lion Platform - Massive lion paws marking the entrance to the summit",
+                "Dambulla Cave Temples - 80+ cave shrines with 153 Buddha statues and vivid frescoes",
+                "Golden Temple Dambulla - Massive 30m Buddha statue at cave entrance",
+                "Sigiriya Museum - Archaeological artifacts and detailed climb history",
+                "Pidurangala Rock - Alternative viewpoint with ancient monastery ruins",
+                "Village Tour - Experience traditional farming and village life",
+                "Kaludiya Pokuna - Sacred pools surrounded by forest"
+            ],
+            restaurants: [
+                {name: "Indeevara", specialty: "Authentic Sri Lankan rice and curry", price: "$", type: "Local"},
+                {name: "Sigiriya Naiz", specialty: "Traditional Sri Lankan thali", price: "$", type: "Local"},
+                {name: "Leopard's Nest", specialty: "International cuisine with rock views", price: "$$", type: "Restaurant"},
+                {name: "Kashyapa Restaurant", specialty: "Local favorites and fresh juices", price: "$", type: "Local"},
+                {name: "The呼吸 Cafe", specialty: "Healthy options and Western food", price: "$$", type: "Cafe"},
+                {name: "Green Paradise", specialty: "Organic farm-to-table dining", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Sigiri Rock Inn", price: "$20-35", rating: 8.0, loc: "Main Road"},
+                    {name: "Sunflower Eco Lodge", price: "$25-40", rating: 7.9, loc: "Village"}
+                ],
+                mid: [
+                    {name: "Hotel Sigiriya", price: "$65-100", rating: 8.5, loc: "Rock View"},
+                    {name: "Aliya Resort & Spa", price: "$80-130", rating: 8.7, loc: "Rock Road"},
+                    {name: "Sigiri Treetops", price: "$70-110", rating: 8.4, loc: "Forest Edge"}
+                ],
+                luxury: [
+                    {name: "Heritance Kandalama", price: "$220-380", rating: 9.2, loc: "Kandalama Tank"},
+                    {name: "Amaya Lake Resort", price: "$180-280", rating: 8.9, loc: "Kandalama"},
+                    {name: "Cinnamon Lodge", price: "$160-250", rating: 8.8, loc: "Kandalama"}
+                ]
+            },
+            costs: {meal: "$3-15", transport: "$2-8", attractions: "$45 (combo ticket)", daily: "$35-100"},
+            tips: [
+                "Start climbing Sigiriya before 6am to avoid crowds and heat",
+                "Wear comfortable hiking shoes - 1,200 steps to the top",
+                "The summit has 360° views of the jungle plains",
+                "Allow 2-3 hours for Sigiriya, 1-2 hours for Dambulla",
+                "Combine both sites on the same day for efficiency",
+                "Pidurangala offers better sunrise views than Sigiriya",
+                "Buy the combo ticket at Sigiriya for both sites"
+            ],
+            transport: {fromKandy: "3 hrs", fromAnuradhapura: "1.5 hrs", toPolonnaruwa: "1.5 hrs"}
+        },
+        
+        polonnaruwa: {
+            name: "Polonnaruwa", region: "North Central Province", type: "heritage",
+            desc: "The second great capital of Sri Lanka from the 10th-13th centuries. Unlike Anuradhapura, Polonnaruwa's ruins are remarkably well-preserved and compact, offering a vivid glimpse into medieval Sri Lankan civilization.",
+            highlights: [
+                "Gal Vihara - Four exquisite Buddha statues carved from a single rock face",
+                "Royal Palace - Massive 50-room palace with 7m thick walls",
+                "Parakrama Samudra - Ancient reservoir covering 2,500 hectares",
+                "Vatadage - Circular relic house with excellent preservation",
+                "Lankatilaka Temple - Giant reclining Buddha under a beautiful image house",
+                "Nissanka Malla Royal Pavilion - Intricate stone carved throne",
+                "Pabula Vihara - Well-preserved monastery complex",
+                "Archaeological Museum - Comprehensive ancient kingdom exhibits",
+                "Galpola Temple - Unique round building with Buddha statues",
+                "Prince DHarmashoka Statue"
+            ],
+            restaurants: [
+                {name: "The Railway Hotel", specialty: "Traditional rice and curry", price: "$", type: "Local"},
+                {name: "Green Garden Restaurant", specialty: "Vegetarian-friendly local food", price: "$", type: "Local"},
+                {name: "Lake View Restaurant", specialty: "Lakeside dining", price: "$$", type: "Restaurant"},
+                {name: "Polonnaruwa Rest", specialty: "Home-style cooking", price: "$", type: "Local"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Polonnaruwa Rest", price: "$18-28", rating: 7.5, loc: "New Town"}
+                ],
+                mid: [
+                    {name: "Lake Park Hotel", price: "$50-80", rating: 8.1, loc: "Parakrama Samudra"},
+                    {name: "Deer Park Hotel", price: "$60-95", rating: 8.3, loc: "Lake Road"}
+                ],
+                luxury: [
+                    {name: "The Deer Park Hotel", price: "$130-200", rating: 8.7, loc: "Lake View"}
+                ]
+            },
+            costs: {meal: "$2-8", transport: "$1-3", attractions: "$25", daily: "$20-55"},
+            tips: [
+                "Rent a bicycle for the best way to explore ruins",
+                "Hire a local guide for historical context",
+                "Visit the museum first to understand the layout",
+                "Best explored in the morning before midday heat",
+                "The Gal Vihara statues are the highlight - arrive early"
+            ],
+            transport: {fromSigiriya: "1.5 hrs", toDambulla: "1 hr", toKandy: "4 hrs"}
+        },
+        
+        dambulla: {
+            name: "Dambulla", region: "Central Province", type: "heritage",
+            desc: "Home to the largest and best-preserved cave temple complex in Sri Lanka. The Golden Temple of Dambulla features five sanctuaries with over 80 cave shrines and over 150 Buddha statues dating back to the 1st century BCE.",
+            highlights: [
+                "Cave Temple Complex - 5 caves with ancient Buddhist murals",
+                "Golden Temple - Massive 30m Buddha statue and newer temple complex",
+                "Museum of Buddhist Art - Traditional Buddhist artwork",
+                "Rose Quartz Mountain - Scenic viewpoint, sunrise spot",
+                "IrugalContainer - Large tunnel near Dambulla",
+                "Satharagala Mountain - Hiking opportunity"
+            ],
+            restaurants: [
+                {name: "Saman's Rice & Curry", specialty: "Authentic village-style cooking", price: "$", type: "Local"},
+                {name: "Dambulla Hotel", specialty: "Multi-cuisine options", price: "$$", type: "Restaurant"},
+                {name: "Golden Kitchen", specialty: "International and local", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Dambulla Paradise", price: "$18-30", rating: 7.6, loc: "Main Street"}
+                ],
+                mid: [
+                    {name: "Sundreamz Dambulla", price: "$55-85", rating: 8.2, loc: "Kandy Road"},
+                    {name: "Amaya Lake Resort", price: "$70-110", rating: 8.5, loc: "Kandalama"}
+                ],
+                luxury: [
+                    {name: "Heritance Kandalama", price: "$220-380", rating: 9.2, loc: "Kandalama"}
+                ]
+            },
+            costs: {meal: "$2-10", transport: "$1-4", attractions: "$15", daily: "$20-60"},
+            tips: [
+                "Cave temples close at sunset (6pm)",
+                "Photography inside caves requires paid permit",
+                "Combine with Sigiriya for a full cultural day",
+                "Visit the Golden Temple during the day and caves in morning"
+            ],
+            transport: {fromSigiriya: "30 min", toKandy: "2.5 hrs", toAnuradhapura: "2 hrs"}
+        },
+        
+        kandy: {
+            name: "Kandy", region: "Central Province", type: "city",
+            desc: "Sri Lanka's cultural capital nestled in a valley surrounded by mountains. Home to the sacred Temple of the Tooth, traditional dance performances, and surrounded by lush tea plantations. A perfect blend of spiritual significance and natural beauty.",
+            highlights: [
+                "Temple of the Sacred Tooth Relic - Buddha's tooth relic, holiest Buddhist site in Sri Lanka",
+                "Kandy Lake - Beautiful scenic lake built in 14th century",
+                "Royal Botanic Gardens Peradeniya - Asia's largest botanical garden",
+                "Udawatta Kele Sanctuary - Ancient forest reserve within the city",
+                "Bahiravokanda Vihara Buddha - Massive white Buddha statue overlooking the city",
+                "Kandy View Point - Panoramic views of the entire valley",
+                "Kandy National Museum - History of the last kingdom",
+                "Traditional Kandy Dances - Colorful cultural performance",
+                "Geragama Tea Factory - Working tea factory tours",
+                "Hanthana Mountain Range - Hiking trails with views"
+            ],
+            restaurants: [
+                {name: "Slightly Chilled Lounge Bar", specialty: "Asian fusion with rooftop views", price: "$$", type: "Bar/Restaurant"},
+                {name: "Kandy Muslim Hotel", specialty: "Legendary biriyani since 1958", price: "$", type: "Heritage"},
+                {name: "The Empire Cafe", specialty: "Colonial atmosphere, Western cuisine", price: "$$", type: "Cafe"},
+                {name: "White House Restaurant", specialty: "Traditional rice and curry", price: "$", type: "Local"},
+                {name: "Helga's Folly", specialty: "Eclectic art-filled restaurant", price: "$$$", type: "Fine Dining"},
+                {name: "Queen's Hotel Tea Lounge", specialty: "Traditional afternoon tea", price: "$$", type: "Heritage"},
+                {name: "Local Rice & Curry Spots", specialty: "Authentic home-style cooking", price: "$", type: "Local"},
+                {name: "Cafe Aripol", specialty: "Popular local meeting spot", price: "$", type: "Cafe"},
+                {name: "Kandy Kitch", specialty: "Modern Sri Lankan fusion", price: "$$", type: "Restaurant"},
+                {name: "Balaji Dosai", specialty: "South Indian vegetarian", price: "$", type: "Indian"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Kandy City Budget Inn", price: "$20-32", rating: 7.6, loc: "Kandy City"},
+                    {name: "Old Town Inn", price: "$22-35", rating: 7.8, loc: "Kandy City"}
+                ],
+                mid: [
+                    {name: "Hotel Casadeera", price: "$55-85", rating: 8.2, loc: "Kandy City"},
+                    {name: "Royal Classic Hotel", price: "$60-95", rating: 8.3, loc: "Dalada Veediya"},
+                    {name: "Tourist Guest House", price: "$50-75", rating: 8.0, loc: "Kandy City"}
+                ],
+                luxury: [
+                    {name: "Mahaweli Reach Hotel", price: "$130-200", rating: 8.8, loc: "Mahaweli River"},
+                    {name: "The Langdale Tower", price: "$140-220", rating: 8.7, loc: "Kandy City"},
+                    {name: "Earl's Regency", price: "$150-240", rating: 8.6, loc: "Kandy Road"},
+                    {name: "Amaya Regency", price: "$130-200", rating: 8.5, loc: "Kandy Road"}
+                ]
+            },
+            costs: {meal: "$2-15", transport: "$1-4", attractions: "$15-30", daily: "$30-80"},
+            tips: [
+                "Attend the evening puja ceremony at Temple of Tooth (6:30pm)",
+                "Kandy Esala Perahera in July/August is spectacular",
+                "Visit Botanical Gardens early morning for best experience",
+                "The train journey from Kandy to Ella is world-famous",
+                "Try the Kandy Muslim biriyani at lunch",
+                "Walk around Kandy Lake at sunset",
+                "Hire a guide for the Udawatta Kele forest"
+            ],
+            transport: {fromColombo: "4 hrs", toNuwaraEliya: "2 hrs", toElla: "3.5 hrs", toSigiriya: "3 hrs"}
+        },
+        
+        nuwaraEliya: {
+            name: "Nuwara Eliya", region: "Central Province", type: "mountain",
+            desc: "'Little England' of Sri Lanka. Situated at 1,868m elevation, this charming town features cool climate, colonial-era architecture, manicured gardens, and some of the world's finest tea plantations. Perfect escape from the tropical heat.",
+            highlights: [
+                "Gregory Lake - Scenic boating lake with paddle boats and rides",
+                "Victoria Park - Beautiful colonial-era park with flower displays",
+                "Hakgala Botanical Gardens - Second largest botanical garden",
+                "Pedro Tea Factory - Working tea factory with tours and tastings",
+                "Lover's Leap Waterfall - Picturesque 30m waterfall",
+                "Moon Plains (Kande Ela) - Scenic viewpoint for sunrise",
+                "Galway's Land Bird Sanctuary - Alpine bird species",
+                "Golf Course - Oldest in Asia, scenic 18-hole course",
+                "Sita Amman Temple - Ancient Hindu temple from Ramayana legend",
+                "Bomburuella Waterfall - Multi-tiered waterfall nearby"
+            ],
+            restaurants: [
+                {name: "Grand Hotel Tea Lounge", specialty: "Legendary afternoon tea since 1891", price: "$$$", type: "Heritage"},
+                {name: "Moringa Restaurant", specialty: "Organic farm-to-table cuisine", price: "$$", type: "Restaurant"},
+                {name: "Salmiya Restaurant", specialty: "Multi-cuisine international", price: "$$", type: "Restaurant"},
+                {name: "Glenview Tea Room", specialty: "Traditional scones and tea", price: "$$", type: "Tea Room"},
+                {name: "Nuwara Eliya Races", specialty: "Restaurant at racecourse", price: "$", type: "Casual"},
+                {name: "Chocoholics", specialty: "Hot chocolate and desserts", price: "$", type: "Cafe"},
+                {name: "De Forest Park", specialty: "Riverside dining", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Summer Park Hotel", price: "$22-38", rating: 7.6, loc: "Lake Road"},
+                    {name: "Heaven's Edge", price: "$25-40", rating: 7.8, loc: "Upper Lake Road"}
+                ],
+                mid: [
+                    {name: "Araliya Green Hills", price: "$60-95", rating: 8.3, loc: "Green Hills"},
+                    {name: "Jetwing St. Andrews", price: "$80-130", rating: 8.5, loc: "St. Andrews"},
+                    {name: "Heaven's View", price: "$55-85", rating: 8.1, loc: "Lake Road"}
+                ],
+                luxury: [
+                    {name: "The Grand Hotel", price: "$180-300", rating: 9.0, loc: "Grand Hotel Road"},
+                    {name: "Heritance Tea Factory", price: "$200-350", rating: 9.2, loc: "Near Kandapola"},
+                    {name: "The Hill Club", price: "$160-260", rating: 8.8, loc: "Grand Hotel Road"}
+                ]
+            },
+            costs: {meal: "$3-20", transport: "$2-6", attractions: "$10-25", daily: "$30-90"},
+            tips: [
+                "Even in summer, bring warm clothes - it can be cold at night",
+                "Book afternoon tea at Grand Hotel weeks in advance",
+                "Moon Plains is best visited at sunrise",
+                "Tea factory tours are most educational in morning",
+                "Strawberry picking available December to March",
+                "The scenic train from Kandy to Nuwara Eliya is unforgettable",
+                "Visit Hakgala Gardens in April for peak flower season"
+            ],
+            transport: {fromKandy: "2 hrs", toElla: "2 hrs", toHaputale: "1.5 hrs", toColombo: "6 hrs"}
+        },
+        
+        ella: {
+            name: "Ella", region: "Uva Province", type: "mountain",
+            desc: "A picturesque mountain village perched at 1,000m elevation. Famous for dramatic landscapes, the iconic Nine Arch Bridge, excellent hiking trails, and lush tea plantations. The backpacker's paradise with a laid-back atmosphere.",
+            highlights: [
+                "Nine Arch Bridge - Stunning curved railway bridge in jungle setting",
+                "Ella Rock - 3-hour hike to 1,041m summit with panoramic views",
+                "Little Adam's Peak - Easier 2-hour hike with incredible vistas",
+                "Demodara Railway Station - Unique loop design and scenic station",
+                "Tea Plantations - Rolling hills of lush tea bushes",
+                "Ravana Falls - 25m waterfall, 1km from town",
+                "Ella Gap/Adisham View Point - Dramatic mountain pass views",
+                "Diyaluma Falls - Sri Lanka's second highest waterfall",
+                "Dhowa Rock Temple - Ancient 13th century Buddhist rock temple",
+                "Ella Jungle Trail - Various nature walks"
+            ],
+            restaurants: [
+                {name: "Matey Hut", specialty: "Popular local rice and curry", price: "$", type: "Local"},
+                {name: "Cafe Chela", specialty: "Famous for baked goods and pasta", price: "$$", type: "Cafe"},
+                {name: "Ella Spice Garden", specialty: "Traditional Sri Lankan cooking classes", price: "$", type: "Local"},
+                {name: "The Ringing Frog", specialty: "Creative Western and local fusion", price: "$$", type: "Restaurant"},
+                {name: "Ella Organic Cafe", specialty: "Healthy vegetarian options", price: "$", type: "Cafe"},
+                {name: "98 Acres Restaurant", specialty: "Rooftop dining with views", price: "$$$", type: "Fine Dining"},
+                {name: "Hills & Valleys", specialty: "All-day dining", price: "$$", type: "Restaurant"},
+                {name: "Chill Restaurant", specialty: "Bar food and drinks", price: "$$", type: "Bar"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Ella Hello", price: "$15-25", rating: 8.2, loc: "Town Center"},
+                    {name: "Eagle's Nest", price: "$18-30", rating: 8.0, loc: "Passara Road"}
+                ],
+                mid: [
+                    {name: "Misty Hills Ella", price: "$50-80", rating: 8.5, loc: "Passara Road"},
+                    {name: "Ella Heritage", price: "$55-85", rating: 8.4, loc: "Town Center"},
+                    {name: "Ella Nine Springs", price: "$50-80", rating: 8.3, loc: "Wellawaya Road"}
+                ],
+                luxury: [
+                    {name: "98 Acres Resort & Spa", price: "$180-300", rating: 9.1, loc: "Passara Road"},
+                    {name: "Amara by Epic", price: "$150-250", rating: 8.8, loc: "Ella Rock Road"},
+                    {name: "Mountain Heavens", price: "$130-200", rating: 8.7, loc: "Ella Rock Road"}
+                ]
+            },
+            costs: {meal: "$2-12", transport: "$1-6", attractions: "$5-15", daily: "$25-70"},
+            tips: [
+                "The train from Kandy to Ella is one of the world's most scenic",
+                "Watch trains cross the Nine Arch Bridge at 8am, 11am, 3pm, 5pm",
+                "Hike Little Adam's Peak at sunrise for magical views",
+                "Visit Diyaluma Falls - swim in natural rock pools at the top",
+                "Most guesthouses offer free village walks",
+                "Book the Kandy-Ella train months in advance during peak",
+                "The cooler climate makes Ella perfect year-round"
+            ],
+            transport: {fromKandy: "3.5 hrs (train)", toTissa: "2 hrs", toNuwaraEliya: "2 hrs", toHaputale: "1 hr"}
+        },
+        
+        haputale: {
+            name: "Haputale", region: "Uva Province", type: "mountain",
+            desc: "A misty highland town offering some of Sri Lanka's most dramatic scenery. The Lipton's Seat viewpoint offers unparalleled views over tea estates, while nearby attractions include Dambatenne Tea Factory and Adisham Monastery.",
+            highlights: [
+                "Lipton Seat - Tea plantations panorama from 1,970m",
+                "Dambatenne Tea Factory - Where Sir Thomas Lipton built his empire",
+                "Adisham Monastery - Beautiful Gothic-style monastery",
+                "Thangamalayika Estate - Scenic tea plantation walks",
+                "Kandapola Tea Factory - Working tea factory tours",
+                "Demodara Loop - Train crosses over itself",
+                "Haputale View Point - City and valley views"
+            ],
+            restaurants: [
+                {name: "THANAM", specialty: "Local rice and curry", price: "$", type: "Local"},
+                {name: "Blue Zone", specialty: "International and local", price: "$$", type: "Restaurant"},
+                {name: "Tea Kade", specialty: "Tea and snacks", price: "$", type: "Tea Room"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Thangamalayika Rest", price: "$15-25", rating: 7.8, loc: "Town"}
+                ],
+                mid: [
+                    {name: "Milestones Haputale", price: "$45-70", rating: 8.3, loc: "Town"},
+                    {name: "Durahela", price: "$50-80", rating: 8.4, loc: "Lipton Seat Road"}
+                ]
+            },
+            costs: {meal: "$2-8", transport: "$1-4", attractions: "$10-20", daily: "$20-55"},
+            tips: ["Visit Lipton Seat at dawn for clearest views", "Dambatenne Factory tours show traditional tea processing"],
+            transport: {fromElla: "1 hr", toNuwaraEliya: "1.5 hrs", toKandy: "4 hrs"}
+        },
+        
+        mirissa: {
+            name: "Mirissa", region: "Southern Province", type: "beach",
+            desc: "The ultimate beach paradise. Famous for world-class whale watching, laid-back atmosphere, beautiful beaches, and vibrant nightlife. Coconut Tree Hill provides one of Sri Lanka's most iconic views.",
+            highlights: [
+                "Whale Watching - Sperm whales, dolphins, and even blue whales",
+                "Mirissa Beach - 2km crescent of golden sand",
+                "Coconut Tree Hill - Instagram-famous viewpoint with palms",
+                "Secret Beach - Secluded cove, 15-min walk from main beach",
+                "Parrot Rock - Sunset viewpoint at beach end",
+                "Surfing - Beginner-friendly waves",
+                "Snorkeling - Coral reef near Coconut Tree Hill",
+                "Beach Parties - Nightly events at beach bars"
+            ],
+            restaurants: [
+                {name: "The Spoon's", specialty: "Fresh seafood and international", price: "$$", type: "Restaurant"},
+                {name: "Zephyr Lounge", specialty: "Beachfront dining and cocktails", price: "$$", type: "Bar/Restaurant"},
+                {name: "Salt Restaurant", specialty: "Fusion cuisine and seafood", price: "$$", type: "Restaurant"},
+                {name: "Mirissa Eye", specialty: "Seafood specialties", price: "$$", type: "Restaurant"},
+                {name: "Dlx Beach Bar", specialty: "Cocktails and beach vibes", price: "$$", type: "Bar"},
+                {name: "Sea Glass", specialty: "Upscale dining", price: "$$$", type: "Fine Dining"},
+                {name: "Mithra", specialty: "Local and international", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Mirissa Beach Inn", price: "$20-35", rating: 8.0, loc: "Beach Road"},
+                    {name: "Osthir Beach Inn", price: "$22-38", rating: 7.9, loc: "Beach"}
+                ],
+                mid: [
+                    {name: "Windsor's Hotel", price: "$65-100", rating: 8.4, loc: "Beach Road"},
+                    {name: "Sea World Resort", price: "$75-115", rating: 8.5, loc: "Beach"},
+                    {name: "BNT Mirissa", price: "$70-110", rating: 8.3, loc: "Beach"}
+                ],
+                luxury: [
+                    {name: "Shem Rocks", price: "$140-220", rating: 8.8, loc: "Beach"},
+                    {name: "Mandara Retreat", price: "$160-260", rating: 8.9, loc: "Beach"}
+                ]
+            },
+            costs: {meal: "$4-18", transport: "$2-6", attractions: "$45-65 (whale watching)", daily: "$40-100"},
+            tips: [
+                "Book whale watching 6am trip for best chances",
+                "Secret Beach best before 10am to avoid crowds",
+                "Coconut Tree Hill sunrise is unforgettable",
+                "Surf school available for beginners ($20-30/hour)",
+                "Season is November to April - best weather",
+                "Full moon parties happen monthly at beach bars"
+            ],
+            transport: {fromGalle: "45 min", fromColombo: "3 hrs", toTangalle: "1 hr", toElla: "3 hrs"}
+        },
+        
+        galle: {
+            name: "Galle Fort", region: "Southern Province", type: "heritage",
+            desc: "A perfectly preserved 16th-century Dutch colonial fort, now a UNESCO World Heritage Site. The fort's cobblestone streets, colonial architecture, boutique shops, and ocean views make it one of Sri Lanka's most enchanting destinations.",
+            highlights: [
+                "Galle Fort Walls - 90-minute walk atop 400-year-old ramparts",
+                "Dutch Hospital Shopping Complex - Restored colonial building",
+                "Galle International Cricket Ground - Historic test venue",
+                "Galle National Museum - Dutch colonial artifacts",
+                "Galle Fort Lighthouse - 19th century lighthouse",
+                "Meeran Mosque - Elegant Islamic architecture",
+                "All Saints Church - Anglican church from 19th century",
+                "Sunset at the Ramparts - Best evening activity",
+                "Galle Art Gallery - Contemporary Sri Lankan art",
+                "Galle Maritime Museum"
+            ],
+            restaurants: [
+                {name: "Portuguese Dutch Cafe", specialty: "Dutch-influenced pastries and tea", price: "$$", type: "Cafe"},
+                {name: "Galle Fort Hotel", specialty: "Fine dining in historic setting", price: "$$$", type: "Fine Dining"},
+                {name: "Elaria", specialty: "Juices and healthy options", price: "$", type: "Cafe"},
+                {name: "Pedlar's Inn", specialty: "Western and local cuisine", price: "$$", type: "Restaurant"},
+                {name: "Lucky Fortuna", specialty: "Fresh seafood", price: "$$", type: "Restaurant"},
+                {name: "The Bungalow", specialty: "Boutique dining", price: "$$$", type: "Fine Dining"},
+                {name: "Crepe-ology", specialty: "French crepes and coffee", price: "$$", type: "Cafe"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Fort Inn", price: "$22-38", rating: 8.0, loc: "Inside Fort"},
+                    {name: "Galle Fort Breeze", price: "$25-40", rating: 7.9, loc: "Fort"}
+                ],
+                mid: [
+                    {name: "The Bungalow", price: "$75-115", rating: 8.6, loc: "LIGHTHOUSE ST."},
+                    {name: "Amari Galle", price: "$100-160", rating: 8.7, loc: "Fort Ramparts"},
+                    {name: "The Fern", price: "$65-100", rating: 8.4, loc: "Inside Fort"}
+                ],
+                luxury: [
+                    {name: "Amangalla", price: "$400-700", rating: 9.3, loc: "Church St."},
+                    {name: "The Fort Printers", price: "$250-400", rating: 9.1, loc: "Parana Junction"},
+                    {name: "Galle Fort Hotel", price: "$300-500", rating: 9.0, loc: "Ramparts"}
+                ]
+            },
+            costs: {meal: "$5-25", transport: "$1-5", attractions: "$10-20", daily: "$35-100"},
+            tips: [
+                "Best experienced at sunset walking the walls",
+                "Stay overnight - the fort transforms after day-trippers leave",
+                "Shop carefully at gem stores - verify certifications",
+                "Book high tea at Galle Fort Hotel in advance",
+                "Restaurant prices higher inside fort - walk 5 min outside for deals",
+                "Full moon night is magical with fort lit up",
+                "Best shopping early morning before cruise ship visitors"
+            ],
+            transport: {fromColombo: "2.5 hrs", toMirissa: "40 min", toHikkaduwa: "30 min", toUnawatuna: "15 min"}
+        },
+        
+        hikkaduwa: {
+            name: "Hikkaduwa", region: "Southern Province", type: "beach",
+            desc: "Sri Lanka's original beach resort town. Famous for its coral reefs, surfing, turtle sanctuaries, and vibrant nightlife. A perfect blend of natural beauty and backpacker culture.",
+            highlights: [
+                "Hikkaduwa Coral Sanctuary - Snorkeling among colorful corals",
+                "Turtle Hatchery - Conservation center for sea turtles",
+                "Surfing - Popular surf point for all levels",
+                "Glass Bottom Boat - View coral without getting wet",
+                "Gangarama Temple - Beachside Buddhist temple",
+                "Tsunami Museum - Remembering the 2004 tragedy",
+                "Narigama Beach - Popular surfing beach"
+            ],
+            restaurants: [
+                {name: "Funky de Monkey", specialty: "Beachfront dining, seafood", price: "$$", type: "Restaurant"},
+                {name: "UnIRI", specialty: "International cuisine", price: "$$", type: "Restaurant"},
+                {name: "Mama's", specialty: "Local and Western", price: "$", type: "Local"},
+                {name: "Turtle Bay", specialty: "Seafood and beach vibes", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Hikk Chalets", price: "$20-35", rating: 8.1, loc: "Beach"}
+                ],
+                mid: {
+                    name: "Coral Beach Hotel", price: "$65-100", rating: 8.3, loc: "Beach"}
+                },
+                luxury: [
+                    {name: "Hikkaduwa Resort", price: "$150-240", rating: 8.7, loc: "Beach"}
+                ]
+            },
+            costs: {meal: "$3-15", transport: "$2-5", attractions: "$5-20", daily: "$30-80"},
+            tips: ["Snorkeling best in morning", "Surf season November to April", "Visit turtle hatchery in morning"],
+            transport: {fromGalle: "30 min", fromColombo: "2.5 hrs", toBentota: "30 min"}
+        },
+        
+        yala: {
+            name: "Yala National Park", region: "Southern Province", type: "wildlife",
+            desc: "Sri Lanka's most famous wildlife park and the largest national park in the country. Home to the highest density of leopards in the world, plus elephants, crocodiles, and over 200 bird species. A must-visit for nature lovers.",
+            highlights: [
+                "Leopard Spotting - Yala has the world's highest leopard density",
+                "Elephant herds - Large aggregations of Sri Lankan elephants",
+                "Block 1 Safari - Most popular section with best wildlife",
+                "Block 5 Ruhunu - Quieter area with excellent sightings",
+                "Bird Watching - 215+ bird species including migratory",
+                "Crocodile Point - Large marsh crocodiles",
+                "Sithulpahuwa - Ancient Buddhist monastery in the park",
+                "Yala Lake - Scenic lake within park boundaries",
+                "Beaches within park - Beautiful coastline"
+            ],
+            restaurants: [
+                {name: "DT Rest", specialty: "Rice and curry", price: "$", type: "Local"},
+                {name: "Tissa Rest", specialty: "Local food near gate", price: "$", type: "Local"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Yala Basic Camp", price: "$25-40", rating: 7.8, loc: "Tissa"}
+                ],
+                mid: [
+                    {name: "Kulu Safaris Yala", price: "$85-135", rating: 8.6, loc: "Kirinda"},
+                    {name: "Big Game Camp", price: "$90-150", rating: 8.5, loc: "Tissa"}
+                ],
+                luxury: [
+                    {name: "Chandrika Hotel", price: "$160-250", rating: 8.8, loc: "Tissa"},
+                    {name: "Cinnamon Wild Yala", price: "$200-320", rating: 8.9, loc: "Yala"},
+                    {name: "Jetwing Yala", price: "$180-300", rating: 8.7, loc: "Yala"}
+                ]
+            },
+            costs: {meal: "$5-15", transport: "$60-100 (jeep)", attractions: "$25-50 (park fee)", daily: "$80-200},
+            tips: [
+                "Early morning safaris (6am) have best leopard sightings",
+                "Book through your hotel for reliable operators",
+                "Bring binoculars and camera with zoom lens",
+                "Wear earth-toned colors - avoid white and bright colors",
+                "Nov-Jan monsoon can close some blocks",
+                "Block 5 is quieter with good wildlife",
+                "4WD jeep is essential - regular vehicles not allowed"
+            ],
+            transport: {fromTissa: "45 min", fromElla: "2 hrs", fromGalle: "2.5 hrs", fromColombo: "5 hrs"}
+        },
+        
+        trincomalee: {
+            name: "Trincomalee", region: "Eastern Province", type: "beach",
+            desc: "A pristine east coast destination with some of Sri Lanka's best beaches and historical significance. Famous for whale watching, diving, and the sacred Koneswaram Hindu temple. Best visited May-September.",
+            highlights: [
+                "Nilaveli Beach - 20km of pristine white sand",
+                "Pigeon Island - National marine park for snorkeling",
+                "Koneswaram Temple - Ancient Hindu shrine on a headland",
+                "Dutch Fort - 17th century colonial fort",
+                "Whale Watching - Blue whales and dolphins",
+                "Marble Beach - Clear waters, military area",
+                "Hot Springs - Natural thermal springs",
+                "Fredrick Fort - Fort with lighthouse",
+                "Swami Rock - Sacred rock with underwater ruins"
+            ],
+            restaurants: [
+                {name: "The Harbor", specialty: "Fresh seafood harbor views", price: "$$", type: "Seafood"},
+                {name: "Dutch Fort Cafe", specialty: "International and local", price: "$", type: "Cafe"},
+                {name: "Sea Food Inn", specialty: "Local seafood", price: "$", type: "Local"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "TN Inn", price: "$18-30", rating: 7.5, loc: "Uppuveli"}
+                ],
+                mid: [
+                    {name: "Anantamaa Hotel", price: "$55-85", rating: 8.2, loc: "Uppuveli"}
+                ],
+                luxury: [
+                    {name: "Jungle Beach Resort", price: "$150-240", rating: 8.8, loc: "Nilaveli Road"},
+                    {name: "Trincomalee Marriot", price: "$180-300", rating: 8.9, loc: "Uppuveli"}
+                ]
+            },
+            costs: {meal: "$3-15", transport: "$3-8", attractions: "$20-50", daily: "$30-90"},
+            tips: [
+                "Best beaches May-September",
+                "Pigeon Island for best snorkeling",
+                "Koneswaram temple at sunrise is magical",
+                "Avoid monsoon season Nov-Feb"
+            ],
+            transport: {fromSigiriya: "3 hrs", fromAnuradhapura: "2 hrs", toKandy: "5 hrs"}
+        },
+        
+        batticaloa: {
+            name: "Batticaloa", region: "Eastern Province", type: "beach",
+            desc: "The 'City of Music' known for its lagoons, Dutch fort, and pristine east coast beaches. Less developed than Trincomalee with authentic local charm and excellent surfing at Arugam Bay.",
+            highlights: [
+                "Arugam Bay - World-famous surfing destination",
+                "Dutch Fort Batticaloa - Colonial fort ruins",
+                "Kalkudah Beach - 4km of white sand",
+                "Pasikudah Beach - Flat shallow waters, perfect for families",
+                "Mahauyyangana Tank - Ancient reservoir",
+                "Batticaloa Lagoon"
+            ],
+            restaurants: [
+                {name: "Sea Food Corner", specialty: "Local seafood", price: "$", type: "Local"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Batti Beach Inn", price: "$15-25", rating: 7.6, loc: "Pasikudah"}
+                ],
+                mid: [
+                    {name: "Kalkudah Beach Resort", price: "$50-80", rating: 8.1, loc: "Kalkudah"}
+                ]
+            },
+            costs: {meal: "$2-10", transport: "$2-5", attractions: "$10-25", daily: "$20-60"},
+            tips: ["Best surfing May-October", "Pasikudah has calm shallow water"],
+            transport: {fromTrincomalee: "2 hrs", fromElla: "3 hrs"}
+        },
+        
+        washermanpuram: {
+            name: "Tissa (Tissamaharama)", region: "Southern Province", type: "wildlife",
+            desc: "The gateway to Yala National Park and a charming rural town with a beautiful tank (ancient reservoir). Perfect base for wildlife safaris and exploring the southern cultural triangle.",
+            highlights: [
+                "Tissa Lake - Scenic sunset views around the ancient tank",
+                "Yala Safari Base - Main departure point for Yala",
+                "Tissa Dagoba - Ancient Buddhist shrine",
+                "Yala Bird Watching",
+                "Kirinda Beach - Rocky beach with temple",
+                "Bundala National Park - Wetland bird sanctuary"
+            ],
+            restaurants: [
+                {name: "Tissa Rest", specialty: "Local rice and curry", price: "$", type: "Local"},
+                {name: "Lake View Tissa", specialty: "Lakeside dining", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Tissa Guest Inn", price: "$15-28", rating: 7.6, loc: "Tissa Town"}
+                ],
+                mid: [
+                    {name: "Hotel Tissa", price: "$50-80", rating: 8.2, loc: "Lake Road"}
+                ]
+            },
+            costs: {meal: "$2-8", transport: "$5-15 (tuk-tuk)", attractions: "$25-50 (safari)", daily: "$25-70"},
+            tips: ["Watch sunset at Tissa Lake", "Book Yala safari evening before", "Early morning Yala departures"],
+            transport: {fromGalle: "2 hrs", fromElla: "2 hrs", toYala: "30 min", toArugamBay: "1 hr"}
+        },
+        
+        jaffna: {
+            name: "Jaffna", region: "Northern Province", type: "city",
+            desc: "The cultural capital of the Tamil people and Sri Lanka's largest Hindu pilgrimage center. A fascinating blend of Hindu temples, Dutch colonial architecture, and unique cuisine shaped by South Indian and Sri Lankan influences.",
+            highlights: [
+                "Nallur Kandaswamy Temple - Largest Hindu temple in Jaffna",
+                "Jaffna Fort - Impressive Dutch colonial fort",
+                "Jaffna Library - Rebuilt after civil war, beautiful architecture",
+                "Nagadeepa Temple - Buddhist temple with ancient history",
+                "Keerimalai Springs - Sacred natural spring for bathing",
+                "DayTRAN Kandaswamy Temple - Elaborate Hindu shrine",
+                "Jaffna Cricket Club",
+                "Point Pedro - Northernmost tip of Sri Lanka",
+                "Manipay Hindu College"
+            ],
+            restaurants: [
+                {name: "Nadesan Centre", specialty: "Traditional Jaffna cuisine", price: "$", type: "Local"},
+                {name: "Maalai", specialty: "Tamil and Sri Lankan food", price: "$", type: "Restaurant"},
+                {name: "Sunflower", specialty: "Multi-cuisine", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Jaffna Heritage", price: "$20-35", rating: 7.8, loc: "Kandahar St."}
+                ],
+                mid: [
+                    {name: "Valampuri Hotel", price: "$55-85", rating: 8.3, loc: "Colombo Rd."},
+                    {name: "The Margop", price: "$50-80", rating: 8.2, loc: "Kokkuvil"}
+                ]
+            },
+            costs: {meal: "$2-12", transport: "$2-6", attractions: "$5-15", daily: "$25-70"},
+            tips: [
+                "Best visited Oct-April",
+                "Dress modestly for Hindu temples",
+                "Try Jaffna crab curry and kool (seafood soup)",
+                "The peninsula has unique cultural experiences"
+            ],
+            transport: {fromColombo: "7 hrs (bus)", toAnuradhapura: "4 hrs", airport: "30 min"}
+        },
+        
+        arugam: {
+            name: "Arugam Bay", region: "Eastern Province", type: "beach",
+            desc: "The surf capital of Sri Lanka and a laid-back beach town on the east coast. World-renowned for its consistent waves, attracting surfers from around the globe. Best visited May to October.",
+            highlights: [
+                "Main Point - World-famous right-hand surf break",
+                "Whiskey Point - Consistent waves",
+                "Elephant Rock - Beach and surf combination",
+                "Lighthouse - Scenic viewpoint and surf spot",
+                "Muhudu Maha Viharaya - Ancient Buddhist temple",
+                "Panama Lagoon - Bird watching"
+            ],
+            restaurants: [
+                {name: "Ocean Spoon", specialty: "Seafood and Western", price: "$$", type: "Restaurant"},
+                {name: "Mudu Shop", specialty: "Local food", price: "$", type: "Local"},
+                {name: "Buddha's", specialty: "Beachfront dining", price: "$$", type: "Restaurant"}
+            ],
+            hotels: {
+                budget: [
+                    {name: "Arugam Surf Camp", price: "$20-35", rating: 8.2, loc: "Beach"}
+                ],
+                mid: [
+                    {name: "Hideaway Resort", price: "$60-95", rating: 8.5, loc: "Beach"}
+                ]
+            },
+            costs: {meal: "$3-12", transport: "$2-6", attractions: "$20-40", daily: "$30-80"},
+            tips: ["Best surf May-Oct", "Surf lessons available $25/hour", "Stay at main beach for nightlife"],
+            transport: {fromTissa: "1 hr", fromElla: "3 hrs", fromKandy: "4 hrs"}
+        }
+    },
+    
+    // TRIP TEMPLATES
+    templates: {
+        comprehensive: {
+            name: "Complete Island Tour",
+            3: ["colombo", "sigiriya", "dambulla"],
+            5: ["colombo", "sigiriya", "polonnaruwa", "kandy", "dambulla"],
+            7: ["colombo", "negombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy"],
+            10: ["colombo", "negombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "ella", "galle"],
+            14: ["colombo", "negombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "ella", "tissa", "yala", "mirissa", "galle", "hikkaduwa"],
+            21: ["colombo", "negombo", "anuradhapura", "mihintale", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "ella", "haputale", "tissa", "yala", "mirissa", "galle", "hikkaduwa", "bentota", "trincomalee", "jaffna", "colombo"]
+        },
+        beach: {
+            name: "Beach Paradise",
+            3: ["mirissa", "galle"],
+            5: ["colombo", "bentota", "mirissa", "galle"],
+            7: ["colombo", "bentota", "hikkaduwa", "mirissa", "galle", "trincomalee", "negombo"],
+            10: ["colombo", "negombo", "bentota", "hikkaduwa", "mirissa", "galle", "trincomalee", "arugam", "batticaloa", "colombo"]
+        },
+        cultural: {
+            name: "Cultural Heritage",
+            3: ["sigiriya", "dambulla"],
+            5: ["anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy"],
+            7: ["colombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy", "galle"],
+            10: ["colombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "ella", "galle", "jaffna"]
+        },
+        wildlife: {
+            name: "Wildlife Safari",
+            3: ["yala"],
+            5: ["sigiriya", "yala", "tissa"],
+            7: ["colombo", "sigiriya", "yala", "tissa", "trincomalee", "bentota", "colombo"],
+            10: ["colombo", "negombo", "anuradhapura", "sigiriya", "yala", "tissa", "trincomalee", "polonnaruwa", "kandy", "colombo"]
+        },
+        nature: {
+            name: "Mountains & Nature",
+            3: ["ella", "nuwaraEliya"],
+            5: ["kandy", "nuwaraEliya", "ella", "haputale"],
+            7: ["colombo", "kandy", "nuwaraEliya", "ella", "haputale", "tissa", "galle"],
+            10: ["colombo", "kandy", "nuwaraEliya", "ella", "haputale", "tissa", "yala", "galle", "trincomalee", "colombo"]
+        },
+        adventure: {
+            name: "Adventure & Hiking",
+            3: ["ella"],
+            5: ["ella", "nuwaraEliya", "kandy"],
+            7: ["ella", "haputale", "nuwaraEliya", "kandy", "sigiriya", "polonnaruwa", "tissa"],
+            10: ["ella", "haputale", "nuwaraEliya", "kandy", "sigiriya", "polonnaruwa", "tissa", "yala", "trincomalee", "arugam"]
+        },
+        honeymoon: {
+            name: "Romantic Getaway",
+            3: ["galle", "mirissa"],
+            5: ["bentota", "galle", "ella"],
+            7: ["bentota", "galle", "ella", "nuwaraEliya", "kandy"],
+            10: ["colombo", "bentota", "galle", "ella", "nuwaraEliya", "kandy", "sigiriya", "mirissa", "colombo"]
+        },
+        family: {
+            name: "Family Fun",
+            5: ["colombo", "bentota", "galle", "mirissa", "ella"],
+            7: ["colombo", "bentota", "galle", "mirissa", "ella", "kandy", "sigiriya"],
+            10: ["colombo", "bentota", "galle", "mirissa", "ella", "kandy", "sigiriya", "dambulla", "tissa", "colombo"]
+        },
+        backpack: {
+            name: "Budget Backpacking",
+            7: ["colombo", "sigiriya", "anuradhapura", "dambulla", "kandy", "ella", "mirissa"],
+            10: ["colombo", "negombo", "sigiriya", "anuradhapura", "dambulla", "kandy", "ella", "tissa", "mirissa", "galle"],
+            14: ["colombo", "negombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "ella", "tissa", "yala", "mirissa", "galle", "hikkaduwa", "colombo"],
+            21: ["colombo", "negombo", "anuradhapura", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "ella", "haputale", "tissa", "yala", "mirissa", "galle", "hikkaduwa", "bentota", "trincomalee", "batticaloa", "arugam", "jaffna", "colombo"]
+        },
+        spiritual: {
+            name: "Sacred Sites",
+            5: ["anuradhapura", "mihintale", "sigiriya", "dambulla", "kandy"],
+            7: ["colombo", "anuradhapura", "mihintale", "sigiriya", "polonnaruwa", "dambulla", "kandy"],
+            10: ["colombo", "negombo", "anuradhapura", "mihintale", "sigiriya", "polonnaruwa", "dambulla", "kandy", "nuwaraEliya", "galle"]
+        },
+        culinary: {
+            name: "Food & Spice Journey",
+            5: ["colombo", "kandy", "ella", "galle"],
+            7: ["colombo", "negombo", "kandy", "nuwaraEliya", "ella", "galle", "mirissa"],
+            10: ["colombo", "negombo", "kandy", "nuwaraEliya", "haputale", "ella", "galle", "mirissa", "bentota", "anuradhapura"]
+        },
+        photography: {
+            name: "Photography Tour",
+            5: ["ella", "nuwaraEliya", "kandy", "sigiriya", "galle"],
+            7: ["colombo", "sigiriya", "nuwaraEliya", "ella", "tissa", "mirissa", "galle"],
+            10: ["colombo", "negombo", "sigiriya", "polonnaruwa", "nuwaraEliya", "ella", "tissa", "yala", "mirissa", "galle"]
+        }
+    },
+    
+    // ACTIVITIES DATABASE
+    activities: {
+        beaches: [
+            {name: "Mirissa Beach", loc: "Southern", best: "Nov-Apr", cost: "Free", tips: "Best sunrise walks"},
+            {name: "Nilaveli Beach", loc: "Trincomalee", best: "May-Sep", cost: "Free", tips: "Crystal clear water"},
+            {name: "Unawatuna Beach", loc: "Galle", best: "Nov-Apr", cost: "Free", tips: "Great snorkeling"},
+            {name: "Arugam Bay", loc: "East", best: "May-Oct", cost: "Free", tips: "World-class surfing"},
+            {name: "Pasikudah Beach", loc: "East", best: "May-Oct", cost: "Free", tips: "Shallow for families"},
+            {name: "Bentota Beach", loc: "South", best: "Nov-Apr", cost: "Free", tips: "Water sports hub"},
+            {name: "Hikkaduwa", loc: "South", best: "Nov-Apr", cost: "Free", tips: "Coral sanctuary"},
+            {name: "Coconut Tree Hill", loc: "Mirissa", best: "Year-round", cost: "Free", tips: "Sunrise visit"}
+        ],
+        temples: [
+            {name: "Temple of the Tooth", loc: "Kandy", cost: "$10", tips: "Evening puja ceremony"},
+            {name: "Dambulla Caves", loc: "Dambulla", cost: "$15", tips: "Morning visit best"},
+            {name: "Koneswaram Temple", loc: "Trincomalee", cost: "Free", tips: "Sunrise spectacular"},
+            {name: "Gangaramaya", loc: "Colombo", cost: "Free", tips: "Combine with Galle Face"},
+            {name: "Mihintale", loc: "Anuradhapura", cost: "Free", tips: "Dawn hike for sunrise"},
+            {name: "Sita Amman", loc: "Nuwara Eliya", cost: "Free", tips: "Ramayana legend"},
+            {name: "Dhowa Temple", loc: "Ella", cost: "Free", tips: "Ancient murals"}
+        ],
+        wildlife: [
+            {name: "Yala Safari", loc: "Yala", cost: "$25-50", tips: "Book 6am jeep"},
+            {name: "Wilpattu Safari", loc: "North", cost: "$25-45", tips: "Leopards and bears"},
+            {name: "Udawalawe Safari", loc: "South", cost: "$20-40", tips: "Elephant herds"},
+            {name: "Whale Watching Mirissa", loc: "Mirissa", cost: "$45-65", tips: "6am boats best"},
+            {name: "Pigeon Island", loc: "Trincomalee", cost: "$15", tips: "Snorkeling paradise"},
+            {name: "Bundala Birds", loc: "Tissa", cost: "$15", tips: "Migratory birds"}
+        ],
+        hiking: [
+            {name: "Little Adam's Peak", loc: "Ella", diff: "Easy", cost: "Free", tips: "Sunrise hike"},
+            {name: "Ella Rock", loc: "Ella", diff: "Moderate", cost: "Free", tips: "5-6 hours total"},
+            {name: "Sigiriya Rock", loc: "Sigiriya", diff: "Moderate", cost: "$30", tips: "Start at 6am"},
+            {name: "Pidurangala", loc: "Sigiriya", diff: "Moderate", cost: "Free", tips: "Best sunrise view"},
+            {name: "Lipton Seat", loc: "Haputale", diff: "Moderate", cost: "Free", tips: "Tea plantations"},
+            {name: "Horton Plains", loc: "Nuwara Eliya", diff: "Hard", cost: "$15", tips: "World's End cliff"}
+        ],
+        tea: [
+            {name: "Pedro Tea Factory", loc: "Nuwara Eliya", cost: "$5", tips: "Morning tours"},
+            {name: "Mackwoods Labookellie", loc: "Nuwara Eliya", cost: "$5", tips: "Most famous"},
+            {name: "Dambatenne", loc: "Haputale", cost: "$5", tips: "Lipton connection"},
+            {name: "Geragama", loc: "Kandy", cost: "$5", tips: "Near city"}
+        ],
+        waterfalls: [
+            {name: "Ravana Falls", loc: "Ella", height: "25m", cost: "Free", tips: "Walk behind"},
+            {name: "Diyaluma", loc: "Ella", height: "220m", cost: "Free", tips: "Natural pools"},
+            {name: "Lover's Leap", loc: "Nuwara Eliya", height: "30m", cost: "Free", tips: "Short walk"},
+            {name: "Bomburuella", loc: "Nuwara Eliya", height: "50m", cost: "Free", tips: "Multi-tiered"}
+        ]
+    },
+    
+    // BUDGET ESTIMATES
+    budgets: {
+        budget: {
+            meal: "$2-5",
+            accommodation: "$10-25",
+            transport: "$5-15",
+            activities: "$10-25",
+            3: "$75-120", 5: "$125-200", 7: "$175-280", 10: "$250-400", 14: "$350-560", 21: "$500-800"
+        },
+        mid: {
+            meal: "$5-15",
+            accommodation: "$30-60",
+            transport: "$10-25",
+            activities: "$20-50",
+            3: "$150-300", 5: "$250-500", 7: "$350-700", 10: "$500-1000", 14: "$700-1400", 21: "$1000-2000"
+        },
+        luxury: {
+            meal: "$20-50",
+            accommodation: "$100-200",
+            transport: "$30-80",
+            activities: "$50-100",
+            3: "$450-900", 5: "$750-1500", 7: "$1050-2100", 10: "$1500-3000", 14: "$2100-4200", 21: "$3000-6000"
+        }
+    }
+};
+
+// Generate Itinerary
+function generate(tripStyle, days, budget, interests) {
+    const template = DB.templates[tripStyle];
+    if (!template) return null;
+    
+    let places = template[days] || template[7];
+    const budgetData = DB.budgets[budget];
+    
+    let html = `
+        <div class="fade-in">
+            <div class="info-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                <h5 style="color: white;"><i class="fas fa-map"></i> ${template.name} - ${days} Days in Sri Lanka</h5>
+                <p style="margin: 10px 0 0; opacity: 0.9;">Personalized itinerary based on your preferences</p>
+            </div>
+            
+            <h3><i class="fas fa-coins"></i> Budget Breakdown (Per Day)</h3>
+            <div class="cost-grid">
+                <div class="cost-box"><i class="fas fa-utensils"></i><div class="amount">${budgetData.meal}</div><div class="label">Meals</div></div>
+                <div class="cost-box"><i class="fas fa-bed"></i><div class="amount">${budgetData.accommodation}</div><div class="label">Hotel</div></div>
+                <div class="cost-box"><i class="fas fa-car"></i><div class="amount">${budgetData.transport}</div><div class="label">Transport</div></div>
+                <div class="cost-box"><i class="fas fa-ticket"></i><div class="amount">${budgetData.activities}</div><div class="label">Activities</div></div>
+            </div>
+            <p style="text-align: center; color: #667eea; font-weight: 600; font-size: 1.1rem;">
+                <i class="fas fa-calendar-check"></i> Total Estimated Budget: ${budgetData[days] || budgetData[7]}
+            </p>
+            
+            <h3><i class="fas fa-map-marked-alt"></i> Your Route</h3>
+            <div class="info-card success">
+                ${places.map(p => DB.places[p]?.name || p).join(' → ')}
+            </div>
+        </div>
+    `;
+    
+    // Day by day
+    const daysPerPlace = Math.ceil(days / places.length);
+    places.forEach((placeKey, i) => {
+        const place = DB.places[placeKey];
+        if (!place) return;
+        
+        const startDay = i * daysPerPlace + 1;
+        const endDay = Math.min((i + 1) * daysPerPlace, days);
+        
+        html += `
+            <div class="day-block fade-in">
+                <div class="day-header">
+                    <i class="fas fa-map-pin"></i>
+                    <h4>${place.name}</h4>
+                    <span class="badge">Days ${startDay}-${endDay}</span>
+                </div>
+                
+                <p style="margin-bottom: 15px; font-style: italic;">${place.desc}</p>
+                
+                <h4><i class="fas fa-star"></i> Must-See Highlights</h4>
+                <ul>${place.highlights.slice(0, 5).map(h => `<li>${h}</li>`).join('')}</ul>
+                
+                <h4><i class="fas fa-hotel"></i> Accommodation (${budget.charAt(0).toUpperCase() + budget.slice(1)})</h4>
+                <div class="place-list">
+                    ${(place.hotels[budget] || place.hotels.mid || []).slice(0, 3).map(h => 
+                        `<div class="place-item">
+                            <h5><i class="fas fa-bed"></i> ${h.name}</h5>
+                            <p>${h.loc ? h.loc + ' • ' : ''}Rating: ${h.rating}/10</p>
+                            <div class="meta"><span><i class="fas fa-tag"></i> $${h.price}/night</span></div>
+                        </div>`
+                    ).join('')}
+                </div>
+                
+                <h4><i class="fas fa-utensils"></i> Where to Eat</h4>
+                <div class="place-list">
+                    ${place.restaurants.slice(0, 4).map(r => 
+                        `<div class="place-item">
+                            <h5><i class="fas fa-utensils"></i> ${r.name}</h5>
+                            <p>${r.specialty}</p>
+                            <div class="meta">
+                                <span>${r.price}</span>
+                                <span>${r.type}</span>
+                            </div>
+                        </div>`
+                    ).join('')}
+                </div>
+                
+                <div class="info-card tip">
+                    <h5><i class="fas fa-lightbulb"></i> Local Tips</h5>
+                    <ul style="margin: 5px 0 0 15px;">
+                        ${place.tips.slice(0, 3).map(t => `<li>${t}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `;
+    });
+    
+    // Activities
+    if (interests.length > 0) {
+        html += `<h3><i class="fas fa-compass"></i> Recommended Activities</h3>`;
+        interests.forEach(int => {
+            const acts = DB.activities[int];
+            if (acts && acts.length > 0) {
+                html += `<h4><i class="fas fa-${getIcon(int)}"></i> ${int.charAt(0).toUpperCase() + int.slice(1)}</h4>`;
+                html += `<div class="place-list">`;
+                acts.slice(0, 5).forEach(a => {
+                    html += `<div class="place-item">
+                        <h5><i class="fas fa-map-marker-alt"></i> ${a.name}</h5>
+                        <p>${a.tips || a.loc || ''}</p>
+                        <div class="meta">
+                            <span><i class="fas fa-tag"></i> ${a.cost || 'Free'}</span>
+                            <span><i class="fas fa-map"></i> ${a.loc || ''}</span>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+        });
+    }
+    
+    // Packing list
+    html += `
+        <h3><i class="fas fa-suitcase"></i> Packing Essentials</h3>
+        <div class="info-card">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div>
+                    <h5><i class="fas fa-tshirt"></i> Clothing</h5>
+                    <ul style="margin-left: 15px; font-size: 0.9rem;">
+                        <li>Light, breathable fabrics</li>
+                        <li>Modest attire for temples</li>
+                        <li>Swimwear</li>
+                        <li>Light jacket (hill country)</li>
+                        <li>Comfortable walking shoes</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5><i class="fas fa-first-aid"></i> Health</h5>
+                    <ul style="margin-left: 15px; font-size: 0.9rem;">
+                        <li>Mosquito repellent</li>
+                        <li>Sunscreen SPF 50+</li>
+                        <li>Basic medications</li>
+                        <li>Rehydration salts</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5><i class="fas fa-passport"></i> Documents</h5>
+                    <ul style="margin-left: 15px; font-size: 0.9rem;">
+                        <li>Passport (6+ months)</li>
+                        <li>ETA confirmation</li>
+                        <li>Travel insurance</li>
+                        <li>Hotel bookings</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5><i class="fas fa-plug"></i> Electronics</h5>
+                    <ul style="margin-left: 15px; font-size: 0.9rem;">
+                        <li>Universal adapter</li>
+                        <li>Power bank</li>
+                        <li>Camera</li>
+                        <li>SIM card (Dialog)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <h3><i class="fas fa-plane"></i> Getting Around</h3>
+        <div class="info-card success">
+            <p><strong><i class="fas fa-train"></i> Train:</strong> Book 1st class Kandy↔Ella for world's best scenic journey</p>
+            <p><strong><i class="fas fa-bus"></i> Bus:</strong> AC buses comfortable, regular buses cheaper</p>
+            <p><strong><i class="fas fa-car"></i> Car with Driver:</strong> ~$50-80/day - best for flexibility</p>
+            <p><strong><i class="fas fa-tuk"></i> Tuk-tuk:</strong> Short distances, agree price first</p>
+        </div>
+        
+        <h3><i class="fas fa-exclamation-circle"></i> Important Reminders</h3>
+        <div class="info-card warn">
+            <ul>
+                <li>Dress modestly at temples - cover shoulders and knees</li>
+                <li>Remove shoes before entering temples</li>
+                <li>Tap water not drinkable - use bottled water</li>
+                <li>Bargain at markets but respect sellers</li>
+                <li>Download offline maps (Maps.me)</li>
+                <li>Book safari jeeps through your hotel</li>
+            </ul>
+        </div>
+        
+        <div class="info-card success" style="text-align: center; margin-top: 30px;">
+            <h4 style="margin-bottom: 10px;"><i class="fas fa-heart"></i> Have an Amazing Trip!</h4>
+            <p>This is your personalized guide. Adjust based on your pace and preferences!</p>
+        </div>
+    `;
+    
+    return html;
+}
+
+function getIcon(interest) {
+    return {beaches:'umbrella-beach',temples:'gopuram',wildlife:'paw',hiking:'hiking',food:'utensils',tea:'mug-hot',history:'landmark',waterfalls:'water'}[interest] || 'star';
+}
+
+// Quick plans
+const quickPlans = {
+    weekend: {tripStyle:'beach', duration:'3', interests:['beaches'], budget:'mid'},
+    classic: {tripStyle:'comprehensive', duration:'7', interests:['temples','beaches'], budget:'mid'},
+    explorer: {tripStyle:'comprehensive', duration:'10', interests:['temples','wildlife','hiking'], budget:'mid'},
+    full: {tripStyle:'comprehensive', duration:'14', interests:['beaches','temples','wildlife','hiking'], budget:'mid'},
+    honeymoon: {tripStyle:'honeymoon', duration:'7', interests:['beaches','hiking'], budget:'luxury'}
+};
+
+let generatedHTML = '';
+
+// Event listeners
+document.querySelectorAll('.budget-card').forEach(card => {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.budget-card').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('budget').value = this.dataset.value;
+    });
+});
+
+document.querySelectorAll('.checkbox-card').forEach(card => {
+    card.addEventListener('click', function() {
+        this.classList.toggle('selected');
+        this.querySelector('input').checked = this.classList.contains('selected');
+    });
+});
+
+window.quickPlan = function(type) {
+    const plan = quickPlans[type];
+    if (plan) {
+        document.getElementById('tripStyle').value = plan.tripStyle;
+        document.getElementById('duration').value = plan.duration;
+        document.querySelectorAll('.checkbox-card').forEach(c => { c.classList.remove('selected'); c.querySelector('input').checked = false; });
+        plan.interests.forEach(int => {
+            const card = document.querySelector(`.checkbox-card[data-value="${int}"]`);
+            if (card) { card.classList.add('selected'); card.querySelector('input').checked = true; }
+        });
+        const budgetCard = document.querySelector(`.budget-card[data-value="${plan.budget}"]`);
+        if (budgetCard) {
+            document.querySelectorAll('.budget-card').forEach(c => c.classList.remove('selected'));
+            budgetCard.classList.add('selected');
+            document.getElementById('budget').value = plan.budget;
+        }
+        document.getElementById('tripForm').scrollIntoView({behavior:'smooth'});
+    }
+};
+
+document.getElementById('tripForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const tripStyle = document.getElementById('tripStyle').value;
+    const duration = document.getElementById('duration').value;
+    const budget = document.getElementById('budget').value;
+    
+    const interests = [];
+    document.querySelectorAll('.checkbox-card input:checked').forEach(cb => interests.push(cb.value));
+    
+    if (!tripStyle || !duration) { alert('Please select trip style and duration'); return; }
+    
+    const btn = document.getElementById('generateBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+    
+    setTimeout(() => {
+        const result = generate(tripStyle, parseInt(duration), budget, interests);
+        if (result) {
+            generatedHTML = result;
+            document.getElementById('resultArea').innerHTML = result;
+            document.getElementById('toolbarActions').style.display = 'flex';
+        }
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-magic"></i> Generate My Itinerary';
+    }, 800);
+});
+
+window.copyResult = function() {
+    navigator.clipboard.writeText(document.getElementById('resultArea').innerText).then(() => alert('Copied!'));
+};
+
+window.printResult = function() {
+    const w = window.open('', '_blank');
+    w.document.write('<html><head><title>Sri Lanka Trip</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>body{font-family:Poppins,sans-serif;padding:40px;max-width:800px;margin:0 auto;line-height:1.8}h3{color:#667eea;margin-top:30px}h4{color:#764ba2;margin-top:20px}.day-block{background:#f8f9fa;padding:20px;border-radius:10px;margin:20px 0}.info-card{background:#f0f5ff;padding:15px;margin:15px 0;border-radius:5px}ul{margin-left:20px}</style></head><body>' + document.getElementById('resultArea').innerHTML + '</body></html>');
+    w.document.close();
+    w.print();
+};
+
+window.saveResult = function() {
+    let saved = JSON.parse(localStorage.getItem('savedTrips') || '[]');
+    saved.unshift({content: document.getElementById('resultArea').innerHTML, savedAt: new Date().toISOString()});
+    if (saved.length > 10) saved = saved.slice(0, 10);
+    localStorage.setItem('savedTrips', JSON.stringify(saved));
+    alert('Saved!');
+};
+</script>
+</body>
+</html>

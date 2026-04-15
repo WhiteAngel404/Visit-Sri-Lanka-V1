@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Visit Sri Lanka for tour bookings, custom itineraries, and travel inquiries. Get in touch with our travel experts.">
+    <meta name="keywords" content="contact Sri Lanka tours, Sri Lanka travel inquiry, book Sri Lanka tour">
+    <title>Contact Us - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: var(--primary-color);">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <div class="nav-search">
+                    <div class="search-box">
+                        <input type="text" id="navSearch" placeholder="Search destinations, tours, tips..." autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li class="nav-dropdown">
+                        <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="nav-dropdown-menu" aria-label="More navigation">
+                            <li><a href="attractions.html">Attractions</a></li>
+                            <li><a href="culture.html">Culture</a></li>
+                            <li><a href="food.html">Food & Dining</a></li>
+                            <li><a href="accommodation.html">Hotels</a></li>
+                            <li><a href="reviews.html">Reviews</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1580058572462-98e2c0e0e2f0?w=1920') center/cover no-repeat; height: 350px;"
+    >
+        <div class="page-header-content"
+        >
+            <h1>Contact Us</h1>
+            <p>Let's plan your Sri Lankan adventure</p>
+        </div>
+    </section>
+
+    <section class="media-strip">
+        <div class="container">
+            <div class="media-strip-grid">
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/4xJHMhz7e5s/1200x800" alt="Colombo coast" loading="lazy">
+                    <div class="caption">Start in Colombo</div>
+                </div>
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/xaZWb4UtIc0/1200x800" alt="Tea country" loading="lazy">
+                    <div class="caption">Plan the hills</div>
+                </div>
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/l5QjpiLwJ_E/1200x800" alt="Sri Lanka beaches" loading="lazy">
+                    <div class="caption">Finish by the sea</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section"
+    >
+        <div class="container"
+        >
+            <div class="contact-grid"
+            >
+                <div class="contact-info-cards"
+                >
+                    <div class="contact-info-card"
+                    >
+                        <i class="fas fa-envelope"
+                        ></i>
+                        <h3>Email Us</h3>
+                        <p>connect.abdulr@gmail.com</p>
+
+                    </div>
+                    <div class="contact-info-card"
+                    >
+                        <i class="fas fa-phone"
+                        ></i>
+                        <h3>Call Us</h3>
+                        <p>+94 72 486 1536</p>
+
+                    </div>
+                    <div class="contact-info-card"
+                    >
+                        <i class="fas fa-map-marker-alt"
+                        ></i>
+                        <h3>Visit Us</h3>
+                        <p>77/4 Jennath Masjid Road<br>Ratnapura, Sri Lanka</p>
+
+                    </div>
+                    <div class="contact-info-card"
+                    >
+                        <i class="fas fa-clock"
+                        ></i>
+                        <h3>Office Hours</h3>
+                        <p>Monday - Friday: 9AM - 6PM<br>Saturday: 9AM - 2PM</p>
+
+                    </div>
+                </div>
+                <div class="contact-form-container"
+                >
+                    <h2>Send Us a Message</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+
+                    <form id="contactForm"
+                    >
+                        <div class="form-row"
+                        >
+                            <div class="form-group"
+                            >
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required
+                                >
+                            </div>
+                            <div class="form-group"
+                            >
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required
+                                >
+                            </div>
+                        </div>
+                        <div class="form-row"
+                        >
+                            <div class="form-group"
+                            >
+                                <label>Email *</label>
+                                <input type="email" name="email" required
+                                >
+                            </div>
+                            <div class="form-group"
+                            >
+                                <label>Phone</label>
+                                <input type="tel" name="phone"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-row"
+                        >
+                            <div class="form-group"
+                            >
+                                <label>Travel Dates</label>
+                                <input type="date" name="travelDate"
+                                >
+                            </div>
+                            <div class="form-group"
+                            >
+                                <label>Number of Travelers</label>
+                                <input type="number" name="travelers" min="1" placeholder="e.g., 2"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group"
+                        >
+                            <label>Interested In</label>
+                            <select name="interest"
+                            >
+                                <option value="">Select a tour package</option>
+                                <option value="cultural">Cultural Triangle Explorer (7 Days)</option>
+                                <option value="beach">Beach & Wildlife Safari (10 Days)</option>
+                                <option value="hill">Hill Country & Tea Experience (5 Days)</option>
+                                <option value="custom">Custom Tour Package</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group"
+                        >
+                            <label>Message *</label>
+                            <textarea name="message" placeholder="Tell us about your travel plans, questions, or special requirements..." required
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;"
+                        >Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section style="padding: 0;"
+    >
+        <div style="width: 100%; height: 400px; background-color: #ddd; display: flex; align-items: center; justify-content: center;"
+        >
+            <div style="text-align: center; color: var(--text-medium);"
+            >
+                <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;"
+                ></i>
+                <h3>Our Location</h3>
+                <p>Ratnapura, Sri Lanka</p>
+
+                <p style="margin-top: 10px;"
+                ><a href="https://maps.google.com/?q=Colombo,Sri+Lanka" target="_blank" class="btn btn-outline"
+                >View on Google Maps</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section"
+    >
+        <div class="container"
+        >
+            <div class="section-header"
+            >
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common questions</p>
+            </div>
+
+            <div class="faq-item"
+            >
+                <div class="faq-question"
+                >
+                    How quickly will you respond to my inquiry?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer"
+                >
+                    <p>We aim to respond to all inquiries within 24 hours during business days. For urgent requests, please call us directly or use WhatsApp.</p>
+
+                </div>
+            </div>
+
+            <div class="faq-item"
+            >
+                <div class="faq-question"
+                >
+                    Can I customize a tour package?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer"
+                >
+                    <p>Absolutely! We specialize in customized itineraries. Just let us know your interests, budget, and travel dates, and we'll create a personalized tour for you.</p>
+
+                </div>
+            </div>
+
+            <div class="faq-item"
+            >
+                <div class="faq-question"
+                >
+                    Do you require a deposit to book?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer"
+                >
+                    <p>Yes, we typically require a 30% deposit to confirm your booking, with the balance due 30 days before your arrival. We'll provide detailed payment instructions upon confirmation.</p>
+
+                </div>
+            </div>
+
+            <div class="faq-item"
+            >
+                <div class="faq-question"
+                >
+                    What is your cancellation policy?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer"
+                >
+                    <p>Cancellations made 30+ days before arrival receive a full refund minus processing fees. 15-29 days: 50% refund. Less than 14 days: no refund. Travel insurance is recommended.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer"
+    >
+        <div class="container"
+        >
+            <div class="footer-grid"
+            >
+                <div class="footer-brand"
+                >
+                    <a href="index.html" class="footer-logo"
+                    >
+                        <i class="fas fa-leaf"></i>
+                        <span>VisitSriLanka</span>
+                    </a>
+                    <p>Your ultimate guide to exploring the Pearl of the Indian Ocean.</p>
+                    <div class="social-links"
+                    >
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links"
+                >
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="attractions.html">Attractions</a></li>
+                        <li><a href="tours.html">Tours</a></li>
+                        <li><a href="accommodation.html">Hotels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links"
+                >
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="culture.html">Culture</a></li>
+                        <li><a href="food.html">Food & Dining</a></li>
+                        <li><a href="travel-guide.html#visa">Visa Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact"
+                >
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> connect.abdulr@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 72 486 1536</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 77/4 Jennath Masjid Road, Ratnapura</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"
+            >
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6-VDRe0UMkCW5F7n6HcBNW_X3MZHxz8Y",
+            authDomain: "visit-sri-lanka-df4d8.firebaseapp.com",
+            projectId: "visit-sri-lanka-df4d8",
+            messagingSenderId: "107140804406",
+            appId: "1:107140804406:web:a888eca0ce422f2f82cd97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            const firstName = form.firstName.value.trim();
+            const lastName = form.lastName.value.trim();
+            const email = form.email.value.trim();
+            const phone = form.phone.value.trim();
+            const travelDate = form.travelDate.value;
+            const travelers = form.travelers.value;
+            const interest = form.interest.value;
+            const message = form.message.value.trim();
+            
+            try {
+                await addDoc(collection(db, 'contacts'), {
+                    name: firstName + ' ' + lastName,
+                    email: email,
+                    phone: phone,
+                    travelDate: travelDate,
+                    travelers: travelers,
+                    subject: interest,
+                    message: message,
+                    read: false,
+                    createdAt: new Date().toISOString()
+                });
+                
+                form.reset();
+                alert('Thank you! Your message has been sent. We will get back to you within 24 hours.');
+            } catch (error) {
+                console.error('Error submitting contact:', error);
+                alert('Failed to send message. Please try again or email us directly.');
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        });
+    </script>
+</body>
+</html>

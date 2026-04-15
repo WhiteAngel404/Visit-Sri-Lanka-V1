@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read genuine reviews and testimonials from travelers who experienced Sri Lanka with Visit Sri Lanka. See what our customers say about their tours.">
+    <meta name="keywords" content="Sri Lanka reviews, Sri Lanka testimonials, Sri Lanka travel reviews, Visit Sri Lanka reviews">
+    <title>Reviews & Testimonials - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: var(--primary-color);">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <div class="nav-search">
+                    <div class="search-box">
+                        <input type="text" id="navSearch" placeholder="Search destinations, tours, tips..." autocomplete="off">
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="travel-guide.html">Travel Guide</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="nav-dropdown">
+                        <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                            More <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="nav-dropdown-menu" aria-label="More navigation">
+                            <li><a href="attractions.html">Attractions</a></li>
+                            <li><a href="culture.html">Culture</a></li>
+                            <li><a href="food.html">Food & Dining</a></li>
+                            <li><a href="accommodation.html">Hotels</a></li>
+                            <li><a href="reviews.html" class="active">Reviews</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="bookings.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=1920') center/cover no-repeat;">
+        <div class="page-header-content">
+            <h1>Traveler Reviews</h1>
+            <p>Real experiences from real travelers</p>
+        </div>
+    </section>
+
+    <section class="media-strip">
+        <div class="container">
+            <div class="media-strip-grid">
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/O0YmMPG56KI/1200x800" alt="Galle Fort" loading="lazy">
+                    <div class="caption">Heritage moments</div>
+                </div>
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/l5QjpiLwJ_E/1200x800" alt="Sri Lanka beach" loading="lazy">
+                    <div class="caption">Beach memories</div>
+                </div>
+                <div class="media-strip-card">
+                    <img src="https://source.unsplash.com/xaZWb4UtIc0/1200x800" alt="Tea plantations" loading="lazy">
+                    <div class="caption">Hill-country views</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <h3 id="avgRating">4.8</h3>
+                    <p>Average Rating</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <h3 id="totalReviews">0</h3>
+                    <p>Total Reviews</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-smile"></i>
+                    <h3>98%</h3>
+                    <p>Would Recommend</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    <h3>#1</h3>
+                    <p>In Sri Lanka Tourism</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Review Section -->
+    <section class="guide-section" style="background-color: var(--bg-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Share Your Experience</h2>
+                <p>Help other travelers by sharing your Sri Lankan adventure</p>
+            </div>
+
+            <div class="contact-form-container" style="max-width: 800px; margin: 0 auto;">
+                <form id="reviewForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name *</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Country *</label>
+                            <input type="text" name="country" placeholder="e.g., United Kingdom" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tour/Experience *</label>
+                            <select name="tour" required>
+                                <option value="">Select experience</option>
+                                <option value="cultural">Cultural Triangle Explorer</option>
+                                <option value="beach-wildlife">Beach & Wildlife Safari</option>
+                                <option value="hill-country">Hill Country Escape</option>
+                                <option value="complete">Complete Sri Lanka Experience</option>
+                                <option value="custom">Custom Tour</option>
+                                <option value="hotel">Hotel Stay Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Travel Date</label>
+                            <input type="date" name="travelDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Rating *</label>
+                        <div class="star-rating-input">
+                            <input type="radio" name="rating" value="5" id="star5" required>
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="4" id="star4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="3" id="star3">
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="2" id="star2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="1" id="star1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Review *</label>
+                        <textarea name="review" rows="5" placeholder="Share your experience... What did you love? What could be improved?" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What aspects were great? (Check all that apply)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="aspects" value="guide" id="aspect-guide">
+                                <label for="aspect-guide">Tour Guide</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="aspects" value="hotels" id="aspect-hotels">
+                                <label for="aspect-hotels">Hotels</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="aspects" value="food" id="aspect-food">
+                                <label for="aspect-food">Food</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="aspects" value="transport" id="aspect-transport">
+                                <label for="aspect-transport">Transportation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="aspects" value="destinations" id="aspect-destinations">
+                                <label for="aspect-destinations">Destinations</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="aspects" value="value" id="aspect-value">
+                                <label for="aspect-value">Value for Money</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Would you recommend us to a friend?</label>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="recommend" value="yes" id="recommend-yes">
+                            <label for="recommend-yes">Yes, I would recommend Visit Sri Lanka!</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews List -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Recent Reviews</h2>
+                <p>See what our travelers are saying</p>
+            </div>
+
+            <!-- Filter -->
+            <div class="filter-bar" style="margin-bottom: 30px;">
+                <button class="filter-btn active" data-filter="all">All Reviews</button>
+                <button class="filter-btn" data-filter="5">5 Stars</button>
+                <button class="filter-btn" data-filter="4">4 Stars</button>
+                <button class="filter-btn" data-filter="tour">Tours</button>
+                <button class="filter-btn" data-filter="hotel">Hotels</button>
+            </div>
+
+            <div id="reviewsList" class="testimonials-slider">
+                <!-- Reviews will be dynamically loaded -->
+            </div>
+
+            <div class="section-footer">
+                <button class="btn btn-outline" id="loadMoreBtn">Load More Reviews</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>VisitSriLanka</span>
+                    </a>
+                    <p>Your ultimate guide to exploring the Pearl of the Indian Ocean.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="attractions.html">Attractions</a></li>
+                        <li><a href="tours.html">Tours</a></li>
+                        <li><a href="accommodation.html">Hotels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="culture.html">Culture</a></li>
+                        <li><a href="food.html">Food & Dining</a></li>
+                        <li><a href="travel-guide.html#visa">Visa Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> connect.abdulr@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 72 486 1536</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Reviews data
+        const defaultReviews = [
+            {
+                id: 1,
+                name: "Sarah Mitchell",
+                country: "United Kingdom",
+                tour: "complete",
+                rating: 5,
+                review: "Sri Lanka exceeded all expectations. The people are incredibly friendly, the food is amazing, and the diversity of experiences in such a small country is remarkable. Our guide was fantastic and made the trip truly special.",
+                aspects: ["guide", "food", "destinations"],
+                recommend: true,
+                date: "2024-03-15"
+            },
+            {
+                id: 2,
+                name: "James Chen",
+                country: "Australia",
+                tour: "beach-wildlife",
+                rating: 5,
+                review: "Watching the sunrise at Sigiriya and spotting leopards in Yala were highlights of my life. The beach resorts were luxurious, and the wildlife safaris were well organized. Can't wait to return!",
+                aspects: ["hotels", "transport", "destinations"],
+                recommend: true,
+                date: "2024-02-28"
+            },
+            {
+                id: 3,
+                name: "Marie Rodriguez",
+                country: "Spain",
+                tour: "hill-country",
+                rating: 5,
+                review: "The train journey from Kandy to Ella is absolutely magical. Rolling hills, tea plantations, and waterfalls - it's the most scenic train ride I've ever taken. The hotels in the hills were charming and comfortable.",
+                aspects: ["transport", "hotels", "value"],
+                recommend: true,
+                date: "2024-02-10"
+            },
+            {
+                id: 4,
+                name: "Michael Thompson",
+                country: "Canada",
+                tour: "cultural",
+                rating: 4,
+                review: "Excellent cultural tour. The ancient cities were fascinating and our guide was very knowledgeable. The only reason for 4 stars instead of 5 was that some hotels were just average. Still a great experience overall!",
+                aspects: ["guide", "destinations", "value"],
+                recommend: true,
+                date: "2024-01-22"
+            },
+            {
+                id: 5,
+                name: "Emma Wilson",
+                country: "Germany",
+                tour: "beach-wildlife",
+                rating: 5,
+                review: "Whale watching in Mirissa was incredible! We saw blue whales and dolphins. The beach hotels were beautiful and the seafood was delicious. This tour was worth every penny.",
+                aspects: ["destinations", "food", "hotels"],
+                recommend: true,
+                date: "2024-01-15"
+            },
+            {
+                id: 6,
+                name: "David Kim",
+                country: "South Korea",
+                tour: "complete",
+                rating: 5,
+                review: "14 days of pure joy. From Colombo to Jaffna, every stop was memorable. The variety of landscapes, climates, and experiences is amazing. Sri Lanka truly is the pearl of the Indian Ocean!",
+                aspects: ["guide", "hotels", "food", "transport", "destinations", "value"],
+                recommend: true,
+                date: "2023-12-20"
+            }
+        ];
+
+        // Initialize reviews
+        function initReviews() {
+            if (!localStorage.getItem('reviews')) {
+                localStorage.setItem('reviews', JSON.stringify(defaultReviews));
+            }
+            renderReviews();
+            updateStats();
+        }
+
+        // Get reviews from localStorage
+        function getReviews() {
+            return JSON.parse(localStorage.getItem('reviews') || '[]');
+        }
+
+        // Save review
+        function saveReview(reviewData) {
+            const reviews = getReviews();
+            const newReview = {
+                id: Date.now(),
+                ...reviewData,
+                date: new Date().toISOString().split('T')[0]
+            };
+            reviews.unshift(newReview);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            return newReview;
+        }
+
+        // Render reviews
+        function renderReviews(filter = 'all') {
+            const reviewsList = document.getElementById('reviewsList');
+            let reviews = getReviews();
+
+            // Apply filters
+            if (filter !== 'all') {
+                if (filter === 'tour') {
+                    reviews = reviews.filter(r => r.tour !== 'hotel');
+                } else if (filter === 'hotel') {
+                    reviews = reviews.filter(r => r.tour === 'hotel');
+                } else {
+                    reviews = reviews.filter(r => r.rating === parseInt(filter));
+                }
+            }
+
+            reviewsList.innerHTML = reviews.map(renderReviewCard).join('');
+        }
+
+        // Render single review card
+        function renderReviewCard(review) {
+            const stars = Array(5).fill(0).map((_, i) =>
+                `<i class="fas fa-star" style="color: ${i < review.rating ? '#ffc107' : '#ddd'}"></i>`
+            ).join('');
+
+            const tourNames = {
+                'cultural': 'Cultural Triangle',
+                'beach-wildlife': 'Beach & Wildlife',
+                'hill-country': 'Hill Country',
+                'complete': 'Complete Experience',
+                'custom': 'Custom Tour',
+                'hotel': 'Hotel Stay'
+            };
+
+            const aspectIcons = {
+                'guide': '<i class="fas fa-user-tie" title="Great Guide"></i>',
+                'hotels': '<i class="fas fa-hotel" title="Great Hotels"></i>',
+                'food': '<i class="fas fa-utensils" title="Great Food"></i>',
+                'transport': '<i class="fas fa-car" title="Great Transport"></i>',
+                'destinations': '<i class="fas fa-map-marker-alt" title="Great Destinations"></i>',
+                'value': '<i class="fas fa-dollar-sign" title="Great Value"></i>'
+            };
+
+            const aspectsHtml = review.aspects?.map(a => aspectIcons[a] || '').join(' ') || '';
+
+            return `
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars" style="margin-bottom: 10px;">${stars}</div>
+                        <p>"${review.review}"</p>
+                        <div style="margin-top: 15px; color: var(--primary-color); font-size: 1.1rem;">
+                            ${aspectsHtml}
+                        </div>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">${review.name.split(' ').map(n => n[0]).join('')}</div>
+                        <div class="author-info">
+                            <h4>${review.name}</h4>
+                            <span>${review.country} • ${tourNames[review.tour] || review.tour}</span>
+                            <span style="font-size: 0.8rem; color: #999;">${formatDate(review.date)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        }
+
+        // Update stats
+        function updateStats() {
+            const reviews = getReviews();
+            const avgRating = reviews.length
+                ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+                : 0;
+
+            document.getElementById('avgRating').textContent = avgRating;
+            document.getElementById('totalReviews').textContent = reviews.length;
+        }
+
+        // Handle review form submission
+        document.getElementById('reviewForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const aspects = Array.from(formData.getAll('aspects'));
+
+            const reviewData = {
+                name: formData.get('name'),
+                country: formData.get('country'),
+                tour: formData.get('tour'),
+                rating: parseInt(formData.get('rating')),
+                review: formData.get('review'),
+                aspects: aspects,
+                recommend: formData.get('recommend') === 'yes'
+            };
+
+            saveReview(reviewData);
+            showNotification('Thank you for your review!', 'success');
+            this.reset();
+            renderReviews();
+            updateStats();
+        });
+
+        // Review filters
+        document.querySelectorAll('.filter-bar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderReviews(this.getAttribute('data-filter'));
+            });
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initReviews);
+    </script>
+
+    <style>
+        .star-rating-input {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .star-rating-input input {
+            display: none;
+        }
+
+        .star-rating-input label {
+            cursor: pointer;
+            font-size: 2rem;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .star-rating-input label:hover,
+        .star-rating-input label:hover ~ label,
+        .star-rating-input input:checked ~ label {
+            color: #ffc107;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+    </style>
+</body>
+</html>

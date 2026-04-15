@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #f5f7fa; }
+        
+        .admin-nav {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .admin-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .admin-logo { font-size: 1.3rem; font-weight: 700; color: white; text-decoration: none; }
+        .admin-logo i { margin-right: 8px; }
+        
+        .admin-nav-actions { display: flex; gap: 15px; align-items: center; }
+        .admin-nav-actions span { font-size: 0.9rem; opacity: 0.8; }
+        .admin-btn { padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; border: none; font-size: 0.85rem; transition: all 0.3s; }
+        .admin-btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5); }
+        .admin-btn-outline:hover { background: rgba(255,255,255,0.1); }
+        .admin-btn-danger { background: #e53935; color: white; }
+        .admin-btn-danger:hover { background: #c62828; }
+        
+        .admin-container { max-width: 1500px; margin: 0 auto; padding: 30px 20px; }
+        
+        .admin-header { margin-bottom: 30px; display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 20px; }
+        .admin-header h1 { color: #333; margin-bottom: 5px; }
+        .admin-header p { color: #666; }
+        .admin-header-actions { display: flex; gap: 10px; }
+        
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .stat-card .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+        }
+        .stat-card .icon.blue { background: #e3f2fd; color: #1565c0; }
+        .stat-card .icon.green { background: #e8f5e9; color: #2e7d32; }
+        .stat-card .icon.orange { background: #fff3e0; color: #e65100; }
+        .stat-card .icon.purple { background: #f3e5f5; color: #7b1fa2; }
+        .stat-card .icon.red { background: #ffebee; color: #c62828; }
+        .stat-card .icon.teal { background: #e0f2f1; color: #00796b; }
+        .stat-card .icon.pink { background: #fce4ec; color: #c2185b; }
+        .stat-card h3 { font-size: 2rem; color: #333; margin-bottom: 5px; }
+        .stat-card p { color: #777; font-size: 0.85rem; }
+        
+        .admin-tabs { display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
+        .admin-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .admin-tab:hover { border-color: #1a1a2e; color: #1a1a2e; }
+        .admin-tab.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+        .admin-tab .badge { background: #e53935; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; margin-left: 5px; }
+        .admin-tab.active .badge { background: white; color: #1a1a2e; }
+        
+        .admin-section { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        .admin-section h2 { color: #333; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #f0f0f0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .admin-section h2 i { color: #1a1a2e; }
+        
+        .search-filter-bar { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 200px; position: relative; }
+        .search-box input { width: 100%; padding: 12px 15px 12px 40px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 0.95rem; }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999; }
+        .search-box input:focus { outline: none; border-color: #1a1a2e; }
+        .filter-select { padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 0.95rem; min-width: 150px; background: white; }
+        .filter-select:focus { outline: none; border-color: #1a1a2e; }
+        
+        .contact-list { display: flex; flex-direction: column; gap: 15px; }
+        
+        .contact-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .contact-card:hover { border-color: #1a1a2e; }
+        .contact-card.unread { border-left: 4px solid #1a1a2e; background: #fafafa; }
+        .contact-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .contact-name { font-weight: 600; color: #333; }
+        .contact-email { color: #666; font-size: 0.9rem; }
+        .contact-email a { color: #1565c0; text-decoration: none; }
+        .contact-email a:hover { text-decoration: underline; }
+        .contact-date { font-size: 0.8rem; color: #999; }
+        .contact-subject { font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+        .contact-message { color: #666; line-height: 1.6; }
+        .contact-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .contact-actions button, .btn-sm {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-read { background: #e3f2fd; color: #1565c0; }
+        .btn-read:hover { background: #bbdefb; }
+        .btn-delete { background: #ffebee; color: #c62828; }
+        .btn-delete:hover { background: #ffcdd2; }
+        .btn-edit { background: #fff3e0; color: #e65100; }
+        .btn-edit:hover { background: #ffe0b2; }
+        .btn-view { background: #e8f5e9; color: #2e7d32; }
+        .btn-view:hover { background: #c8e6c9; }
+        
+        .business-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
+        
+        .business-admin-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .business-admin-card:hover { border-color: #2e7d32; }
+        .business-admin-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .business-admin-name { font-weight: 700; font-size: 1.1rem; color: #333; }
+        .business-admin-type { 
+            background: #e8f5e9; 
+            color: #2e7d32; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .business-admin-meta { display: flex; flex-direction: column; gap: 5px; color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+        .business-admin-meta i { color: #2e7d32; width: 20px; }
+        .business-admin-stats { display: flex; gap: 15px; padding-top: 15px; border-top: 1px solid #f0f0f0; flex-wrap: wrap; }
+        .business-stat { text-align: center; flex: 1; min-width: 60px; }
+        .business-stat-value { font-weight: 700; color: #1a1a2e; font-size: 1.2rem; }
+        .business-stat-label { font-size: 0.7rem; color: #999; }
+        .business-admin-actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+        
+        .reviews-list { display: flex; flex-direction: column; gap: 15px; }
+        
+        .review-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .review-card:hover { border-color: #ffc107; }
+        .review-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .review-author { font-weight: 600; color: #333; }
+        .review-email { color: #666; font-size: 0.85rem; }
+        .review-business { color: #2e7d32; font-size: 0.9rem; font-weight: 500; margin-bottom: 5px; }
+        .review-stars { color: #ffc107; }
+        .review-date { font-size: 0.8rem; color: #999; }
+        .review-text { color: #666; line-height: 1.6; }
+        .review-actions { margin-top: 15px; display: flex; gap: 10px; }
+        
+        .no-data { text-align: center; padding: 60px; color: #999; }
+        .no-data i { font-size: 3rem; margin-bottom: 15px; opacity: 0.5; }
+        
+        .notification {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
+        }
+        .notification.success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .notification.error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+        .notification.info { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+        
+        .refresh-btn, .export-btn {
+            background: #1a1a2e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .refresh-btn:hover, .export-btn:hover { background: #16213e; }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 4px solid rgba(26, 26, 46, 0.2);
+            border-radius: 50%;
+            border-top-color: #1a1a2e;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .auth-loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            z-index: 9999;
+        }
+        .auth-loading-overlay.hidden { display: none; }
+        .auth-loading-overlay i { font-size: 3rem; margin-bottom: 20px; }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f0f0f0;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .modal-close:hover { background: #e0e0e0; }
+        .modal h2 { color: #1a1a2e; margin-bottom: 20px; }
+        .modal-form { display: flex; flex-direction: column; gap: 15px; }
+        .modal-form label { font-weight: 600; color: #333; }
+        .modal-form input, .modal-form select, .modal-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .modal-form input:focus, .modal-form select:focus, .modal-form textarea:focus {
+            outline: none;
+            border-color: #1a1a2e;
+        }
+        .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; }
+        .btn-save { background: #2e7d32; color: white; }
+        .btn-cancel { background: #f0f0f0; color: #333; }
+        
+        /* Analytics Section */
+        .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .analytics-card { background: #f8f9fa; border-radius: 12px; padding: 20px; }
+        .analytics-card h3 { color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .analytics-card h3 i { color: #1a1a2e; }
+        .chart-placeholder { height: 200px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; }
+        
+        .top-businesses { display: flex; flex-direction: column; gap: 10px; }
+        .top-business-item { display: flex; align-items: center; gap: 15px; padding: 10px; background: white; border-radius: 8px; }
+        .top-business-item .rank { font-weight: 700; color: #1a1a2e; width: 30px; }
+        .top-business-item .name { flex: 1; font-weight: 500; }
+        .top-business-item .rating { color: #ffc107; }
+        
+        @media (max-width: 768px) {
+            .business-list { grid-template-columns: 1fr; }
+            .search-filter-bar { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-loading-overlay" id="authLoading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Checking login status...</p>
+    </div>
+
+    <nav class="admin-nav">
+        <div class="container">
+            <a href="index.html" class="admin-logo">
+                <i class="fas fa-leaf"></i> VisitSriLanka Admin
+            </a>
+            <div class="admin-nav-actions">
+                <span id="adminEmail">Loading...</span>
+                <button onclick="logout()" class="admin-btn admin-btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div id="notification" class="notification"></div>
+        
+        <div class="admin-header">
+            <div>
+                <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+                <p>Manage your Sri Lanka travel website</p>
+            </div>
+            <div class="admin-header-actions">
+                <button class="refresh-btn" onclick="loadData()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="export-btn" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="icon blue"><i class="fas fa-building"></i></div>
+                <h3 id="totalBusinesses">0</h3>
+                <p>Total Businesses</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon teal"><i class="fas fa-images"></i></div>
+                <h3 id="totalPhotos">0</h3>
+                <p>Total Photos</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon orange"><i class="fas fa-envelope"></i></div>
+                <h3 id="totalContacts">0</h3>
+                <p>Contact Messages</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon orange"><i class="fas fa-envelope-open"></i></div>
+                <h3 id="unreadContacts">0</h3>
+                <p>Unread Messages</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon purple"><i class="fas fa-star"></i></div>
+                <h3 id="avgRating">0.0</h3>
+                <p>Average Rating</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon green"><i class="fas fa-comments"></i></div>
+                <h3 id="totalReviews">0</h3>
+                <p>Total Reviews</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon pink"><i class="fas fa-newspaper"></i></div>
+                <h3 id="totalNewsletter">0</h3>
+                <p>Newsletter Subscribers</p>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="showTab('overview')">
+                <i class="fas fa-chart-line"></i> Overview
+            </button>
+            <button class="admin-tab" onclick="showTab('contacts')">
+                <i class="fas fa-envelope"></i> Contacts <span class="badge" id="contactsBadge">0</span>
+            </button>
+            <button class="admin-tab" onclick="showTab('businesses')">
+                <i class="fas fa-building"></i> Businesses <span class="badge" id="businessesBadge">0</span>
+            </button>
+            <button class="admin-tab" onclick="showTab('reviews')">
+                <i class="fas fa-star"></i> Reviews <span class="badge" id="reviewsBadge">0</span>
+            </button>
+            <button class="admin-tab" onclick="showTab('newsletter')">
+                <i class="fas fa-newspaper"></i> Newsletter <span class="badge" id="newsletterBadge">0</span>
+            </button>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overviewSection" class="admin-section">
+            <h2><i class="fas fa-chart-line"></i> Analytics Overview</h2>
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3><i class="fas fa-trophy"></i> Top Rated Businesses</h3>
+                    <div class="top-businesses" id="topBusinesses"></div>
+                </div>
+                <div class="analytics-card">
+                    <h3><i class="fas fa-chart-pie"></i> Businesses by Type</h3>
+                    <div id="businessTypeChart" class="chart-placeholder">
+                        Loading chart data...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div id="contactsSection" class="admin-section" style="display: none;">
+            <h2>
+                <i class="fas fa-envelope"></i> Contact Form Submissions
+                <button class="btn-delete" style="margin-left: auto;" onclick="deleteAllContacts()" id="deleteAllContactsBtn">
+                    <i class="fas fa-trash"></i> Delete All Read
+                </button>
+            </h2>
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="contactSearch" placeholder="Search contacts..." oninput="filterContacts()">
+                </div>
+                <select class="filter-select" id="contactFilter" onchange="filterContacts()">
+                    <option value="all">All Messages</option>
+                    <option value="unread">Unread Only</option>
+                    <option value="read">Read Only</option>
+                </select>
+            </div>
+            <div class="contact-list" id="contactList">
+                <div class="no-data">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top: 15px;">Loading messages...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Businesses Section -->
+        <div id="businessesSection" class="admin-section" style="display: none;">
+            <h2>
+                <i class="fas fa-building"></i> All Registered Businesses
+            </h2>
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="businessSearch" placeholder="Search businesses..." oninput="filterBusinesses()">
+                </div>
+                <select class="filter-select" id="businessTypeFilter" onchange="filterBusinesses()">
+                    <option value="all">All Types</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="attraction">Attraction</option>
+                    <option value="transport">Transport</option>
+                    <option value="shop">Shop</option>
+                    <option value="spa">Spa</option>
+                    <option value="adventure">Adventure</option>
+                </select>
+                <select class="filter-select" id="businessCityFilter" onchange="filterBusinesses()">
+                    <option value="all">All Cities</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Negombo">Negombo</option>
+                    <option value="Mirissa">Mirissa</option>
+                    <option value="Ella">Ella</option>
+                    <option value="Sigiriya">Sigiriya</option>
+                </select>
+            </div>
+            <div class="business-list" id="businessList">
+                <div class="no-data">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top: 15px;">Loading businesses...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div id="reviewsSection" class="admin-section" style="display: none;">
+            <h2>
+                <i class="fas fa-star"></i> All Reviews Across Businesses
+            </h2>
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()">
+                </div>
+                <select class="filter-select" id="reviewRatingFilter" onchange="filterReviews()">
+                    <option value="all">All Ratings</option>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                </select>
+            </div>
+            <div class="reviews-list" id="reviewsList">
+                <div class="no-data">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top: 15px;">Loading reviews...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div id="newsletterSection" class="admin-section" style="display: none;">
+            <h2>
+                <i class="fas fa-newspaper"></i> Newsletter Subscribers
+                <button class="export-btn" style="margin-left: auto; padding: 8px 16px; font-size: 0.85rem;" onclick="exportNewsletter()">
+                    <i class="fas fa-download"></i> Export Emails
+                </button>
+            </h2>
+            <p style="color: #666; margin-bottom: 20px;">All subscribers who signed up for the newsletter</p>
+            <div class="contact-list" id="newsletterList">
+                <div class="no-data">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top: 15px;">Loading subscribers...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Business Modal -->
+    <div class="modal" id="editBusinessModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeEditModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-edit"></i> Edit Business</h2>
+            <form class="modal-form" id="editBusinessForm">
+                <input type="hidden" id="editBusinessId">
+                <div>
+                    <label>Business Name</label>
+                    <input type="text" id="editBusinessName" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>Type</label>
+                        <select id="editBusinessType">
+                            <option value="hotel">Hotel / Resort</option>
+                            <option value="restaurant">Restaurant / Cafe</option>
+                            <option value="attraction">Attraction / Tour</option>
+                            <option value="transport">Transport</option>
+                            <option value="shop">Travel Shop</option>
+                            <option value="spa">Spa & Wellness</option>
+                            <option value="adventure">Adventure</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>City</label>
+                        <select id="editBusinessCity">
+                            <option value="">Select city</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Negombo">Negombo</option>
+                            <option value="Bentota">Bentota</option>
+                            <option value="Mirissa">Mirissa</option>
+                            <option value="Ella">Ella</option>
+                            <option value="Sigiriya">Sigiriya</option>
+                            <option value="Dambulla">Dambulla</option>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>Phone</label>
+                        <input type="text" id="editBusinessPhone">
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="editBusinessEmail">
+                    </div>
+                </div>
+                <div>
+                    <label>Address</label>
+                    <input type="text" id="editBusinessAddress">
+                </div>
+                <div>
+                    <label>Description</label>
+                    <textarea id="editBusinessDescription" rows="3"></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>Views</label>
+                        <input type="number" id="editBusinessViews">
+                    </div>
+                    <div>
+                        <label>Rating</label>
+                        <input type="number" id="editBusinessRating" step="0.1" min="0" max="5">
+                    </div>
+                    <div>
+                        <label>Review Count</label>
+                        <input type="number" id="editBusinessReviewCount">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signOut, browserSessionPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, deleteDoc, doc, updateDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6-VDRe0UMkCW5F7n6HcBNW_X3MZHxz8Y",
+            authDomain: "visit-sri-lanka-df4d8.firebaseapp.com",
+            projectId: "visit-sri-lanka-df4d8",
+            messagingSenderId: "107140804406",
+            appId: "1:107140804406:web:a888eca0ce422f2f82cd97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        setPersistence(auth, browserSessionPersistence);
+
+        const ADMIN_EMAIL = 'connect.abdulr@gmail.com';
+
+        let allBusinesses = [];
+        let allContacts = [];
+        let allReviews = [];
+        let allNewsletter = [];
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 4000);
+        }
+
+        function hideLoadingOverlay() {
+            document.getElementById('authLoading').classList.add('hidden');
+        }
+
+        window.logout = async function() {
+            if (confirm('Are you sure you want to logout?')) {
+                await signOut(auth);
+                window.location.href = 'admin.html';
+            }
+        };
+
+        window.showTab = function(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            event.target.closest('.admin-tab').classList.add('active');
+            
+            document.querySelectorAll('.admin-section').forEach(s => s.style.display = 'none');
+            
+            if (tab === 'overview') document.getElementById('overviewSection').style.display = 'block';
+            else if (tab === 'contacts') document.getElementById('contactsSection').style.display = 'block';
+            else if (tab === 'businesses') document.getElementById('businessesSection').style.display = 'block';
+            else if (tab === 'reviews') document.getElementById('reviewsSection').style.display = 'block';
+            else if (tab === 'newsletter') document.getElementById('newsletterSection').style.display = 'block';
+        };
+
+        function renderStars(rating) {
+            const r = Math.round(rating);
+            return '★'.repeat(r) + '☆'.repeat(5 - r);
+        }
+
+        function filterContacts() {
+            const search = document.getElementById('contactSearch').value.toLowerCase();
+            const filter = document.getElementById('contactFilter').value;
+            
+            let filtered = allContacts.filter(c => {
+                const matchSearch = !search || 
+                    c.name?.toLowerCase().includes(search) ||
+                    c.email?.toLowerCase().includes(search) ||
+                    c.message?.toLowerCase().includes(search);
+                const matchFilter = filter === 'all' || 
+                    (filter === 'unread' && !c.read) ||
+                    (filter === 'read' && c.read);
+                return matchSearch && matchFilter;
+            });
+            
+            renderContacts(filtered);
+        }
+
+        function renderContacts(contacts = allContacts) {
+            const list = document.getElementById('contactList');
+            
+            if (contacts.length === 0) {
+                list.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No messages found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = contacts.map(c => `
+                <div class="contact-card ${c.read ? '' : 'unread'}">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">${c.name || 'Unknown'}</div>
+                            <div class="contact-email">
+                                <a href="mailto:${c.email}"><i class="fas fa-envelope"></i> ${c.email || 'N/A'}</a>
+                                ${c.phone ? `<span style="margin-left: 15px;"><i class="fas fa-phone"></i> ${c.phone}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="contact-date">${new Date(c.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+                    </div>
+                    <div class="contact-subject">${c.subject || 'No subject'}</div>
+                    <div class="contact-message">${c.message || ''}</div>
+                    <div class="contact-actions">
+                        ${!c.read ? `<button class="btn-read" onclick="markAsRead('${c.id}')"><i class="fas fa-check"></i> Mark Read</button>` : ''}
+                        <button class="btn-edit" onclick="replyToContact('${c.email}', '${c.subject || ''}')"><i class="fas fa-reply"></i> Reply</button>
+                        <button class="btn-delete" onclick="deleteContact('${c.id}')"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterBusinesses() {
+            const search = document.getElementById('businessSearch').value.toLowerCase();
+            const typeFilter = document.getElementById('businessTypeFilter').value;
+            const cityFilter = document.getElementById('businessCityFilter').value;
+            
+            let filtered = allBusinesses.filter(b => {
+                const matchSearch = !search || 
+                    b.business?.toLowerCase().includes(search) ||
+                    b.name?.toLowerCase().includes(search) ||
+                    b.email?.toLowerCase().includes(search) ||
+                    b.city?.toLowerCase().includes(search);
+                const matchType = typeFilter === 'all' || b.businessType === typeFilter;
+                const matchCity = cityFilter === 'all' || b.city === cityFilter;
+                return matchSearch && matchType && matchCity;
+            });
+            
+            renderBusinesses(filtered);
+        }
+
+        function renderBusinesses(businesses = allBusinesses) {
+            const list = document.getElementById('businessList');
+            
+            if (businesses.length === 0) {
+                list.innerHTML = `
+                    <div class="no-data" style="grid-column: 1/-1;">
+                        <i class="fas fa-building"></i>
+                        <h3>No businesses found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const typeLabels = {
+                hotel: 'Hotel',
+                restaurant: 'Restaurant',
+                attraction: 'Attraction',
+                transport: 'Transport',
+                shop: 'Shop',
+                spa: 'Spa',
+                adventure: 'Adventure'
+            };
+            
+            list.innerHTML = businesses.map(b => `
+                <div class="business-admin-card">
+                    <div class="business-admin-header">
+                        <div class="business-admin-name">${b.business || 'Unnamed'}</div>
+                        <div class="business-admin-type">${typeLabels[b.businessType] || b.businessType || 'Business'}</div>
+                    </div>
+                    <div class="business-admin-meta">
+                        <div><i class="fas fa-user"></i> ${b.name || 'N/A'}</div>
+                        <div><i class="fas fa-envelope"></i> ${b.email || 'N/A'}</div>
+                        <div><i class="fas fa-map-marker-alt"></i> ${b.city || 'N/A'}</div>
+                        <div><i class="fas fa-phone"></i> ${b.phone || 'N/A'}</div>
+                    </div>
+                    <div class="business-admin-stats">
+                        <div class="business-stat">
+                            <div class="business-stat-value">${b.views || 0}</div>
+                            <div class="business-stat-label">Views</div>
+                        </div>
+                        <div class="business-stat">
+                            <div class="business-stat-value">${(b.rating || 0).toFixed(1)}</div>
+                            <div class="business-stat-label">Rating</div>
+                        </div>
+                        <div class="business-stat">
+                            <div class="business-stat-value">${(b.reviews || []).length}</div>
+                            <div class="business-stat-label">Reviews</div>
+                        </div>
+                        <div class="business-stat">
+                            <div class="business-stat-value">${(b.photos || []).length}</div>
+                            <div class="business-stat-label">Photos</div>
+                        </div>
+                    </div>
+                    <div class="business-admin-actions">
+                        <button class="btn-sm btn-view" onclick="viewBusiness('${b.id}')"><i class="fas fa-eye"></i> View</button>
+                        <button class="btn-sm btn-edit" onclick="editBusiness('${b.id}')"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-sm btn-delete" onclick="deleteBusiness('${b.id}')"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterReviews() {
+            const search = document.getElementById('reviewSearch').value.toLowerCase();
+            const ratingFilter = document.getElementById('reviewRatingFilter').value;
+            
+            let filtered = allReviews.filter(r => {
+                const matchSearch = !search || 
+                    r.author?.toLowerCase().includes(search) ||
+                    r.text?.toLowerCase().includes(search) ||
+                    r.businessName?.toLowerCase().includes(search);
+                const matchRating = ratingFilter === 'all' || r.rating === parseInt(ratingFilter);
+                return matchSearch && matchRating;
+            });
+            
+            renderReviews(filtered);
+        }
+
+        function renderReviews(reviews = allReviews) {
+            const list = document.getElementById('reviewsList');
+            
+            if (reviews.length === 0) {
+                list.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-star"></i>
+                        <h3>No reviews found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = reviews.map(r => `
+                <div class="review-card">
+                    <div class="review-business"><i class="fas fa-building"></i> ${r.businessName || 'Unknown Business'}</div>
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">${r.author || 'Anonymous'}</div>
+                            <div class="review-email"><i class="fas fa-envelope"></i> ${r.email || 'N/A'}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="review-stars">${renderStars(r.rating)}</div>
+                            <div class="review-date">${r.date || ''}</div>
+                        </div>
+                    </div>
+                    <div class="review-text">${r.text || ''}</div>
+                    <div class="review-actions">
+                        <button class="btn-sm btn-delete" onclick="deleteReview('${r.businessId}', '${r.index}')"><i class="fas fa-trash"></i> Delete Review</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderOverview() {
+            // Top businesses
+            const topBusinesses = [...allBusinesses]
+                .filter(b => b.rating > 0)
+                .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+                .slice(0, 5);
+            
+            const topList = document.getElementById('topBusinesses');
+            if (topBusinesses.length === 0) {
+                topList.innerHTML = '<p style="color: #999; text-align: center;">No rated businesses yet</p>';
+            } else {
+                topList.innerHTML = topBusinesses.map((b, i) => `
+                    <div class="top-business-item">
+                        <span class="rank">#${i + 1}</span>
+                        <span class="name">${b.business || 'Unnamed'}</span>
+                        <span class="rating">${renderStars(b.rating)} ${(b.rating || 0).toFixed(1)}</span>
+                    </div>
+                `).join('');
+            }
+            
+            // Business types
+            const typeCounts = {};
+            allBusinesses.forEach(b => {
+                const type = b.businessType || 'other';
+                typeCounts[type] = (typeCounts[type] || 0) + 1;
+            });
+            
+            const typeChart = document.getElementById('businessTypeChart');
+            typeChart.innerHTML = Object.entries(typeCounts).map(([type, count]) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                    <span style="text-transform: capitalize;">${type}</span>
+                    <span style="font-weight: 600;">${count}</span>
+                </div>
+            `).join('');
+        }
+
+        window.markAsRead = async function(id) {
+            try {
+                await updateDoc(doc(db, 'contacts', id), { read: true });
+                const index = allContacts.findIndex(c => c.id === id);
+                if (index !== -1) allContacts[index].read = true;
+                updateStats();
+                filterContacts();
+                showNotification('Marked as read', 'success');
+            } catch (error) {
+                showNotification('Failed to update', 'error');
+            }
+        };
+
+        window.deleteContact = async function(id) {
+            if (!confirm('Delete this message?')) return;
+            try {
+                await deleteDoc(doc(db, 'contacts', id));
+                allContacts = allContacts.filter(c => c.id !== id);
+                updateStats();
+                filterContacts();
+                showNotification('Message deleted', 'success');
+            } catch (error) {
+                showNotification('Failed to delete', 'error');
+            }
+        };
+
+        window.deleteAllContacts = async function() {
+            if (!confirm('Delete all read messages?')) return;
+            try {
+                const readContacts = allContacts.filter(c => c.read);
+                for (const c of readContacts) {
+                    await deleteDoc(doc(db, 'contacts', c.id));
+                }
+                allContacts = allContacts.filter(c => !c.read);
+                updateStats();
+                filterContacts();
+                showNotification('Read messages deleted', 'success');
+            } catch (error) {
+                showNotification('Failed to delete', 'error');
+            }
+        };
+
+        window.replyToContact = function(email, subject) {
+            window.open(`mailto:${email}?subject=Re: ${subject}`, '_blank');
+        };
+
+        window.viewBusiness = function(id) {
+            window.open(`businesses.html?view=${id}`, '_blank');
+        };
+
+        window.editBusiness = function(id) {
+            const business = allBusinesses.find(b => b.id === id);
+            if (!business) return;
+            
+            document.getElementById('editBusinessId').value = id;
+            document.getElementById('editBusinessName').value = business.business || '';
+            document.getElementById('editBusinessType').value = business.businessType || 'hotel';
+            document.getElementById('editBusinessCity').value = business.city || '';
+            document.getElementById('editBusinessPhone').value = business.phone || '';
+            document.getElementById('editBusinessEmail').value = business.email || '';
+            document.getElementById('editBusinessAddress').value = business.address || '';
+            document.getElementById('editBusinessDescription').value = business.description || '';
+            document.getElementById('editBusinessViews').value = business.views || 0;
+            document.getElementById('editBusinessRating').value = (business.rating || 0).toFixed(1);
+            document.getElementById('editBusinessReviewCount').value = business.ratingCount || 0;
+            
+            document.getElementById('editBusinessModal').classList.add('active');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('editBusinessModal').classList.remove('active');
+        };
+
+        window.deleteBusiness = async function(id) {
+            const business = allBusinesses.find(b => b.id === id);
+            if (!confirm(`Delete "${business?.business || 'this business'}"? This cannot be undone.`)) return;
+            
+            try {
+                await deleteDoc(doc(db, 'partners', id));
+                allBusinesses = allBusinesses.filter(b => b.id !== id);
+                updateStats();
+                filterBusinesses();
+                showNotification('Business deleted', 'success');
+            } catch (error) {
+                showNotification('Failed to delete business', 'error');
+            }
+        };
+
+        window.deleteReview = async function(businessId, reviewIndex) {
+            if (!confirm('Delete this review?')) return;
+            
+            try {
+                const business = allBusinesses.find(b => b.id === businessId);
+                if (!business) return;
+                
+                const reviews = [...(business.reviews || [])];
+                reviews.splice(parseInt(reviewIndex), 1);
+                
+                const newRating = reviews.length > 0 
+                    ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length 
+                    : 0;
+                
+                await updateDoc(doc(db, 'partners', businessId), {
+                    reviews: reviews,
+                    rating: newRating,
+                    ratingCount: reviews.length
+                });
+                
+                business.reviews = reviews;
+                business.rating = newRating;
+                business.ratingCount = reviews.length;
+                
+                extractAllReviews();
+                updateStats();
+                filterReviews();
+                renderBusinesses();
+                showNotification('Review deleted', 'success');
+            } catch (error) {
+                showNotification('Failed to delete review', 'error');
+            }
+        };
+
+        function extractAllReviews() {
+            allReviews = [];
+            allBusinesses.forEach(b => {
+                (b.reviews || []).forEach((r, i) => {
+                    allReviews.push({ ...r, businessId: b.id, businessName: b.business, index: i });
+                });
+            });
+            allReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function updateStats() {
+            document.getElementById('totalBusinesses').textContent = allBusinesses.length;
+            
+            let totalPhotos = 0;
+            allBusinesses.forEach(b => totalPhotos += (b.photos || []).length);
+            document.getElementById('totalPhotos').textContent = totalPhotos;
+            
+            document.getElementById('totalContacts').textContent = allContacts.length;
+            const unread = allContacts.filter(c => !c.read).length;
+            document.getElementById('unreadContacts').textContent = unread;
+            document.getElementById('contactsBadge').textContent = unread > 0 ? unread : '';
+            
+            extractAllReviews();
+            document.getElementById('totalReviews').textContent = allReviews.length;
+            document.getElementById('reviewsBadge').textContent = allReviews.length;
+            
+            let totalRating = 0;
+            let ratedBusinesses = 0;
+            allBusinesses.forEach(b => {
+                if (b.rating > 0) {
+                    totalRating += b.rating;
+                    ratedBusinesses++;
+                }
+            });
+            document.getElementById('avgRating').textContent = ratedBusinesses > 0 ? (totalRating / ratedBusinesses).toFixed(1) : '0.0';
+            
+            document.getElementById('businessesBadge').textContent = allBusinesses.length;
+            
+            document.getElementById('totalNewsletter').textContent = allNewsletter.length;
+            document.getElementById('newsletterBadge').textContent = allNewsletter.length;
+            
+            renderOverview();
+        }
+
+        function renderNewsletter() {
+            const list = document.getElementById('newsletterList');
+            
+            if (allNewsletter.length === 0) {
+                list.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>No subscribers yet</h3>
+                        <p>Newsletter signups will appear here</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = allNewsletter.map((s, i) => `
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name"><i class="fas fa-user"></i> Subscriber #${i + 1}</div>
+                            <div class="contact-email">
+                                <a href="mailto:${s.email}"><i class="fas fa-envelope"></i> ${s.email}</a>
+                            </div>
+                        </div>
+                        <div class="contact-date">${new Date(s.subscribedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+                    </div>
+                    <div class="contact-actions">
+                        <button class="btn-view" onclick="window.open('mailto:${s.email}', '_blank')"><i class="fas fa-envelope"></i> Send Email</button>
+                        <button class="btn-delete" onclick="deleteNewsletter('${s.id}')"><i class="fas fa-trash"></i> Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.deleteNewsletter = async function(id) {
+            if (!confirm('Remove this subscriber?')) return;
+            try {
+                await deleteDoc(doc(db, 'newsletter', id));
+                allNewsletter = allNewsletter.filter(s => s.id !== id);
+                renderNewsletter();
+                updateStats();
+                showNotification('Subscriber removed', 'success');
+            } catch (error) {
+                showNotification('Failed to remove subscriber', 'error');
+            }
+        };
+
+        window.exportNewsletter = function() {
+            const emails = allNewsletter.map(s => s.email).join('\n');
+            const blob = new Blob([emails], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `newsletter-emails-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Emails exported', 'success');
+        };
+
+        window.exportData = function() {
+            const data = {
+                exportDate: new Date().toISOString(),
+                businesses: allBusinesses.map(b => ({
+                    name: b.business,
+                    type: b.businessType,
+                    city: b.city,
+                    email: b.email,
+                    phone: b.phone,
+                    rating: b.rating,
+                    reviews: b.reviews?.length || 0,
+                    photos: b.photos?.length || 0,
+                    views: b.views || 0
+                })),
+                contacts: allContacts.map(c => ({
+                    name: c.name,
+                    email: c.email,
+                    subject: c.subject,
+                    message: c.message,
+                    date: c.createdAt
+                })),
+                stats: {
+                    totalBusinesses: allBusinesses.length,
+                    totalContacts: allContacts.length,
+                    totalReviews: allReviews.length,
+                    unreadContacts: allContacts.filter(c => !c.read).length
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `admin-export-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Data exported successfully', 'success');
+        };
+
+        async function loadData() {
+            try {
+                const businessSnapshot = await getDocs(collection(db, 'partners'));
+                allBusinesses = businessSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                const contactSnapshot = await getDocs(collection(db, 'contacts'));
+                allContacts = contactSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                allContacts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                
+                const newsletterSnapshot = await getDocs(collection(db, 'newsletter'));
+                allNewsletter = newsletterSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                allNewsletter.sort((a, b) => new Date(b.subscribedAt) - new Date(a.subscribedAt));
+                
+                updateStats();
+                filterContacts();
+                filterBusinesses();
+                filterReviews();
+                renderNewsletter();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showNotification('Failed to load data', 'error');
+            }
+        }
+
+        // Edit form submit
+        document.getElementById('editBusinessForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('editBusinessId').value;
+            const updates = {
+                business: document.getElementById('editBusinessName').value,
+                businessType: document.getElementById('editBusinessType').value,
+                city: document.getElementById('editBusinessCity').value,
+                phone: document.getElementById('editBusinessPhone').value,
+                email: document.getElementById('editBusinessEmail').value,
+                address: document.getElementById('editBusinessAddress').value,
+                description: document.getElementById('editBusinessDescription').value,
+                views: parseInt(document.getElementById('editBusinessViews').value) || 0,
+                rating: parseFloat(document.getElementById('editBusinessRating').value) || 0,
+                ratingCount: parseInt(document.getElementById('editBusinessReviewCount').value) || 0
+            };
+            
+            try {
+                await updateDoc(doc(db, 'partners', id), updates);
+                
+                const index = allBusinesses.findIndex(b => b.id === id);
+                if (index !== -1) {
+                    allBusinesses[index] = { ...allBusinesses[index], ...updates };
+                }
+                
+                closeEditModal();
+                filterBusinesses();
+                updateStats();
+                showNotification('Business updated successfully', 'success');
+            } catch (error) {
+                showNotification('Failed to update business', 'error');
+            }
+        });
+
+        // Close modal on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Auth check
+        async function checkAuth() {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            const user = auth.currentUser;
+            
+            if (!user || user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+                window.location.href = 'admin.html';
+                return;
+            }
+            
+            document.getElementById('adminEmail').textContent = user.email;
+            hideLoadingOverlay();
+            loadData();
+        }
+
+        checkAuth();
+    </script>
+</body>
+</html>

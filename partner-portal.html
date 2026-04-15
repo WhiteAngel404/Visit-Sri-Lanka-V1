@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Partner Portal - Visit Sri Lanka">
+    <title>Partner Portal - Visit Sri Lanka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+        }
+        
+        .auth-page {
+            min-height: 100vh;
+            padding: 100px 20px 60px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .auth-card h1 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .auth-card .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #888;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .auth-tab:hover { color: #2e7d32; }
+        .auth-tab.active { color: #2e7d32; border-bottom-color: #2e7d32; }
+
+        .form-grid { display: flex; flex-direction: column; gap: 18px; }
+
+        .form-field { display: flex; flex-direction: column; }
+        .form-field label { font-weight: 500; margin-bottom: 8px; color: #333; font-size: 0.9rem; }
+        .form-field label span { color: #e53935; }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+        .btn-auth {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(46, 125, 50, 0.35); }
+        .btn-auth:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .notification {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .notification.success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .notification.error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            text-decoration: none;
+        }
+        .back-link:hover { color: #2e7d32; }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .auth-loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(46, 125, 50, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            z-index: 9999;
+        }
+        .auth-loading-overlay.hidden {
+            display: none;
+        }
+        .auth-loading-overlay i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-loading-overlay hidden" id="authLoading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading...</p>
+    </div>
+    
+    <nav class="navbar" style="background: #2e7d32;">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: white;">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1><i class="fas fa-store"></i> Partner Portal</h1>
+            <p class="subtitle">Join Sri Lanka's leading business network</p>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Register</div>
+            </div>
+
+            <div id="notification" class="notification"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="partner@example.com" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-auth" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;">
+                <div class="form-grid">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Your Name <span>*</span></label>
+                            <input type="text" id="regName" placeholder="Full name" required>
+                        </div>
+                        <div class="form-field">
+                            <label>Business Name <span>*</span></label>
+                            <input type="text" id="regBusiness" placeholder="Business name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Business Type <span>*</span></label>
+                            <select id="regType" required>
+                                <option value="">Select type</option>
+                                <option value="hotel">Hotel / Resort</option>
+                                <option value="restaurant">Restaurant / Cafe</option>
+                                <option value="attraction">Attraction / Tour</option>
+                                <option value="transport">Transport</option>
+                                <option value="shop">Travel Shop</option>
+                                <option value="spa">Spa & Wellness</option>
+                                <option value="adventure">Adventure</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Phone <span>*</span></label>
+                            <input type="tel" id="regPhone" placeholder="+94 XX XXX XXXX" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Email Address <span>*</span></label>
+                        <input type="email" id="regEmail" placeholder="partner@example.com" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Password <span>*</span></label>
+                            <input type="password" id="regPassword" placeholder="Min 6 characters" required minlength="6">
+                        </div>
+                        <div class="form-field">
+                            <label>Confirm Password <span>*</span></label>
+                            <input type="password" id="regConfirm" placeholder="Confirm password" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-auth" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Website
+            </a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, browserSessionPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6-VDRe0UMkCW5F7n6HcBNW_X3MZHxz8Y",
+            authDomain: "visit-sri-lanka-df4d8.firebaseapp.com",
+            projectId: "visit-sri-lanka-df4d8",
+            messagingSenderId: "107140804406",
+            appId: "1:107140804406:web:a888eca0ce422f2f82cd97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        // Set session persistence (only for this browser session)
+        setPersistence(auth, browserSessionPersistence);
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.style.display = 'block';
+        }
+
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('authLoading');
+            if (overlay) overlay.classList.add('hidden');
+        }
+
+        // Use synchronous check + setTimeout approach
+        async function checkAuth() {
+            let user = auth.currentUser;
+            
+            if (user) {
+                hideLoadingOverlay();
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
+            // Wait for Firebase to restore session
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            user = auth.currentUser;
+            
+            if (user) {
+                window.location.href = 'dashboard.html';
+            } else {
+                hideLoadingOverlay();
+            }
+        }
+
+        // Start auth check
+        checkAuth();
+
+        // Tab switching
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const tabName = this.dataset.tab;
+                document.getElementById('loginForm').style.display = tabName === 'login' ? 'block' : 'none';
+                document.getElementById('registerForm').style.display = tabName === 'register' ? 'block' : 'none';
+                document.getElementById('notification').style.display = 'none';
+            });
+        });
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="loading"></span> Logging in...';
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log('Login successful, user:', userCredential.user.email);
+                showNotification('Login successful! Redirecting...', 'success');
+                
+                // Wait for Firebase to fully persist the session
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                console.log('Redirecting to dashboard...');
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error('Login error:', error);
+                const errorMessages = {
+                    'auth/user-not-found': 'No account found with this email.',
+                    'auth/wrong-password': 'Incorrect password.',
+                    'auth/invalid-credential': 'Invalid email or password.'
+                };
+                showNotification(errorMessages[error.code] || 'Login failed.', 'error');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        });
+
+        // Register
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const business = document.getElementById('regBusiness').value.trim();
+            const businessType = document.getElementById('regType').value;
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirm').value;
+            const registerBtn = document.getElementById('registerBtn');
+
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters', 'error');
+                return;
+            }
+            if (password !== confirm) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="loading"></span> Creating account...';
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const userId = userCredential.user.uid;
+                
+                // Save to Firestore
+                const userData = {
+                    uid: userId,
+                    name: name,
+                    business: business,
+                    businessType: businessType,
+                    phone: phone,
+                    email: email,
+                    photos: [],
+                    reviews: [],
+                    rating: 0,
+                    ratingCount: 0,
+                    views: 0,
+                    createdAt: new Date().toISOString()
+                };
+                
+                await setDoc(doc(db, 'partners', userId), userData);
+                
+                showNotification('Account created! Redirecting...', 'success');
+                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+            } catch (error) {
+                const errorMessages = {
+                    'auth/email-already-in-use': 'An account with this email already exists.',
+                    'auth/invalid-email': 'Invalid email address.'
+                };
+                showNotification(errorMessages[error.code] || 'Registration failed.', 'error');
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
+        });
+    </script>
+</body>
+</html>

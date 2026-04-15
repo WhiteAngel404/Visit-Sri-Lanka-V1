@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Sri Lanka's amazing attractions - 8 UNESCO World Heritage Sites, beautiful beaches, national parks, waterfalls, temples and adventure activities.">
+    <meta name="keywords" content="Sri Lanka attractions, UNESCO sites, national parks, beaches, waterfalls, temples, wildlife, safari">
+    <title>Sri Lanka Attractions - Complete Travel Guide</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .attraction-section {
+            padding: 60px 0;
+        }
+        .attraction-section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .attraction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .attraction-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .attraction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .attraction-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        .attraction-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .attraction-card:hover .attraction-image img {
+            transform: scale(1.1);
+        }
+        .attraction-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .attraction-badge.unesco {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .attraction-badge.nature {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .attraction-badge.beach {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .attraction-badge.adventure {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .attraction-badge.temple {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+        .attraction-badge.waterfall {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        .attraction-content {
+            padding: 20px;
+        }
+        .attraction-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .attraction-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .attraction-location i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        .attraction-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .attraction-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .attraction-meta span {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .attraction-meta i {
+            color: var(--primary-color);
+            margin-right: 4px;
+        }
+        .attraction-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .attraction-highlights span {
+            background: var(--bg-light);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .filter-tab {
+            padding: 12px 25px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .hero-banner {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?w=1920');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+        .hero-banner h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .hero-banner p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            margin: -40px auto 40px;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        .quick-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .quick-nav a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .stat-card .number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .stat-card .label {
+            color: #666;
+            margin-top: 5px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .view-all-btn {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .view-all-btn .btn {
+            padding: 12px 30px;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+        .timeline-year {
+            min-width: 80px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .timeline-content h4 {
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+            .quick-nav {
+                margin: -30px 15px 30px;
+            }
+            .attraction-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo" style="color: var(--primary-color);">
+                    <i class="fas fa-leaf"></i>
+                    <span>VisitSriLanka</span>
+                </a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="attractions.html" class="active">Attractions</a></li>
+                    <li><a href="tours.html">Tour Packages</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <h1>Sri Lanka Attractions</h1>
+            <p>Discover ancient ruins, pristine beaches, wildlife safaris, and natural wonders</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="container">
+        <div class="stats-grid" style="margin-top: -30px;">
+            <div class="stat-card">
+                <div class="number">8</div>
+                <div class="label">UNESCO World Heritage Sites</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">26</div>
+                <div class="label">National Parks</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">30+</div>
+                <div class="label">Beautiful Beaches</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">1,340km</div>
+                <div class="label">Coastline</div>
+            </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="quick-nav">
+            <a href="#unesco"><i class="fas fa-landmark"></i> UNESCO Sites</a>
+            <a href="#national-parks"><i class="fas fa-tree"></i> National Parks</a>
+            <a href="#beaches"><i class="fas fa-umbrella-beach"></i> Beaches</a>
+            <a href="#waterfalls"><i class="fas fa-water"></i> Waterfalls</a>
+            <a href="#temples"><i class="fas fa-place-of-worship"></i> Temples</a>
+            <a href="#activities"><i class="fas fa-hiking"></i> Activities</a>
+        </div>
+    </div>
+
+    <!-- UNESCO World Heritage Sites -->
+    <section class="attraction-section" id="unesco">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-landmark"></i> UNESCO World Heritage Sites</h2>
+                <p>Sri Lanka boasts 8 UNESCO World Heritage Sites - 6 cultural and 2 natural</p>
+            </div>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?w=800" alt="Sigiriya Rock Fortress">
+                        <div class="attraction-badge unesco">UNESCO 1982</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ancient City of Sigiriya</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Central Province</p>
+                        <p>A 5th-century rock fortress rising 200m above the plains. Features remarkable frescoes, water gardens, and the famous Lion's Paws entrance.</p>
+                        <div class="attraction-highlights">
+                            <span>Lion Rock</span>
+                            <span>Frescoes</span>
+                            <span>Water Gardens</span>
+                            <span>Mirror Wall</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $30 USD</span>
+                            <span><i class="fas fa-clock"></i> 3-4 hours</span>
+                            <span><i class="fas fa-calendar"></i> June-March</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1604922824961-87cefb9e6b4b?w=800" alt="Anuradhapura">
+                        <div class="attraction-badge unesco">UNESCO 1982</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Sacred City of Anuradhapura</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> North Central Province</p>
+                        <p>First ancient capital with the world's oldest historically authenticated tree (Sri Maha Bodhi) and massive dagobas dating to 4th century BC.</p>
+                        <div class="attraction-highlights">
+                            <span>Sri Maha Bodhi</span>
+                            <span>Ruwanwelisaya</span>
+                            <span>Jetavanaramaya</span>
+                            <span>Abhayagiri</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-history"></i> 4th Century BC</span>
+                            <span><i class="fas fa-clock"></i> 1-2 days</span>
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1569515371421-e9e6f0f74e0b?w=800" alt="Polonnaruwa">
+                        <div class="attraction-badge unesco">UNESCO 1982</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ancient City of Polonnaruwa</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> North Central Province</p>
+                        <p>Second oldest kingdom with remarkable Gal Vihara Buddha statues, royal palaces, and Parakrama Samudra lake.</p>
+                        <div class="attraction-highlights">
+                            <span>Gal Vihara</span>
+                            <span>Royal Palace</span>
+                            <span>Parakrama Samudra</span>
+                            <span>Lankatilaka</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $25 USD</span>
+                            <span><i class="fas fa-clock"></i> Half day</span>
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800" alt="Dambulla Cave Temple">
+                        <div class="attraction-badge unesco">UNESCO 1991</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Rangiri Dambulla Cave Temple</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Central Province</p>
+                        <p>Largest cave temple complex in Sri Lanka with over 150 Buddha statues and stunning wall paintings spanning 2,000 years.</p>
+                        <div class="attraction-highlights">
+                            <span>5 Caves</span>
+                            <span>150+ Statues</span>
+                            <span>2,100m² Paintings</span>
+                            <span>Golden Temple</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $15 USD</span>
+                            <span><i class="fas fa-clock"></i> 1-2 hours</span>
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1586613835341-ab702353ca87?w=800" alt="Kandy Temple of Tooth">
+                        <div class="attraction-badge unesco">UNESCO 1988</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Sacred City of Kandy</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Central Province</p>
+                        <p>Last ancient capital home to the Temple of the Sacred Tooth Relic, one of Buddhism's most sacred shrines.</p>
+                        <div class="attraction-highlights">
+                            <span>Temple of Tooth</span>
+                            <span>Kandy Lake</span>
+                            <span>Peradeniya Gardens</span>
+                            <span>Esala Perahera</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-train"></i> 3hrs from Colombo</span>
+                            <span><i class="fas fa-clock"></i> 2-3 days</span>
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="Galle Fort">
+                        <div class="attraction-badge unesco">UNESCO 1988</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Old Town of Galle</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Southern Province</p>
+                        <p>Best-preserved colonial sea fortress in South Asia, built by Portuguese in 1588 with Dutch influences.</p>
+                        <div class="attraction-highlights">
+                            <span>Galle Fort</span>
+                            <span>Dutch Church</span>
+                            <span>Cricket Ground</span>
+                            <span>Unawatuna</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-train"></i> 2hrs from Colombo</span>
+                            <span><i class="fas fa-clock"></i> 1-2 days</span>
+                            <span><i class="fas fa-calendar"></i> Nov-April</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1587015990127-424b954e38b5?w=800" alt="Sinharaja Rainforest">
+                        <div class="attraction-badge nature">UNESCO Natural</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Sinharaja Forest Reserve</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Southwest Sri Lanka</p>
+                        <p>Sri Lanka's last viable area of primary tropical rainforest. Home to endemic wildlife found nowhere else on Earth.</p>
+                        <div class="attraction-highlights">
+                            <span>Endemic Birds</span>
+                            <span>Leopard</span>
+                            <span>Giant Squirrel</span>
+                            <span>Trekking</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> LKR 2,000</span>
+                            <span><i class="fas fa-clock"></i> Full day</span>
+                            <span><i class="fas fa-calendar"></i> Jan-March</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Central Highlands">
+                        <div class="attraction-badge nature">UNESCO Natural</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Central Highlands</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Central Province</p>
+                        <p>Encompasses Horton Plains, Knuckles Range, and World's End viewpoint. Misty mountains with unique ecosystems.</p>
+                        <div class="attraction-highlights">
+                            <span>World's End</span>
+                            <span>Horton Plains</span>
+                            <span>Knuckles Range</span>
+                            <span>Tea Plantations</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-mountain"></i> 1,800-2,500m</span>
+                            <span><i class="fas fa-clock"></i> Full day</span>
+                            <span><i class="fas fa-calendar"></i> Dec-April</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- National Parks -->
+    <section class="attraction-section" id="national-parks">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-tree"></i> National Parks & Wildlife</h2>
+                <p>Sri Lanka has 26 national parks home to leopards, elephants, and endemic species</p>
+            </div>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Yala National Park">
+                        <div class="attraction-badge">Best Safari</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Yala National Park</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Southeast Sri Lanka • 979 sq km</p>
+                        <p>Sri Lanka's most famous wildlife sanctuary. Home to the world's highest leopard density, elephants, sloth bears, and 200+ bird species.</p>
+                        <div class="attraction-highlights">
+                            <span>Leopard</span>
+                            <span>Elephant</span>
+                            <span>Sloth Bear</span>
+                            <span>Crocodile</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> From $50</span>
+                            <span><i class="fas fa-clock"></i> 3-4 hours</span>
+                            <span><i class="fas fa-calendar"></i> Feb-July</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800" alt="Udawalawe">
+                        <div class="attraction-badge">Elephant Haven</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Udawalawe National Park</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> South-Central • 306 sq km</p>
+                        <p>Sri Lanka's premier elephant park. Herds of 50+ elephants gather around the Udawalawe reservoir. Best for guaranteed elephant sightings.</p>
+                        <div class="attraction-highlights">
+                            <span>Elephant Herds</span>
+                            <span>Sambar Deer</span>
+                            <span>Water Buffalo</span>
+                            <span>Crocodiles</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> From $40</span>
+                            <span><i class="fas fa-clock"></i> 3-4 hours</span>
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1606924998069-e9b89a9d9b58?w=800" alt="Minneriya Elephant Gathering">
+                        <div class="attraction-badge">World's Largest</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Minneriya Elephant Gathering</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> North Central Province</p>
+                        <p>Witness the world's largest gathering of Asian elephants during the dry season (June-September). Up to 300 elephants gather!</p>
+                        <div class="attraction-highlights">
+                            <span>Elephant Gathering</span>
+                            <span>300+ Elephants</span>
+                            <span>SafarI</span>
+                            <span>Photography</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> From $35</span>
+                            <span><i class="fas fa-clock"></i> 3-4 hours</span>
+                            <span><i class="fas fa-calendar"></i> June-Sept</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800" alt="Wilpattu">
+                        <div class="attraction-badge">Ancient Park</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Wilpattu National Park</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Northwest Coast • 1,317 sq km</p>
+                        <p>One of the oldest and largest parks. Famous for 'villus' - natural lakes surrounded by grassy plains. Leopards, sloth bears, and elephants.</p>
+                        <div class="attraction-highlights">
+                            <span>Villus (Lakes)</span>
+                            <span>Leopard</span>
+                            <span>Sloth Bear</span>
+                            <span>Elephant</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> From $40</span>
+                            <span><i class="fas fa-clock"></i> 3-4 hours</span>
+                            <span><i class="fas fa-calendar"></i> Feb-Oct</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Horton Plains">
+                        <div class="attraction-badge nature">Hiking Paradise</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Horton Plains National Park</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Central Highlands • 3,169 ha</p>
+                        <p>UNESCO World Heritage Site. Only national park where you can walk. Famous for World's End - a 900m cliff with stunning views.</p>
+                        <div class="attraction-highlights">
+                            <span>World's End</span>
+                            <span>Baker's Falls</span>
+                            <span>Sambar Deer</span>
+                            <span>Endemic Birds</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $30 USD</span>
+                            <span><i class="fas fa-clock"></i> 3-4 hours</span>
+                            <span><i class="fas fa-calendar"></i> Dec-April</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800" alt="Hikkaduwa">
+                        <div class="attraction-badge">Marine Park</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Hikkaduwa National Park</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Southwest Coast • 114 ha</p>
+                        <p>One of Sri Lanka's two marine parks. Features fringing coral reefs, seagrass beds, and sea turtles. Snorkeling paradise.</p>
+                        <div class="attraction-highlights">
+                            <span>Coral Reefs</span>
+                            <span>Sea Turtles</span>
+                            <span>Snorkeling</span>
+                            <span>Diving</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> LKR 500</span>
+                            <span><i class="fas fa-clock"></i> Half day</span>
+                            <span><i class="fas fa-calendar"></i> Nov-April</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beaches -->
+    <section class="attraction-section" id="beaches">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-umbrella-beach"></i> Beautiful Beaches</h2>
+                <p>1,340 km of coastline with beaches for surfing, swimming, whale watching, and relaxation</p>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: var(--primary-color);"><i class="fas fa-sun"></i> South & West Coast (Best: Nov-April)</h3>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Unawatuna">
+                        <div class="attraction-badge beach">Best Swimming</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Unawatuna Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> 6km from Galle</p>
+                        <p>Most photographed beach in Sri Lanka. Curved horseshoe bay with calm reef-protected waters. Perfect for swimming and snorkeling.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                            <span><i class="fas fa-swimmer"></i> Snorkeling</span>
+                            <span><i class="fas fa-utensils"></i> Restaurants</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=800" alt="Mirissa">
+                        <div class="attraction-badge beach">Whale Watching</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Mirissa Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Matara District</p>
+                        <p>Beautiful crescent beach famous for whale watching. Blue whales, dolphins, and sea turtles Nov-April. Vibrant beach bar scene.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                            <span><i class="fas fa-ship"></i> Whale Tours</span>
+                            <span><i class="fas fa-glass-cheers"></i> Nightlife</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Weligama">
+                        <div class="attraction-badge beach">Best Surfing</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Weligama Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Matara District</p>
+                        <p>Sri Lanka's best beginner surfing beach. Long open bay with gentle rolling waves. Many surf schools available.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                            <span><i class="fas fa-water"></i> Surfing</span>
+                            <span><i class="fas fa-graduation-cap"></i> Lessons</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800" alt="Hikkaduwa">
+                        <div class="attraction-badge beach">Diving</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Hikkaduwa Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Galle District</p>
+                        <p>Most developed beach resort town. Famous for surfing, turtle conservation, and coral reefs accessible from shore.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                            <span><i class="fas fa-water"></i> Diving</span>
+                            <span><i class="fas fa-turtle"></i> Turtles</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Bentota">
+                        <div class="attraction-badge beach">Water Sports</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Bentota Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Kalutara District</p>
+                        <p>Water sports hub with jet skiing, parasailing, and boat trips. Family-friendly with calm waters and resorts.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.4/5</span>
+                            <span><i class="fas fa-jet-fighter-up"></i> Jet Ski</span>
+                            <span><i class="fas fa-spa"></i> Ayurveda</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Hiriketiya">
+                        <div class="attraction-badge beach">Backpacker</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Hiriketiya Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Near Dikwella</p>
+                        <p>Small horseshoe bay with gentle waves. Popular with surfers and backpackers. Laid-back atmosphere with surf camps.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                            <span><i class="fas fa-water"></i> Surfing</span>
+                            <span><i class="fas fa-spa"></i> Yoga</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 40px 0 20px; color: var(--primary-color);"><i class="fas fa-sun"></i> East Coast (Best: May-Oct)</h3>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Arugam Bay">
+                        <div class="attraction-badge beach">Surf Mecca</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Arugam Bay</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Ampara District</p>
+                        <p>World-renowned surf destination. Consistent waves May-October. Laid-back beach town with yoga, lagoon safaris, and Yala nearby.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                            <span><i class="fas fa-water"></i> Surfing</span>
+                            <span><i class="fas fa-om"></i> Yoga</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Nilaveli">
+                        <div class="attraction-badge beach">Snorkeling</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Nilaveli Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> 15km from Trincomalee</p>
+                        <p>Long ivory beach with crystal-clear waters. Perfect for swimming and snorkeling. Access to Pigeon Island Marine Park.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                            <span><i class="fas fa-fish"></i> Pigeon Island</span>
+                            <span><i class="fas fa-swimmer"></i> Swimming</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Pasikudah">
+                        <div class="attraction-badge beach">Family</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Pasikudah Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> 35km from Batticaloa</p>
+                        <p>Shallow turquoise waters extending far from shore. Ideal for families with children and non-swimmers. Calmest east coast beach.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                            <span><i class="fas fa-child"></i> Safe Swimming</span>
+                            <span><i class="fas fa-water"></i> Watersports</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Trincomalee">
+                        <div class="attraction-badge beach">Whale Watching</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Trincomalee Beach</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Eastern Province</p>
+                        <p>Natural deep-water harbor with stunning beaches. Excellent whale watching (Feb-April), diving, and colonial history.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                            <span><i class="fas fa-ship"></i> Whale Tours</span>
+                            <span><i class="fas fa-fish"></i> Diving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waterfalls -->
+    <section class="attraction-section" id="waterfalls">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-water"></i> Spectacular Waterfalls</h2>
+                <p>Sri Lanka's central highlands are home to numerous stunning waterfalls</p>
+            </div>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800" alt="Diyaluma">
+                        <div class="attraction-badge waterfall">2nd Tallest</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Diyaluma Waterfall</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Koslanda, near Ella</p>
+                        <p>Sri Lanka's 2nd tallest waterfall at 220m. Famous for natural infinity pools at the top where you can swim. Multi-tiered cascades.</p>
+                        <div class="attraction-highlights">
+                            <span>220m Height</span>
+                            <span>Swimming Pools</span>
+                            <span>Hiking</span>
+                            <span>Photography</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> LKR 350</span>
+                            <span><i class="fas fa-calendar"></i> June-Sept</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800" alt="Bambarakanda">
+                        <div class="attraction-badge waterfall">Tallest</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Bambarakanda Falls</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Haputale</p>
+                        <p>Sri Lanka's tallest waterfall at 263m. Located in the Uva highlands near Haputale. Stunning surrounding tea plantations.</p>
+                        <div class="attraction-highlights">
+                            <span>263m Height</span>
+                            <span>Tea Country</span>
+                            <span>Hiking</span>
+                            <span>Nature</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-calendar"></i> Dec-April</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800" alt="Ravana">
+                        <div class="attraction-badge waterfall">Easy Access</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ravana Ella Falls</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Ella-Wellawaya Road</p>
+                        <p>Popular roadside waterfall near Ella. Named after King Ravana from Ramayana. Easily accessible with nearby cave to explore.</p>
+                        <div class="attraction-highlights">
+                            <span>25m Height</span>
+                            <span>Roadside</span>
+                            <span>Ravana Cave</span>
+                            <span>Free</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800" alt="Ramboda">
+                        <div class="attraction-badge waterfall">Nuwara Eliya</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ramboda Falls</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Nuwara Eliya</p>
+                        <p>Beautiful 109m waterfall in the Ramboda area. Part of the Panna Oya stream. Scenic views with tea estates nearby.</p>
+                        <div class="attraction-highlights">
+                            <span>109m Height</span>
+                            <span>Tea Estates</span>
+                            <span>Photography</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800" alt="Dunhinda">
+                        <div class="attraction-badge waterfall">Badulla</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Dunhinda Waterfall</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Near Badulla</p>
+                        <p>Beautiful 64m waterfall with a misty appearance. Popular hiking destination with scenic views along the path.</p>
+                        <div class="attraction-highlights">
+                            <span>64m Height</span>
+                            <span>Hiking</span>
+                            <span>Misty Views</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800" alt="Bopath Ella">
+                        <div class="attraction-badge waterfall">Famous</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Bopath Ella</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Kuruwita</p>
+                        <p>Famous waterfall shaped like a bo tree (ficus religiosa). Immortalized in Sri Lankan poetry. Easy access from main road.</p>
+                        <div class="attraction-highlights">
+                            <span>30m Height</span>
+                            <span>Bo Tree Shape</span>
+                            <span>Folklore</span>
+                        </div>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-calendar"></i> Year-round</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Temples -->
+    <section class="attraction-section" id="temples">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-place-of-worship"></i> Sacred Temples & Religious Sites</h2>
+                <p>Buddhist, Hindu, and colonial religious sites across Sri Lanka</p>
+            </div>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1586613835341-ab702353ca87?w=800" alt="Temple of Tooth">
+                        <div class="attraction-badge temple">Most Sacred</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Temple of the Sacred Tooth Relic</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Kandy</p>
+                        <p>One of Buddhism's most sacred shrines, housing the relic of Buddha's tooth. Built in 16th century within the royal palace complex.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> LKR 1,500</span>
+                            <span><i class="fas fa-vest-patches"></i> Dress Code</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800" alt="Dambulla">
+                        <div class="attraction-badge temple">UNESCO</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Dambulla Cave Temple</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Dambulla</p>
+                        <p>Largest cave temple complex with 150 Buddha statues and paintings spanning 2,000 years. Sacred pilgrimage site since 1st century BC.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $15 USD</span>
+                            <span><i class="fas fa-clock"></i> 1-2 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1581592416136-ef572bf67308?w=800" alt="Mihintale">
+                        <div class="attraction-badge temple">Ancient</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Mihintale</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Near Anuradhapura</p>
+                        <p>Where Buddhism was introduced to Sri Lanka in 246 BC. Sacred pilgrimage site with ancient ruins and stunning views from the summit.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> LKR 500</span>
+                            <span><i class="fas fa-hiking"></i> Climbing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1569515371421-e9e6f0f74e0b?w=800" alt="Gal Vihara">
+                        <div class="attraction-badge temple">UNESCO</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Gal Vihara</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Polonnaruwa</p>
+                        <p>Rock temple with four Buddha statues carved from granite. The reclining Buddha is a masterpiece of ancient Sri Lankan art.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> Included</span>
+                            <span><i class="fas fa-camera"></i> Photography</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Koneswaram">
+                        <div class="attraction-badge temple">Hindu</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Koneswaram Temple</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Trincomalee</p>
+                        <p>Hindu temple on a promontory overlooking the sea. One of the 18 important Shakta temples dedicated to goddess Parvati.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-vest-patches"></i> Dress Code</span>
+                            <span><i class="fas fa-om"></i> Hindu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Nallur">
+                        <div class="attraction-badge temple">Hindu</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Nallur Kandaswamy Temple</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Jaffna</p>
+                        <p>Major Hindu temple dedicated to Lord Skanda. One of the most important Hindu shrines in Sri Lanka with Dravidian architecture.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-vest-patches"></i> Dress Code</span>
+                            <span><i class="fas fa-om"></i> Hindu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section class="attraction-section" id="activities">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-hiking"></i> Adventure Activities</h2>
+                <p>From whale watching to mountain hiking - endless adventures await</p>
+            </div>
+            <div class="attraction-grid">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800" alt="Whale Watching">
+                        <div class="attraction-badge adventure">Must-Do</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Whale Watching</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Mirissa / Trincomalee</p>
+                        <p>Watch blue whales, sperm whales, and dolphins. Mirissa: Nov-April. Trincomalee: Feb-April. Success rate over 95%.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $50-80</span>
+                            <span><i class="fas fa-clock"></i> 3-5 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Safari">
+                        <div class="attraction-badge adventure">Wildlife</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Wildlife Safari</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Yala / Wilpattu / Udawalawe</p>
+                        <p>Game drives to spot leopards, elephants, sloth bears, and more. Yala has world's highest leopard density.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $40-100</span>
+                            <span><i class="fas fa-clock"></i> 3-6 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800" alt="Surfing">
+                        <div class="attraction-badge adventure">Surfing</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Surfing</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> South & East Coasts</p>
+                        <p>Beginner-friendly in Weligama/Mirissa (Nov-April). World-class at Arugam Bay (May-Oct). Lessons for all levels.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $15-50/lesson</span>
+                            <span><i class="fas fa-water"></i> All Levels</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800" alt="Scuba">
+                        <div class="attraction-badge adventure">Diving</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Scuba Diving</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Hikkaduwa / Trincomalee / Pigeon Island</p>
+                        <p>Explore coral reefs, shipwrecks, and marine turtles. Pigeon Island has pristine reefs. All certification levels welcome.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $60-120</span>
+                            <span><i class="fas fa-clock"></i> Full day</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Hiking">
+                        <div class="attraction-badge adventure">Hiking</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Mountain Hiking</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Ella / Nuwara Eliya / Adam's Peak</p>
+                        <p>Ella Rock, Little Adam's Peak, World's End, and sacred Adam's Peak pilgrimage. Options for all fitness levels.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-clock"></i> 2-6 hours</span>
+                            <span><i class="fas fa-mountain"></i> Various</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?w=800" alt="Train">
+                        <div class="attraction-badge adventure">Scenic</div>
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Scenic Train Journey</h3>
+                        <p class="attraction-location"><i class="fas fa-map-marker-alt"></i> Kandy to Ella</p>
+                        <p>One of world's most beautiful train journeys. Passes through tea plantations, mountains, and cloud forests. 6-7 hours.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-ticket-alt"></i> $3-15</span>
+                            <span><i class="fas fa-clock"></i> 6-7 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Time to Visit -->
+    <section class="attraction-section" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-alt"></i> Best Time to Visit</h2>
+                <p>Plan your trip based on what you want to experience</p>
+            </div>
+            <div class="attraction-grid">
+                <div class="attraction-card" style="border-left: 4px solid #43e97b;">
+                    <div class="attraction-content">
+                        <h3><i class="fas fa-sun" style="color: #43e97b;"></i> South & West Coasts</h3>
+                        <p><strong>Best: November to April</strong></p>
+                        <p>Calm seas, sunny weather, perfect for beaches, whale watching in Mirissa, and surfing.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-temperature-high"></i> 27-32°C</span>
+                            <span><i class="fas fa-umbrella-beach"></i> Beach Season</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card" style="border-left: 4px solid #4facfe;">
+                    <div class="attraction-content">
+                        <h3><i class="fas fa-water" style="color: #4facfe;"></i> East Coast</h3>
+                        <p><strong>Best: May to October</strong></p>
+                        <p>When south is monsoon season, east coast shines. Surfing at Arugam Bay, diving at Trincomalee.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-temperature-high"></i> 28-33°C</span>
+                            <span><i class="fas fa-water"></i> Surf Season</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card" style="border-left: 4px solid #667eea;">
+                    <div class="attraction-content">
+                        <h3><i class="fas fa-mountain" style="color: #667eea;"></i> Hill Country</h3>
+                        <p><strong>Best: December to April</strong></p>
+                        <p>Clear skies for World's End, Adam's Peak pilgrimage season. Scenic train journeys are spectacular.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-temperature-low"></i> 13-22°C</span>
+                            <span><i class="fas fa-hiking"></i> Hiking Season</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attraction-card" style="border-left: 4px solid #f093fb;">
+                    <div class="attraction-content">
+                        <h3><i class="fas fa-paw" style="color: #f093fb;"></i> Wildlife Watching</h3>
+                        <p><strong>Best: Year-round, varies by park</strong></p>
+                        <p>Yala: Feb-July. Elephant Gathering: June-Sept. Wilpattu: Feb-Oct. Bird watching: Nov-March.</p>
+                        <div class="attraction-meta">
+                            <span><i class="fas fa-leaf"></i> Green Season</span>
+                            <span><i class="fas fa-binoculars"></i> Safari</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>VisitSriLanka</span>
+                    </a>
+                    <p>Your ultimate guide to exploring the Pearl of the Indian Ocean.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="attractions.html">Attractions</a></li>
+                        <li><a href="tours.html">Tours</a></li>
+                        <li><a href="accommodation.html">Hotels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="travel-guide.html">Travel Guide</a></li>
+                        <li><a href="culture.html">Culture</a></li>
+                        <li><a href="food.html">Food & Dining</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> connect.abdulr@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 72 486 1536</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Visit Sri Lanka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
